@@ -2,23 +2,9 @@ import React from 'react';
 import { Card } from '@heroui/react';
 import CommentFilters from '../components/Comment/CommentFilters';
 import CommentList from '../components/Comment/CommentList';
+import type { Comment } from '../store/interfaces/commentInterfaces';
 
-interface Comment {
-    id: string;
-    content: string;
-    author: {
-        id: string;
-        username: string;
-    };
-    postId?: string;
-    postTitle?: string;
-    questionId?: string;
-    questionTitle?: string;
-    answerId?: string;
-    answerContent?: string; // Added
-    status: 'approved' | 'pending' | 'spam' | 'deleted';
-    createdAt: Date;
-}
+
 
 const Comments: React.FC = () => {
     const [comments, setComments] = React.useState<Comment[]>([]);

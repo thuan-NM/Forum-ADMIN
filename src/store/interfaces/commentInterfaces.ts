@@ -1,31 +1,26 @@
-import type { User } from './userInterfaces';
-
+// import type { User } from './userInterfaces';
 
 export interface Comment {
     id: string;
     content: string;
-    author: User | string; 
-    postId?: string; 
-    answerId?: string; 
-    parentId?: string; 
-    status: 'approved' | 'pending' | 'rejected';
-    upvotes: number;
-    downvotes: number;
-    votedBy: {
-        userId: string;
-        voteType: 'up' | 'down';
-    }[];
-    hasEditHistory: boolean;
-    metadata?: any; 
+    author: {
+        id: string;
+        username: string;
+    };
+    postId?: string;
+    postTitle?: string;
+    questionId?: string;
+    questionTitle?: string;
+    answerId?: string;
+    answerContent?: string;
+    status: 'approved' | 'pending' | 'rejected' | 'spam' | 'deleted';
     createdAt: Date;
-    updatedAt: Date;
-    deletedAt?: Date; 
 }
 
 export interface CommentCreateDto {
     content: string;
     postId?: string;
-    answerId?: string; 
+    answerId?: string;
     parentId?: string;
 }
 
@@ -43,14 +38,14 @@ export interface CommentResponse {
         avatar?: string;
     };
     postId?: string;
-    answerId?: string; 
+    answerId?: string;
     parentId?: string;
     status: 'approved' | 'pending' | 'rejected';
     upvotes: number;
     downvotes: number;
     userVote?: 'up' | 'down' | null;
     hasEditHistory: boolean;
-    replies?: CommentResponse[]; 
+    replies?: CommentResponse[];
     createdAt: Date;
     updatedAt: Date;
 }

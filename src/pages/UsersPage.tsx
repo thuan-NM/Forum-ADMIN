@@ -15,7 +15,6 @@ const Users: React.FC = () => {
     const [totalPages, setTotalPages] = React.useState<number>(1);
     const [searchQuery, setSearchQuery] = React.useState<string>('');
 
-    // User form modal state
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [formMode, setFormMode] = React.useState<'create' | 'edit'>('create');
     const [selectedUser, setSelectedUser] = React.useState<User | undefined>(undefined);
@@ -70,7 +69,7 @@ const Users: React.FC = () => {
 
     const handleSearch = (value: string) => {
         setSearchQuery(value);
-        setPage(1); // Reset to first page on new search
+        setPage(1); 
     };
 
     const handleAddUser = () => {
@@ -86,17 +85,14 @@ const Users: React.FC = () => {
     };
 
     const handleBanUnbanUser = (user: User) => {
-        // In a real app, you would call your API to ban/unban the user
         console.log(`${user.status === 'banned' ? 'Unbanning' : 'Banning'} user:`, user);
     };
 
     const handleDeleteUser = (user: User) => {
-        // In a real app, you would call your API to delete the user
         console.log('Deleting user:', user);
     };
 
     const handleSubmitUserForm = (userData: UserCreateDto | UserUpdateDto) => {
-        // In a real app, you would call your API to create/update the user
         console.log(`${formMode === 'create' ? 'Creating' : 'Updating'} user:`, userData);
     };
 

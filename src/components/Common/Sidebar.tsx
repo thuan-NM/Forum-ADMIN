@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 
 const Sidebar = () => {
-    return ( 
+    return (
         <aside className="w-64 border-r border-content2 p-4 hidden md:block bg-content1">
             <nav className="flex flex-col gap-1">
                 <NavLink to="/" className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`} end>
@@ -17,6 +17,14 @@ const Sidebar = () => {
                 <NavLink to="/posts" className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
                     <Icon icon="lucide:file-text" />
                     <span>Posts</span>
+                </NavLink>
+                <NavLink to="/questions" className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
+                    <Icon icon="lucide:message-circle-question" />
+                    <span>Questions</span>
+                </NavLink>
+                <NavLink to="/answers" className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
+                    <Icon icon="lucide:message-circle-reply" />
+                    <span>Answers</span>
                 </NavLink>
                 <NavLink to="/comments" className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
                     <Icon icon="lucide:message-square" />

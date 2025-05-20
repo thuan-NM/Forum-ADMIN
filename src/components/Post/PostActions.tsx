@@ -1,22 +1,8 @@
 import React from 'react';
 import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@heroui/react';
 import { Icon } from '@iconify/react';
+import type { Post } from '../../store/interfaces/postInterfaces';
 
-interface Post {
-    id: string;
-    title: string;
-    author: {
-        id: string;
-        username: string;
-    };
-    tags: {
-        id: string;
-        name: string;
-    }[];
-    status: 'published' | 'draft' | 'archived';
-    commentsCount: number;
-    createdAt: string;
-}
 
 interface PostActionsProps {
     post: Post;

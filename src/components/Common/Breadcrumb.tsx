@@ -15,7 +15,6 @@ const Breadcrumb = () => {
             'users': 'Users',
             'posts': 'Posts',
             'comments': 'Comments',
-            'categories': 'Categories',
             'tags': 'Tags',
             'reports': 'Reports',
             'notifications': 'Notifications',
@@ -23,7 +22,10 @@ const Breadcrumb = () => {
             'analytics': 'Analytics',
             'file-manager': 'File Manager',
             'permissions': 'Permissions',
-            'themes': 'Themes'
+            'themes': 'Themes',
+            'topics': 'Topics',
+            'questions': 'Questions',
+            'answers':'Answers'
         };
 
         return [

@@ -2,23 +2,8 @@ import React from 'react';
 import { Card } from '@heroui/react';
 import PostList from '../components/Post/PostList';
 import PostFilters from '../components/Post/PostFilters';
+import type { Post } from '../store/interfaces/postInterfaces';
 
-
-interface Post {
-    id: string;
-    title: string;
-    author: {
-        id: string;
-        username: string;
-    };
-    tags: {
-        id: string;
-        name: string;
-    }[];
-    status: 'published' | 'draft' | 'archived';
-    commentsCount: number;
-    createdAt: string;
-}
 
 const Posts: React.FC = () => {
     const [posts, setPosts] = React.useState<Post[]>([]);
@@ -49,6 +34,7 @@ const Posts: React.FC = () => {
                     const mockPosts: Post[] = Array.from({ length: 50 }, (_, i) => ({
                         id: `post-${i + 1}`,
                         title: `Post ${i + 1}: How to ${i % 2 === 0 ? 'master' : 'learn'} ${tags[i % tags.length]}`,
+                        content: "",
                         author: {
                             id: `user-${(i % 10) + 1}`,
                             username: `user${(i % 10) + 1}`,
@@ -65,12 +51,13 @@ const Posts: React.FC = () => {
                         ],
                         status: statuses[i % statuses.length] as 'published' | 'draft' | 'archived',
                         commentsCount: Math.floor(Math.random() * 50),
-                        createdAt: new Date(Date.now() - i * 86400000 * 2).toISOString(),
+                        viewCount: Math.floor(Math.random() * 50),
+                        createdAt: new Date(Date.now() - i * 86400000 * 2),
+                        updatedAt: new Date(),
                     }));
 
                     let filteredPosts = mockPosts;
 
-                    // Apply search filter
                     if (searchQuery) {
                         filteredPosts = filteredPosts.filter(post =>
                             post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -78,12 +65,10 @@ const Posts: React.FC = () => {
                         );
                     }
 
-                    // Apply status filter
                     if (statusFilter !== 'all') {
                         filteredPosts = filteredPosts.filter(post => post.status === statusFilter);
                     }
 
-                    // Apply tag filter
                     if (tagFilter) {
                         filteredPosts = filteredPosts.filter(post =>
                             post.tags.some(tag => tag.name === tagFilter)

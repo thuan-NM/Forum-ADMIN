@@ -1,20 +1,11 @@
 import React from 'react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Spinner, Chip, Avatar } from '@heroui/react';
 import CommentActions from './CommentActions';
+import type { Comment } from '../../store/interfaces/commentInterfaces';
 
-interface CommentProps {
-    id: string;
-    content: string;
-    author: {
-        id: string;
-        username: string;
-        avatar?: string;
-    };
-    createdAt: Date;
-}
 
 interface CommentListProps {
-    comments: CommentProps[];
+    comments: Comment[];
     loading?: boolean;
     page?: number;
     totalPages?: number;
@@ -50,12 +41,7 @@ const CommentList: React.FC<CommentListProps> = ({
                 {comments.map((comment, index) => (
                     <div key={comment.id} className="bg-default-50 rounded-md p-3">
                         <div className="flex items-start gap-3">
-                            <Avatar
-                                src={comment.author.avatar}
-                                name={comment.author.username}
-                                size="sm"
-                                className="mt-1"
-                            />
+
                             <div className="flex-1">
                                 <div className="flex justify-between items-center">
                                     <span className="font-medium text-sm">{comment.author.username}</span>

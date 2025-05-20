@@ -11,6 +11,8 @@ const TopicsPage = lazy(() => import("../pages/TopicsPage"));
 const AuthPage = lazy(() => import("../pages/AuthPage"));
 const PermissionsPage = lazy(() => import("../pages/PermissionsPage"));
 const TagsPage = lazy(() => import("../pages/TagsPage"));
+const QuestionsPage = lazy(() => import("../pages/QuestionsPage"));
+const AnswersPage = lazy(() => import("../pages/AnswersPage"));
 const withPrivateRoute = (element: JSX.Element) => <PrivateRoute>{element}</PrivateRoute>;
 
 const protectedRoutes = [
@@ -21,6 +23,8 @@ const protectedRoutes = [
     { path: "topics", element: withPrivateRoute(<TopicsPage />) },
     { path: "permissions", element: withPrivateRoute(<PermissionsPage />) },
     { path: "tags", element: withPrivateRoute(<TagsPage />) },
+    { path: "questions", element: withPrivateRoute(<QuestionsPage />) },
+    { path: "answers", element: withPrivateRoute(<AnswersPage />) },
 ];
 
 const publicRoutes = [
