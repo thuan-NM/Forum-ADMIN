@@ -1,22 +1,8 @@
 import React from 'react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Spinner, Chip } from '@heroui/react';
 import PostActions from './PostActions';
+import type { Post } from '../../store/interfaces/postInterfaces';
 
-interface Post {
-    id: string;
-    title: string;
-    author: {
-        id: string;
-        username: string;
-    };
-    tags: {
-        id: string;
-        name: string;
-    }[];
-    status: 'published' | 'draft' | 'archived';
-    commentsCount: number;
-    createdAt: string;
-}
 
 interface PostListProps {
     posts: Post[];
@@ -40,7 +26,7 @@ const PostList: React.FC<PostListProps> = ({ posts, loading, page, totalPages, o
         }
     };
 
-    const formatDate = (dateString: string) => {
+    const formatDate = (dateString: Date) => {
         return new Date(dateString).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
@@ -74,7 +60,7 @@ const PostList: React.FC<PostListProps> = ({ posts, loading, page, totalPages, o
             }
             classNames={{
                 wrapper: "min-h-[400px]",
-            }} 
+            }}
             className='p-4'
             removeWrapper
         >

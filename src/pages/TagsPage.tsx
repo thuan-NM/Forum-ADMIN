@@ -1,15 +1,13 @@
 import React from 'react';
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Input, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Spinner, Chip, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Card } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { Card } from '@heroui/react';
+import { useDisclosure } from '@heroui/react';
+import type { Tag } from '../store/interfaces/tagInterfaces';
+import TagSearch from '../components/Tag/TagSearch';
+import TagList from '../components/Tag/TagList';
+import TagForm from '../components/Tag/TagForm';
 
-interface Tag {
-    id: string;
-    name: string;
-    postsCount: number;
-    createdAt: string;
-}
 
-const TagsPage: React.FC = () => {
+const Tags: React.FC = () => {
     const [tags, setTags] = React.useState<Tag[]>([]);
     const [loading, setLoading] = React.useState<boolean>(true);
     const [error, setError] = React.useState<string | null>(null);
@@ -17,11 +15,10 @@ const TagsPage: React.FC = () => {
     const [totalPages, setTotalPages] = React.useState<number>(1);
     const [searchQuery, setSearchQuery] = React.useState<string>('');
 
-    // Modal states
+    // Tag form modal state
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const [modalMode, setModalMode] = React.useState<'create' | 'edit'>('create');
-    const [currentTag, setCurrentTag] = React.useState<Tag | null>(null);
-    const [tagName, setTagName] = React.useState<string>('');
+    const [formMode, setFormMode] = React.useState<'create' | 'edit'>('create');
+    const [selectedTag, setSelectedTag] = React.useState<Tag | undefined>(undefined);
 
     const rowsPerPage = 10;
 
@@ -37,22 +34,24 @@ const TagsPage: React.FC = () => {
                 // Simulating API response with mock data
                 setTimeout(() => {
                     const tagNames = [
-                        'javascript', 'react', 'vue', 'angular', 'node', 'express',
-                        'mongodb', 'sql', 'nosql', 'frontend', 'backend', 'fullstack',
-                        'css', 'html', 'typescript', 'python', 'java', 'php', 'ruby',
-                        'go', 'rust', 'c#', 'aws', 'docker', 'kubernetes', 'devops'
+                        'javascript', 'react', 'node.js', 'typescript', 'css', 'html',
+                        'mongodb', 'express', 'vue', 'angular', 'python', 'java',
+                        'c#', 'php', 'ruby', 'go', 'rust', 'swift', 'kotlin'
                     ];
 
                     const mockTags: Tag[] = tagNames.map((name, i) => ({
                         id: `tag-${i + 1}`,
                         name,
+                        slug: name.replace(/\./g, '-'),
                         postsCount: Math.floor(Math.random() * 200),
-                        createdAt: new Date(Date.now() - i * 86400000 * 3).toISOString(),
+                        createdAt: new Date(Date.now() - i * 86400000 * 3),
+                        updatedAt: new Date()
                     }));
 
                     const filteredTags = searchQuery
                         ? mockTags.filter(tag =>
-                            tag.name.toLowerCase().includes(searchQuery.toLowerCase())
+                            tag.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                            tag.slug.toLowerCase().includes(searchQuery.toLowerCase())
                         )
                         : mockTags;
 
@@ -77,32 +76,25 @@ const TagsPage: React.FC = () => {
     };
 
     const handleAddTag = () => {
-        setModalMode('create');
-        setTagName('');
+        setFormMode('create');
+        setSelectedTag(undefined);
         onOpen();
     };
 
     const handleEditTag = (tag: Tag) => {
-        setModalMode('edit');
-        setCurrentTag(tag);
-        setTagName(tag.name);
+        setFormMode('edit');
+        setSelectedTag(tag);
         onOpen();
     };
 
-    const handleSaveTag = () => {
-        // In a real app, you would call your API to save the tag
-        console.log('Saving tag:', { name: tagName });
-
-        // Close the modal
-        onOpenChange();
+    const handleDeleteTag = (tag: Tag) => {
+        // In a real app, you would call your API to delete the tag
+        console.log('Deleting tag:', tag);
     };
 
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
+    const handleSubmitTagForm = (tagData: { name: string; slug?: string }) => {
+        // In a real app, you would call your API to create/update the tag
+        console.log(`${formMode === 'create' ? 'Creating' : 'Updating'} tag:`, tagData);
     };
 
     if (error) {
@@ -116,127 +108,34 @@ const TagsPage: React.FC = () => {
     return (
         <div className="space-y-6">
             <div className="flex flex-col gap-4">
-                <div className="flex justify-between items-center gap-3 flex-wrap">
-                    <Input
-                        placeholder="Search tags..."
-                        value={searchQuery}
-                        onValueChange={handleSearch}
-                        startContent={<Icon icon="lucide:search" className="text-default-400" />}
-                        className="w-full sm:max-w-xs bg-content1 rounded-lg"
-                        variant='bordered'
-                        radius='sm'
+                <TagSearch
+                    searchQuery={searchQuery}
+                    onSearchChange={handleSearch}
+                    onAddTag={handleAddTag}
+                />
+
+                <Card className="w-full p-4" radius='sm'>
+                    <TagList
+                        tags={tags}
+                        loading={loading}
+                        page={page}
+                        totalPages={totalPages}
+                        onPageChange={setPage}
+                        onEditTag={handleEditTag}
+                        onDeleteTag={handleDeleteTag}
                     />
-
-                    <Button color="primary" startContent={<Icon icon="lucide:plus" />} onPress={handleAddTag}>
-                        Add Tag
-                    </Button>
-                </div>
-
-                <Card className="w-full" radius='sm'>
-                    {loading ? (
-                        <div className="h-[400px] flex items-center justify-center">
-                            <Spinner size="lg" color="primary" />
-                        </div>
-                    ) : (
-                        <Table
-                            aria-label="Tags table"
-                            bottomContent={
-                                <div className="flex w-full justify-center">
-                                    <Pagination
-                                        isCompact
-                                        showControls
-                                        showShadow
-                                        color="primary"
-                                        page={page}
-                                        total={totalPages}
-                                        onChange={setPage}
-                                    />
-                                </div>
-                            }
-                            classNames={{
-                                wrapper: "min-h-[400px]",
-                            }}
-                            className='p-4'
-                            removeWrapper
-                        >
-                            <TableHeader>
-                                <TableColumn>NAME</TableColumn>
-                                <TableColumn>POSTS</TableColumn>
-                                <TableColumn>CREATED</TableColumn>
-                                <TableColumn>ACTIONS</TableColumn>
-                            </TableHeader>
-                            <TableBody emptyContent={"No tags found"}>
-                                {tags.map((tag) => (
-                                    <TableRow key={tag.id}>
-                                        <TableCell>
-                                            <Chip
-                                                color="primary"
-                                                variant="flat"
-                                                size="sm"
-                                            >
-                                                {tag.name}
-                                            </Chip>
-                                        </TableCell>
-                                        <TableCell>{tag.postsCount}</TableCell>
-                                        <TableCell>{formatDate(tag.createdAt)}</TableCell>
-                                        <TableCell>
-                                            <Dropdown>
-                                                <DropdownTrigger>
-                                                    <Button isIconOnly size="sm" variant="light">
-                                                        <Icon icon="lucide:more-vertical" className="text-default-500" />
-                                                    </Button>
-                                                </DropdownTrigger>
-                                                <DropdownMenu aria-label="Tag actions">
-                                                    <DropdownItem key="edit"
-                                                        startContent={<Icon icon="lucide:edit" />}
-                                                        onPress={() => handleEditTag(tag)}
-                                                    >
-                                                        Edit
-                                                    </DropdownItem>
-                                                    <DropdownItem key="delete" startContent={<Icon icon="lucide:trash" />} color="danger">
-                                                        Delete
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </Dropdown>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    )}
                 </Card>
             </div>
 
-            {/* Tag Modal */}
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-                <ModalContent>
-                    {(onClose) => (
-                        <>
-                            <ModalHeader>
-                                {modalMode === 'create' ? 'Create Tag' : 'Edit Tag'}
-                            </ModalHeader>
-                            <ModalBody>
-                                <Input
-                                    label="Tag Name"
-                                    placeholder="Enter tag name"
-                                    value={tagName}
-                                    onValueChange={setTagName}
-                                />
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button variant="flat" onPress={onClose}>
-                                    Cancel
-                                </Button>
-                                <Button color="primary" onPress={handleSaveTag}>
-                                    {modalMode === 'create' ? 'Create' : 'Save'}
-                                </Button>
-                            </ModalFooter>
-                        </>
-                    )}
-                </ModalContent>
-            </Modal>
+            <TagForm
+                isOpen={isOpen}
+                onOpenChange={onOpenChange}
+                mode={formMode}
+                tag={selectedTag}
+                onSubmit={handleSubmitTagForm}
+            />
         </div>
     );
 };
 
-export default TagsPage;
+export default Tags;

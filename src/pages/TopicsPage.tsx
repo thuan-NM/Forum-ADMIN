@@ -1,16 +1,13 @@
 import React from 'react';
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Input, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Spinner, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Card } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { Card } from '@heroui/react';
+import { useDisclosure } from '@heroui/react';
 
-interface Topic {
-    id: string;
-    name: string;
-    description: string;
-    postsCount: number;
-    createdAt: string;
-}
+import type { Topic } from '../store/interfaces/topicInterfaces';
+import TopicSearch from '../components/Topic/TopicSearch';
+import TopicList from '../components/Topic/TopicList';
+import TopicForm from '../components/Topic/TopicForm';
 
-const TopicsPage: React.FC = () => {
+const Topics: React.FC = () => {
     const [topics, setTopics] = React.useState<Topic[]>([]);
     const [loading, setLoading] = React.useState<boolean>(true);
     const [error, setError] = React.useState<string | null>(null);
@@ -18,12 +15,10 @@ const TopicsPage: React.FC = () => {
     const [totalPages, setTotalPages] = React.useState<number>(1);
     const [searchQuery, setSearchQuery] = React.useState<string>('');
 
-    // Modal states
+    // Topic form modal state
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const [modalMode, setModalMode] = React.useState<'create' | 'edit'>('create');
-    const [currentTopic, setCurrentTopic] = React.useState<Topic | null>(null);
-    const [topicName, setTopicName] = React.useState<string>('');
-    const [topicDescription, setTopicDescription] = React.useState<string>('');
+    const [formMode, setFormMode] = React.useState<'create' | 'edit'>('create');
+    const [selectedTopic, setSelectedTopic] = React.useState<Topic | undefined>(undefined);
 
     const rowsPerPage = 10;
 
@@ -32,25 +27,26 @@ const TopicsPage: React.FC = () => {
             try {
                 setLoading(true);
                 // In a real app, you would fetch this data from your API
-                // const response = await axios.get(`http://localhost:3000/api/categories?page=${page}&limit=${rowsPerPage}&search=${searchQuery}`);
-                // setCategories(response.data.categories);
+                // const response = await axios.get(`http://localhost:3000/api/topics?page=${page}&limit=${rowsPerPage}&search=${searchQuery}`);
+                // setTopics(response.data.topics);
                 // setTotalPages(Math.ceil(response.data.total / rowsPerPage));
 
                 // Simulating API response with mock data
                 setTimeout(() => {
                     const topicNames = [
-                        'General Discussion', 'Announcements', 'JavaScript', 'TypeScript',
-                        'React', 'Vue', 'Angular', 'Node.js', 'CSS', 'HTML',
-                        'Backend Development', 'Frontend Development', 'Mobile Development',
-                        'DevOps', 'Career Advice', 'Job Listings'
+                        'Programming Languages', 'Web Development', 'Mobile Development',
+                        'Data Science', 'Machine Learning', 'DevOps', 'Cloud Computing',
+                        'Cybersecurity', 'Blockchain', 'Game Development', 'UI/UX Design',
+                        'Career Advice', 'Software Architecture', 'Databases', 'Networking',
+                        'Operating Systems'
                     ];
 
                     const mockTopics: Topic[] = topicNames.map((name, i) => ({
                         id: `topic-${i + 1}`,
                         name,
-                        description: `A place to discuss ${name.toLowerCase()} related topics.`,
-                        postsCount: Math.floor(Math.random() * 500),
-                        createdAt: new Date(Date.now() - i * 86400000 * 5).toISOString(),
+                        description: `Discussion forum for ${name.toLowerCase()} related questions and answers.`,
+                        questionsCount: Math.floor(Math.random() * 500),
+                        createdAt: new Date(Date.now() - i * 86400000 * 5),
                     }));
 
                     const filteredTopics = searchQuery
@@ -81,32 +77,25 @@ const TopicsPage: React.FC = () => {
     };
 
     const handleAddTopic = () => {
-        setModalMode('create');
-        setTopicName('');
-        setTopicDescription('');
+        setFormMode('create');
+        setSelectedTopic(undefined);
         onOpen();
     };
 
     const handleEditTopic = (topic: Topic) => {
-        setModalMode('edit');
-        setCurrentTopic(topic);
-        setTopicName(topic.name);
-        setTopicDescription(topic.description);
+        setFormMode('edit');
+        setSelectedTopic(topic);
         onOpen();
     };
 
-    const handleSaveTopic = () => {
-        console.log('Saving topic:', { name: topicName, description: topicDescription });
-
-        onOpenChange();
+    const handleDeleteTopic = (topic: Topic) => {
+        // In a real app, you would call your API to delete the topic
+        console.log('Deleting topic:', topic);
     };
 
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
+    const handleSubmitTopicForm = (topicData: { name: string; description: string }) => {
+        // In a real app, you would call your API to create/update the topic
+        console.log(`${formMode === 'create' ? 'Creating' : 'Updating'} topic:`, topicData);
     };
 
     if (error) {
@@ -120,129 +109,34 @@ const TopicsPage: React.FC = () => {
     return (
         <div className="space-y-6">
             <div className="flex flex-col gap-4">
-                <div className="flex justify-between items-center gap-3 flex-wrap">
-                    <Input
-                        placeholder="Search topics..."
-                        value={searchQuery}
-                        onValueChange={handleSearch}
-                        startContent={<Icon icon="lucide:search" className="text-default-400" />}
-                        className="w-full sm:max-w-xs bg-content1 rounded-lg"
-                        variant='bordered'
-                        radius='sm'
+                <TopicSearch
+                    searchQuery={searchQuery}
+                    onSearchChange={handleSearch}
+                    onAddTopic={handleAddTopic}
+                />
+
+                <Card className="w-full p-4" radius='sm'>
+                    <TopicList
+                        topics={topics}
+                        loading={loading}
+                        page={page}
+                        totalPages={totalPages}
+                        onPageChange={setPage}
+                        onEditTopic={handleEditTopic}
+                        onDeleteTopic={handleDeleteTopic}
                     />
-
-                    <Button color="primary" startContent={<Icon icon="lucide:plus" />} onPress={handleAddTopic}>
-                        Add Topic
-                    </Button>
-                </div>
-
-                <Card className="w-full" radius='sm'>
-                    {loading ? (
-                        <div className="h-[400px] flex items-center justify-center">
-                            <Spinner size="lg" color="primary" />
-                        </div>
-                    ) : (
-                        <Table
-                            aria-label="Topics table"
-                            bottomContent={
-                                <div className="flex w-full justify-center">
-                                    <Pagination
-                                        isCompact
-                                        showControls
-                                        showShadow
-                                        color="primary"
-                                        page={page}
-                                        total={totalPages}
-                                        onChange={setPage}
-                                    />
-                                </div>
-                            }
-                            classNames={{
-                                wrapper: "min-h-[400px]",
-                            }}
-                            className='p-4'
-                            removeWrapper
-                        >
-                            <TableHeader>
-                                <TableColumn>NAME</TableColumn>
-                                <TableColumn>DESCRIPTION</TableColumn>
-                                <TableColumn>POSTS</TableColumn>
-                                <TableColumn>CREATED</TableColumn>
-                                <TableColumn>ACTIONS</TableColumn>
-                            </TableHeader>
-                            <TableBody emptyContent={"No topics found"}>
-                                {topics.map((topic) => (
-                                    <TableRow key={topic.id}>
-                                        <TableCell className="font-medium">{topic.name}</TableCell>
-                                        <TableCell className="max-w-xs truncate">{topic.description}</TableCell>
-                                        <TableCell>{topic.postsCount}</TableCell>
-                                        <TableCell>{formatDate(topic.createdAt)}</TableCell>
-                                        <TableCell>
-                                            <Dropdown>
-                                                <DropdownTrigger>
-                                                    <Button isIconOnly size="sm" variant="light">
-                                                        <Icon icon="lucide:more-vertical" className="text-default-500" />
-                                                    </Button>
-                                                </DropdownTrigger>
-                                                <DropdownMenu aria-label="Topic actions">
-                                                    <DropdownItem key="edit"
-                                                        startContent={<Icon icon="lucide:edit" />}
-                                                        onPress={() => handleEditTopic(topic)}
-                                                    >
-                                                        Edit
-                                                    </DropdownItem>
-                                                    <DropdownItem key="delete" startContent={<Icon icon="lucide:trash" />} color="danger">
-                                                        Delete
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </Dropdown>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    )}
                 </Card>
             </div>
 
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-                <ModalContent>
-                    {(onClose) => (
-                        <>
-                            <ModalHeader>
-                                {modalMode === 'create' ? 'Create Topic' : 'Edit Topic'}
-                            </ModalHeader>
-                            <ModalBody>
-                                <div className="space-y-4">
-                                    <Input
-                                        label="Topic Name"
-                                        placeholder="Enter topic name"
-                                        value={topicName}
-                                        onValueChange={setTopicName}
-                                    />
-
-                                    <Input
-                                        label="Description"
-                                        placeholder="Enter topic description"
-                                        value={topicDescription}
-                                        onValueChange={setTopicDescription}
-                                    />
-                                </div>
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button variant="flat" onPress={onClose}>
-                                    Cancel
-                                </Button>
-                                <Button color="primary" onPress={handleSaveTopic}>
-                                    {modalMode === 'create' ? 'Create' : 'Save'}
-                                </Button>
-                            </ModalFooter>
-                        </>
-                    )}
-                </ModalContent>
-            </Modal>
+            <TopicForm
+                isOpen={isOpen}
+                onOpenChange={onOpenChange}
+                mode={formMode}
+                topic={selectedTopic}
+                onSubmit={handleSubmitTopicForm}
+            />
         </div>
     );
 };
 
-export default TopicsPage;
+export default Topics;
