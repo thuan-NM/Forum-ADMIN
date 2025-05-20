@@ -1,14 +1,24 @@
 import React from 'react';
-import { Table, TableHeader, TableColumn, Pagination, Input, Button, Spinner, Card, TableBody, TableRow, TableCell, Chip, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@heroui/react';
-import { Icon } from '@iconify/react';
-import type { User } from '../store/interfaces/userInterfaces'
-const UsersPage: React.FC = () => {
+import { Card } from '@heroui/react';
+
+import { useDisclosure } from '@heroui/react';
+import type { User, UserCreateDto, UserUpdateDto } from '../store/interfaces/userInterfaces';
+import UserSearch from '../components/User/UserSearch';
+import UserList from '../components/User/UserList';
+import UserForm from '../components/User/UserForm';
+
+const Users: React.FC = () => {
     const [users, setUsers] = React.useState<User[]>([]);
     const [loading, setLoading] = React.useState<boolean>(true);
     const [error, setError] = React.useState<string | null>(null);
     const [page, setPage] = React.useState<number>(1);
     const [totalPages, setTotalPages] = React.useState<number>(1);
     const [searchQuery, setSearchQuery] = React.useState<string>('');
+
+    // User form modal state
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const [formMode, setFormMode] = React.useState<'create' | 'edit'>('create');
+    const [selectedUser, setSelectedUser] = React.useState<User | undefined>(undefined);
 
     const rowsPerPage = 10;
 
@@ -29,7 +39,11 @@ const UsersPage: React.FC = () => {
                         email: `user${i + 1}@example.com`,
                         role: i === 0 ? 'admin' : i % 5 === 0 ? 'moderator' : 'user',
                         status: i % 7 === 0 ? 'banned' : i % 5 === 0 ? 'inactive' : 'active',
-                        createdAt: new Date(Date.now() - i * 86400000).toISOString(),
+                        createdAt: new Date(Date.now() - i * 86400000),
+                        updatedAt: new Date(Date.now() - i * 86400000),
+                        emailVerified: true,
+                        postsCount: Math.floor(Math.random() * 50),
+                        commentsCount: Math.floor(Math.random() * 100)
                     }));
 
                     const filteredUsers = searchQuery
@@ -56,7 +70,34 @@ const UsersPage: React.FC = () => {
 
     const handleSearch = (value: string) => {
         setSearchQuery(value);
-        setPage(1);
+        setPage(1); // Reset to first page on new search
+    };
+
+    const handleAddUser = () => {
+        setFormMode('create');
+        setSelectedUser(undefined);
+        onOpen();
+    };
+
+    const handleEditUser = (user: User) => {
+        setFormMode('edit');
+        setSelectedUser(user);
+        onOpen();
+    };
+
+    const handleBanUnbanUser = (user: User) => {
+        // In a real app, you would call your API to ban/unban the user
+        console.log(`${user.status === 'banned' ? 'Unbanning' : 'Banning'} user:`, user);
+    };
+
+    const handleDeleteUser = (user: User) => {
+        // In a real app, you would call your API to delete the user
+        console.log('Deleting user:', user);
+    };
+
+    const handleSubmitUserForm = (userData: UserCreateDto | UserUpdateDto) => {
+        // In a real app, you would call your API to create/update the user
+        console.log(`${formMode === 'create' ? 'Creating' : 'Updating'} user:`, userData);
     };
 
     if (error) {
@@ -67,158 +108,38 @@ const UsersPage: React.FC = () => {
         );
     }
 
-    const getRoleColor = (role: string) => {
-        switch (role) {
-            case 'admin':
-                return 'danger';
-            case 'moderator':
-                return 'warning';
-            default:
-                return 'primary';
-        }
-    };
-
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'active':
-                return 'success';
-            case 'inactive':
-                return 'warning';
-            case 'banned':
-                return 'danger';
-            default:
-                return 'default';
-        }
-    };
-
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-        });
-    };
-
     return (
         <div className="space-y-6">
             <div className="flex flex-col gap-4">
-                <div className="flex justify-between items-center gap-3 flex-wrap">
-                    <Input
-                        placeholder="Search users..."
-                        value={searchQuery}
-                        onValueChange={handleSearch}
-                        startContent={<Icon icon="lucide:search" className="text-default-400" />}
-                        className="w-full sm:max-w-xs bg-content1 rounded-lg"
-                        variant='bordered'
-                        radius='sm'
-                    />
-
-                    <Button color="primary" startContent={<Icon icon="lucide:plus" />}>
-                        Add User
-                    </Button>
-                </div>
+                <UserSearch
+                    searchQuery={searchQuery}
+                    onSearchChange={handleSearch}
+                    onAddUser={handleAddUser}
+                />
 
                 <Card className="w-full" radius='sm'>
-                    {loading ? (
-                        <div className="h-[400px] flex items-center justify-center">
-                            <Spinner size="lg" color="primary" />
-                        </div>
-                    ) : (
-                        <Table
-                            aria-label="Users table"
-                            bottomContent={
-                                <div className="flex w-full justify-center">
-                                    <Pagination
-                                        isCompact
-                                        showControls
-                                        showShadow
-                                        color="primary"
-                                        page={page}
-                                        total={totalPages}
-                                        onChange={setPage}
-                                    />
-                                </div>
-                            }
-                            classNames={{
-                                wrapper: "min-h-[400px]",
-                            }}
-                            className='p-4'
-                            removeWrapper
-                        >
-                            <TableHeader>
-                                <TableColumn>USERNAME</TableColumn>
-                                <TableColumn>EMAIL</TableColumn>
-                                <TableColumn>ROLE</TableColumn>
-                                <TableColumn>STATUS</TableColumn>
-                                <TableColumn>JOINED</TableColumn>
-                                <TableColumn>ACTIONS</TableColumn>
-                            </TableHeader>
-                            <TableBody emptyContent={"No users found"}>
-                                {users.map((user) => (
-                                    <TableRow key={user.id}>
-                                        <TableCell>{user.username}</TableCell>
-                                        <TableCell>{user.email}</TableCell>
-                                        <TableCell>
-                                            <Chip color={getRoleColor(user.role)} variant="flat" size="sm">
-                                                {user.role}
-                                            </Chip>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Chip color={getStatusColor(user.status)} variant="dot" size="sm">
-                                                {user.status}
-                                            </Chip>
-                                        </TableCell>
-                                        <TableCell>{formatDate(user.createdAt)}</TableCell>
-                                        <TableCell>
-                                            <Dropdown>
-                                                <DropdownTrigger>
-                                                    <Button isIconOnly size="sm" variant="light">
-                                                        <Icon icon="lucide:more-vertical" className="text-default-500" />
-                                                    </Button>
-                                                </DropdownTrigger>
-                                                <DropdownMenu aria-label="User actions">
-                                                    <DropdownItem key="view" startContent={<Icon icon="lucide:eye" />}>
-                                                        View
-                                                    </DropdownItem>
-                                                    <DropdownItem key="edit" startContent={<Icon icon="lucide:edit" />}>
-                                                        Edit
-                                                    </DropdownItem>
-                                                    {user.status !== 'banned' ? (
-                                                        <DropdownItem
-                                                            key="ban"
-                                                            startContent={<Icon icon="lucide:ban" />}
-                                                            color="danger"
-                                                        >
-                                                            Ban
-                                                        </DropdownItem>
-                                                    ) : (
-                                                        <DropdownItem
-                                                            key="unban"
-                                                            startContent={<Icon icon="lucide:check-circle" />}
-                                                            color="success"
-                                                        >
-                                                            Unban
-                                                        </DropdownItem>
-                                                    )}
-                                                    <DropdownItem
-                                                        key="delete"
-                                                        startContent={<Icon icon="lucide:trash" />}
-                                                        color="danger"
-                                                    >
-                                                        Delete
-                                                    </DropdownItem>
-                                                </DropdownMenu>
-                                            </Dropdown>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    )}
+                    <UserList
+                        users={users}
+                        loading={loading}
+                        page={page}
+                        totalPages={totalPages}
+                        onPageChange={setPage}
+                        onEditUser={handleEditUser}
+                        onBanUnbanUser={handleBanUnbanUser}
+                        onDeleteUser={handleDeleteUser}
+                    />
                 </Card>
             </div>
+
+            <UserForm
+                isOpen={isOpen}
+                onOpenChange={onOpenChange}
+                mode={formMode}
+                user={selectedUser}
+                onSubmit={handleSubmitUserForm}
+            />
         </div>
     );
 };
 
-export default UsersPage;
+export default Users;

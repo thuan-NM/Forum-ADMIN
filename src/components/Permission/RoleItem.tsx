@@ -1,6 +1,5 @@
 import React from 'react';
-import { Chip, Button } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { Chip } from '@heroui/react';
 import type { Role } from '../../store/interfaces/permissionInterfaces';
 
 interface RoleItemProps {
@@ -10,29 +9,19 @@ interface RoleItemProps {
     onEdit: (role: Role) => void;
 }
 
-const RoleItem: React.FC<RoleItemProps> = ({ role, isSelected, onSelect, onEdit }) => {
+const RoleItem: React.FC<RoleItemProps> = ({ role, isSelected, onSelect }) => {
     return (
         <div
-            className={`p-3 rounded-md cursor-pointer transition-colors ${isSelected ? 'bg-primary-50 border border-primary-200' : 'hover:bg-default-50'
-                }`}
+            className={`p-3 rounded-md cursor-pointer transition-colors ${isSelected ? 'bg-primary-50 border border-primary-200' : 'hover:bg-default-50'}`}
             onClick={() => onSelect(role)}
         >
             <div className="flex justify-between items-center">
                 <div>
                     <p className="font-medium">{role.name}</p>
-                    <p className="text-xs text-default-500">{role.usersCount} users</p>
+                    <p className="text-xs text-default-500">{role.description}</p>
                 </div>
-                {role.isSystem ? (
+                {role.isSystem && (
                     <Chip size="sm" variant="flat" color="secondary">System</Chip>
-                ) : (
-                    <Button
-                        isIconOnly
-                        size="sm"
-                        variant="light"
-                        onPress={() => onEdit(role)}
-                    >
-                        <Icon icon="lucide:edit" className="text-default-500" />
-                    </Button>
                 )}
             </div>
         </div>

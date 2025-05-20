@@ -1,8 +1,11 @@
 export interface Permission {
     id: string;
-    name: string;
-    description: string;
-    module: string;
+    role: string; 
+    resource: string;
+    action: string;
+    allowed: boolean;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface Role {
@@ -10,7 +13,7 @@ export interface Role {
     name: string;
     description: string;
     usersCount: number;
-    isSystem: boolean;
+    isSystem: boolean; 
     permissions: Permission[];
-    createdAt: string;
+    createdAt: string; 
 }

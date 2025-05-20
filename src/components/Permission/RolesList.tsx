@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardBody, Button, Spinner, Input } from '@heroui/react';
+import { Card, CardHeader, CardBody, Spinner, Input } from '@heroui/react';
 import { Icon } from '@iconify/react';
 import RoleItem from './RoleItem';
 import type { Role } from '../../store/interfaces/permissionInterfaces';
@@ -22,23 +22,13 @@ const RolesList: React.FC<RolesListProps> = ({
     searchQuery,
     onSearch,
     onSelectRole,
-    onAddRole,
-    onEditRole
 }) => {
     return (
-        <Card className="lg:col-span-1">
+        <Card className="lg:col-span-1 p-2 h-fit" radius='sm'>
             <CardHeader className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold">Roles</h3>
-                <Button
-                    color="primary"
-                    size="sm"
-                    startContent={<Icon icon="lucide:plus" />}
-                    onPress={onAddRole}
-                >
-                    Add Role
-                </Button>
             </CardHeader>
-            <CardBody>
+            <CardBody className="min-h-[400px]">
                 {loading ? (
                     <div className="h-[200px] flex items-center justify-center">
                         <Spinner size="lg" color="primary" />
@@ -49,18 +39,17 @@ const RolesList: React.FC<RolesListProps> = ({
                             placeholder="Search roles..."
                             value={searchQuery}
                             onValueChange={onSearch}
-                            startContent={<Icon icon="lucide:search" className="text-default-400" />}
+                            startContent={<Icon icon="lucide:search" className="opacity-50" />}
                             size="sm"
                             className="mb-4"
                         />
-
                         {roles.map((role) => (
                             <RoleItem
                                 key={role.id}
                                 role={role}
                                 isSelected={selectedRole?.id === role.id}
                                 onSelect={onSelectRole}
-                                onEdit={onEditRole}
+                                onEdit={() => alert('Role editing not supported by backend')}
                             />
                         ))}
                     </div>
