@@ -13,7 +13,6 @@ const instance = axios.create({
 axiosRetry(instance, {
     retries: 3,
     retryCondition: (error) => {
-        // Thử lại nếu lỗi là do token hết hạn
         const errorres = error as AxiosError<{ code?: string }>;
         return errorres?.response?.data?.code === "ex";
     },
@@ -45,7 +44,6 @@ instance.interceptors.response.use(
             const status = error.response.status;
             const errorData = error.response.data;
 
-            // 🔥 Nếu token hết hạn (hoặc backend báo "Token expired"), thì mới logout
             if (status === 401 && errorData?.message === "Token expired") {
                 if (!originalRequest._retry) {
                     console.log("hello")
