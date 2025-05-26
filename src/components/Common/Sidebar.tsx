@@ -19,11 +19,11 @@ const Sidebar = () => {
                     <span>Posts</span>
                 </NavLink>
                 <NavLink to="/questions" className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
-                    <Icon icon="lucide:message-circle-question" />
+                    <Icon icon="lucide:help-circle" />
                     <span>Questions</span>
                 </NavLink>
                 <NavLink to="/answers" className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
-                    <Icon icon="lucide:message-circle-reply" />
+                    <Icon icon="lucide:message-circle" />
                     <span>Answers</span>
                 </NavLink>
                 <NavLink to="/comments" className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>

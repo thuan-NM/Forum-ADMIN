@@ -1,6 +1,8 @@
 import React from 'react';
-import { Card, CardBody, CardHeader, Spinner } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { Spinner } from '@heroui/react';
+import TrafficSources from '../components/Dashboard/TrafficSources';
+import RecentActivity from '../components/Dashboard/RecentActivity';
+import StatsCard from '../components/Dashboard/StatCard';
 
 interface DashboardStats {
     totalUsers: number;
@@ -62,113 +64,77 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <Card>
-                    <CardBody className="p-6">
-                        <div className="flex justify-between items-center">
-                            <div>
-                                <p className="text-sm">Total Users</p>
-                                <h3 className="text-3xl font-semibold mt-1">{stats?.totalUsers.toLocaleString()}</h3>
-                                <p className="text-success-500 text-xs mt-2 flex items-center">
-                                    <Icon icon="lucide:trending-up" className="mr-1" />
-                                    <span>+{stats?.newUsersToday} today</span>
-                                </p>
-                            </div>
-                            <div className="bg-primary-100 p-4 rounded-full">
-                                <Icon icon="lucide:users" className="text-primary-500 w-6 h-6" />
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
 
-                <Card>
-                    <CardBody className="p-6">
-                        <div className="flex justify-between items-center">
-                            <div>
-                                <p className="text-sm">Total Posts</p>
-                                <h3 className="text-3xl font-semibold mt-1">{stats?.totalPosts.toLocaleString()}</h3>
-                                <p className="text-success-500 text-xs mt-2 flex items-center">
-                                    <Icon icon="lucide:trending-up" className="mr-1" />
-                                    <span>+{stats?.newPostsToday} today</span>
-                                </p>
-                            </div>
-                            <div className="bg-secondary-100 p-4 rounded-full">
-                                <Icon icon="lucide:file-text" className="text-secondary-500 w-6 h-6" />
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <StatsCard
+                    title="Total Users"
+                    value={stats?.totalUsers.toLocaleString() || "0"}
+                    change={stats?.newUsersToday || 0}
+                    icon="lucide:users"
+                    iconColor="text-primary-500"
+                    iconBgColor="bg-primary-100"
+                />
 
-                <Card>
-                    <CardBody className="p-6">
-                        <div className="flex justify-between items-center">
-                            <div>
-                                <p className="text-sm">Categories</p>
-                                <h3 className="text-3xl font-semibold mt-1">{stats?.totalCategories}</h3>
-                                <p className="text-default-400 text-xs mt-2">
-                                    Active forum categories
-                                </p>
-                            </div>
-                            <div className="bg-warning-100 p-4 rounded-full">
-                                <Icon icon="lucide:tag" className="text-warning-500 w-6 h-6" />
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
+                <StatsCard
+                    title="Total Posts"
+                    value={stats?.totalPosts.toLocaleString() || "0"}
+                    change={stats?.newPostsToday || 0}
+                    icon="lucide:file-text"
+                    iconColor="text-secondary-500"
+                    iconBgColor="bg-secondary-100"
+                />
+
+                <StatsCard
+                    title="Categories"
+                    value={stats?.totalCategories.toString() || "0"}
+                    icon="lucide:tag"
+                    iconColor="text-warning-500"
+                    iconBgColor="bg-warning-100"
+                />
             </div>
 
-            <Card>
-                <CardHeader className="pb-0">
-                    <h3 className="text-lg font-semibold">Recent Activity</h3>
-                </CardHeader>
-                <CardBody>
-                    <div className="space-y-4">
-                        <div className="flex items-start gap-3 p-3 hover:bg-content2 rounded-md transition-colors">
-                            <div className="bg-primary-100 p-2 rounded-full">
-                                <Icon icon="lucide:user-plus" className="text-primary-500 w-4 h-4" />
-                            </div>
-                            <div>
-                                <p className="font-medium">New user registered</p>
-                                <p className="text-content5 opacity-80 text-sm">John Doe created an account</p>
-                                <p className="text-content5 opacity-50 text-xs mt-1">10 minutes ago</p>
-                            </div>
-                        </div>
+            <RecentActivity
+                activities={[
+                    {
+                        id: "activity-1",
+                        type: "user",
+                        title: "New user registered",
+                        description: "John Doe created an account",
+                        time: "10 minutes ago"
+                    },
+                    {
+                        id: "activity-2",
+                        type: "post",
+                        title: "New post created",
+                        description: "Jane Smith published \"Getting Started with React\"",
+                        time: "25 minutes ago"
+                    },
+                    {
+                        id: "activity-3",
+                        type: "comment",
+                        title: "New comment",
+                        description: "Alex Johnson commented on \"TypeScript Tips\"",
+                        time: "1 hour ago"
+                    },
+                    {
+                        id: "activity-4",
+                        type: "category",
+                        title: "New category added",
+                        description: "Admin created \"Mobile Development\" category",
+                        time: "3 hours ago"
+                    }
+                ]}
+            />
 
-                        <div className="flex items-start gap-3 p-3 hover:bg-content2 rounded-md transition-colors">
-                            <div className="bg-secondary-100 p-2 rounded-full">
-                                <Icon icon="lucide:file-plus" className="text-secondary-500 w-4 h-4" />
-                            </div>
-                            <div>
-                                <p className="font-medium">New post created</p>
-                                <p className="text-content5 opacity-80 text-sm">Jane Smith published "Getting Started with React"</p>
-                                <p className="text-content5 opacity-50 text-xs mt-1">25 minutes ago</p>
-                            </div>
-                        </div>
-
-                        <div className="flex items-start gap-3 p-3 hover:bg-content2 rounded-md transition-colors">
-                            <div className="bg-success-100 p-2 rounded-full">
-                                <Icon icon="lucide:message-square" className="text-success-500 w-4 h-4" />
-                            </div>
-                            <div>
-                                <p className="font-medium">New comment</p>
-                                <p className="text-content5 opacity-80 text-sm">Alex Johnson commented on "TypeScript Tips"</p>
-                                <p className="text-content5 opacity-50 text-xs mt-1">1 hour ago</p>
-                            </div>
-                        </div>
-
-                        <div className="flex items-start gap-3 p-3 hover:bg-content2 rounded-md transition-colors">
-                            <div className="bg-warning-100 p-2 rounded-full">
-                                <Icon icon="lucide:tag" className="text-warning-500 w-4 h-4" />
-                            </div>
-                            <div>
-                                <p className="font-medium">New category added</p>
-                                <p className="text-content5 opacity-80 text-sm">Admin created "Mobile Development" category</p>
-                                <p className="text-content5 opacity-50 text-xs mt-1">3 hours ago</p>
-                            </div>
-                        </div>
-                    </div>
-                </CardBody>
-            </Card>
+            <TrafficSources
+                sources={[
+                    { source: "Direct", percentage: 35, change: 2.5 },
+                    { source: "Search", percentage: 28, change: 5.2 },
+                    { source: "Social", percentage: 22, change: -1.8 },
+                    { source: "Referral", percentage: 12, change: 3.4 },
+                    { source: "Email", percentage: 3, change: 0.5 }
+                ]}
+            />
         </div>
     );
 };

@@ -1,27 +1,19 @@
-import type { CommentResponse } from "./commentInterfaces";
-import type { User } from "./userInterfaces";
+import type { Comment } from "./commentInterfaces";
 
 export interface AnswerResponse {
     id: string;
     content: string;
-    answerContent?: string;
-    author: {
-        id: string;
-        username: string;
-        avatar?: string;
-    };
     questionId: string;
-    questionTitle: string;
     status: 'approved' | 'pending' | 'rejected';
     isAccepted: boolean;
-    upvotes: number;
-    downvotes: number;
-    userVote?: 'up' | 'down' | null;
     rootCommentId?: string;
     hasEditHistory: boolean;
-    comments: CommentResponse[];
+    comments: Comment[];
     createdAt: Date;
     updatedAt: Date;
+    userId: string;
+    username: string;
+    questionTitle: string;
 }
 
 export interface AnswerCreateDto {
@@ -40,17 +32,15 @@ export interface AnswerUpdateDto {
 export interface Answer {
     id: string;
     content: string;
-    answerContent?: string;
-    author: User | string;
+    userId: string;
     questionId: string;
     status: 'approved' | 'pending' | 'rejected';
     isAccepted: boolean;
-    upvotes: number;
-    downvotes: number;
-    votedBy: { userId: string; voteType: 'up' | 'down' }[];
     rootCommentId?: string;
     hasEditHistory: boolean;
     comments: Comment[];
     createdAt: Date;
     updatedAt: Date;
+    username: string;
+    questionTitle: string;
 }

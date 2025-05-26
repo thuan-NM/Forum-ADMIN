@@ -83,7 +83,6 @@ const QuestionList: React.FC<QuestionListProps> = ({
                 <TableColumn>TITLE</TableColumn>
                 <TableColumn>AUTHOR</TableColumn>
                 <TableColumn>TOPIC</TableColumn>
-                <TableColumn>TAGS</TableColumn>
                 <TableColumn>STATUS</TableColumn>
                 <TableColumn>STATS</TableColumn>
                 <TableColumn>CREATED</TableColumn>
@@ -107,15 +106,6 @@ const QuestionList: React.FC<QuestionListProps> = ({
                             </Chip>
                         </TableCell>
                         <TableCell>
-                            <div className="flex flex-wrap gap-1">
-                                {question.tags.map((tag, index) => (
-                                    <Chip key={index} size="sm" variant="flat" color="primary">
-                                        {tag.name}
-                                    </Chip>
-                                ))}
-                            </div>
-                        </TableCell>
-                        <TableCell>
                             <Chip
                                 color={getStatusColor(question.status)}
                                 variant="dot"
@@ -136,7 +126,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <Icon icon="lucide:thumbs-up" fontSize={14} className="text-default-400" />
-                                    <span>{question.upvotes}</span>
+                                    <span>{question.followCount}</span>
                                 </div>
                             </div>
                         </TableCell>
