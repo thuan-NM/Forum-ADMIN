@@ -1,5 +1,3 @@
-import type { Answer } from './answerInterfaces';
-import type { Tag } from './tagInterfaces';
 import type { Topic } from './topicInterfaces';
 import type { User } from './userInterfaces';
 
@@ -10,18 +8,16 @@ export interface Question {
     slug: string;
     author: User | string;
     topic: Topic | string;
-    tags: (Tag | string)[];
-    answers: Answer[];
     status: 'open' | 'closed' | 'solved' | 'duplicate';
     viewCount: number;
-    upvotes: number;
-    downvotes: number;
     votedBy: { userId: string; voteType: 'up' | 'down' }[];
     acceptedAnswerId?: string;
     duplicateOfId?: string;
     isFeatured: boolean;
     createdAt: Date;
     updatedAt: Date;
+    ollowCount: number;
+
 }
 
 
@@ -29,14 +25,12 @@ export interface QuestionCreateDto {
     title: string;
     content: string;
     topicId: string;
-    tags?: string[];
 }
 
 export interface QuestionUpdateDto {
     title?: string;
     content?: string;
     topicId?: string;
-    tags?: string[];
     status?: 'open' | 'closed' | 'solved' | 'duplicate';
     acceptedAnswerId?: string;
     duplicateOfId?: string;
@@ -60,16 +54,8 @@ export interface QuestionResponse {
         name: string;
         slug: string;
     };
-    tags: {
-        id: string;
-        name: string;
-        slug: string;
-    }[];
     status: 'open' | 'closed' | 'solved' | 'duplicate';
     viewCount: number;
-    upvotes: number;
-    downvotes: number;
-    userVote?: 'up' | 'down' | null;
     acceptedAnswer?: {
         id: string;
         content: string;
@@ -81,6 +67,7 @@ export interface QuestionResponse {
         };
     };
     answersCount: number;
+    followCount: number;
     isFeatured: boolean;
     createdAt: Date;
     updatedAt: Date;

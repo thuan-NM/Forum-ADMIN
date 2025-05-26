@@ -4,11 +4,11 @@ export interface Report {
     id: string;
     reason: string;
     details?: string;
-    reporter: User | string;
+    reporter: User | string; // Can be populated with User object or just the ID
     contentType: 'post' | 'comment' | 'user';
     contentId: string;
     status: 'pending' | 'resolved' | 'dismissed';
-    resolvedBy?: User | string;
+    resolvedBy?: User | string; // Admin/moderator who resolved the report
     resolvedAt?: Date;
     createdAt: Date;
     updatedAt: Date;
@@ -23,7 +23,7 @@ export interface ReportCreateDto {
 
 export interface ReportUpdateDto {
     status?: 'pending' | 'resolved' | 'dismissed';
-    resolvedBy?: string;
+    resolvedBy?: string; // User ID
 }
 
 export interface ReportResponse {
@@ -35,17 +35,18 @@ export interface ReportResponse {
         username: string;
         avatar?: string;
     };
-    contentType: 'post' | 'comment' | 'user';
+    contentType: 'post' | 'comment' | 'user' | 'question' | 'answer';
     contentId: string;
     contentPreview: string;
     status: 'pending' | 'resolved' | 'dismissed';
     resolvedBy?: {
         id: string;
         username: string;
+        avatar?: string;
     };
     resolvedAt?: Date;
     createdAt: Date;
-    updatedAt: Date;
+    updatedAt?: Date;
 }
 
 export interface ReportListResponse {

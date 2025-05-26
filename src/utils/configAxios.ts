@@ -44,7 +44,7 @@ instance.interceptors.response.use(
             const status = error.response.status;
             const errorData = error.response.data;
 
-            if (status === 401 && errorData?.message === "Token expired") {
+            if (status === 401 && errorData?.code === "ex") {
                 if (!originalRequest._retry) {
                     console.log("hello")
                     originalRequest._retry = true;

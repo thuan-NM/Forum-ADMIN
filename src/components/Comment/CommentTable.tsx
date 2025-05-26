@@ -16,7 +16,7 @@ interface CommentListProps {
     isSimpleView?: boolean;
 }
 
-const CommentList: React.FC<CommentListProps> = ({
+const CommentTable: React.FC<CommentListProps> = ({
     comments,
     loading = false,
     page = 1,
@@ -171,4 +171,4 @@ const CommentList: React.FC<CommentListProps> = ({
     );
 };
 
-export default CommentList;
+export default CommentTable;

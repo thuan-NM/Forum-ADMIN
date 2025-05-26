@@ -26,3 +26,16 @@ body {
 .sidebar-item:hover:not(.active) {
     @apply bg-default-100;
 }
+
+ol,
+ul {
+    list-style-type: initial;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+ul {
+    list-style-type: disc;
+}

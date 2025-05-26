@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from '@heroui/react';
 import CommentFilters from '../components/Comment/CommentFilters';
-import CommentList from '../components/Comment/CommentList';
+import CommentTable from '../components/Comment/CommentTable';
 import type { Comment } from '../store/interfaces/commentInterfaces';
 
 
@@ -146,7 +146,7 @@ const Comments: React.FC = () => {
                 />
 
                 <Card className="w-full p-4" radius="sm">
-                    <CommentList
+                    <CommentTable
                         comments={comments}
                         loading={loading}
                         page={page}

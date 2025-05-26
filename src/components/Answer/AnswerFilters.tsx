@@ -44,22 +44,15 @@ const AnswerFilters: React.FC<AnswerFiltersProps> = ({
                 <SelectItem key="pending" textValue="Pending">Pending</SelectItem>
                 <SelectItem key="rejected" textValue="Rejected">Rejected</SelectItem>
             </Select>
-
-            <Select
-                placeholder="All Questions"
-                selectedKeys={questionFilter ? [questionFilter] : []}
+            <Input
+                placeholder="Search questions..."
+                value={questionFilter}
+                onValueChange={onQuestionChange}
+                startContent={<Icon icon="lucide:search" className="text-default-400" />}
                 className="w-full sm:w-64 bg-content1 rounded-lg"
                 radius='sm'
                 variant='bordered'
-                onChange={(e) => onQuestionChange(e.target.value)}
-            >
-                <SelectItem key="" textValue="">All Questions</SelectItem>
-                <SelectItem key="React" textValue="React">React Questions</SelectItem>
-                <SelectItem key="TypeScript" textValue="TypeScript">TypeScript Questions</SelectItem>
-                <SelectItem key="Node.js" textValue="Node.js">Node.js Questions</SelectItem>
-                <SelectItem key="CSS" textValue="CSS">CSS Questions</SelectItem>
-                <SelectItem key="JavaScript" textValue="JavaScript">JavaScript Questions</SelectItem>
-            </Select>
+            />
         </div>
     );
 };
