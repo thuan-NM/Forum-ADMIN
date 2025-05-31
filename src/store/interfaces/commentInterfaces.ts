@@ -1,4 +1,3 @@
-// import type { User } from './userInterfaces';
 
 export interface Comment {
     id: string;
@@ -6,14 +5,15 @@ export interface Comment {
     author: {
         id: string;
         username: string;
+        avatar?: string;
     };
     postId?: string;
-    postTitle?: string;
-    questionId?: string;
-    questionTitle?: string;
     answerId?: string;
-    answerContent?: string;
-    status: 'approved' | 'pending' | 'rejected' | 'spam' | 'deleted';
+    parentId?: string
+    postTitle?: string;
+    answerTitle?: string;
+    status: 'approved' | 'pending' | 'spam';
+    has_replies: boolean;
     createdAt: Date;
 }
 
@@ -40,12 +40,11 @@ export interface CommentResponse {
     postId?: string;
     answerId?: string;
     parentId?: string;
-    status: 'approved' | 'pending' | 'rejected';
-    upvotes: number;
-    downvotes: number;
-    userVote?: 'up' | 'down' | null;
-    hasEditHistory: boolean;
-    replies?: CommentResponse[];
+    postTitle?: string;
+    parentTitle?: string;
+    answerTitle?: string;
+    status: 'approved' | 'pending' | 'spam';
+    has_replies: boolean;
     createdAt: Date;
     updatedAt: Date;
 }

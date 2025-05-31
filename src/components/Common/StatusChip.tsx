@@ -37,9 +37,8 @@ const StatusChip: React.FC<StatusChipProps> = ({
       switch (status.toLowerCase()) {
         case 'approved': return 'success';
         case 'pending': return 'warning';
-        case 'spam': return 'danger';
+        case 'spam': return 'secondary';
         case 'rejected': return 'danger';
-        case 'deleted': return 'default';
         default: return 'default';
       }
     }

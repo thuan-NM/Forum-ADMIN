@@ -26,7 +26,7 @@ const AnswerActions: React.FC<AnswerActionsProps> = ({ answer, onUpdateStatus, o
                 key: 'view-question',
                 label: 'View Question',
                 icon: 'lucide:eye',
-                action: () => navigate(`/questions/${answer.questionId}`),
+                action: () => navigate(`/questions/${answer.question.id}`),
             },
             {
                 key: 'view-answer',

@@ -1,9 +1,10 @@
 import type { Comment } from "./commentInterfaces";
+import type { Question } from "./questionInterfaces";
+import type { User } from "./userInterfaces";
 
 export interface AnswerResponse {
     id: string;
     content: string;
-    questionId: string;
     status: 'approved' | 'pending' | 'rejected';
     isAccepted: boolean;
     rootCommentId?: string;
@@ -11,9 +12,8 @@ export interface AnswerResponse {
     comments: Comment[];
     createdAt: Date;
     updatedAt: Date;
-    userId: string;
-    username: string;
-    questionTitle: string;
+    author: User;
+    question: Question;
 }
 
 export interface AnswerCreateDto {

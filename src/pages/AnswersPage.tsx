@@ -5,7 +5,7 @@ import AnswerFilters from "../components/Answer/AnswerFilters";
 import AnswerTable from "../components/Answer/AnswerTable";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllAnswers } from "../services/AnswerServices";
-import { ErrorState, LoadingState } from "../components/Common";
+import { EmptyState, ErrorState, LoadingState } from "../components/Common";
 import { useDeleteAnswer } from "../hooks/useDeleteAnswer";
 import { useUpdateAnswerStatus } from "../hooks/useUpdateAnswerStatus"
 
@@ -80,17 +80,22 @@ const AnswersPage: React.FC = () => {
                         }
                     />
                 ) : (
-                    <Card className="w-full p-4" radius="sm">
-                        <AnswerTable
-                            answers={data?.answers || []}
-                            loading={isLoading}
-                            page={page}
-                            totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
-                            onPageChange={handlePageChange}
-                            onDeleteAnswer={deleteAnswer}
-                            onUpdateStatus={updateAnswerStatus}
-                        />
-                    </Card>
+                    (data?.answers != null) ?
+                        (<Card className="w-full p-4" radius="sm">
+                            <AnswerTable
+                                answers={data.answers}
+                                loading={isLoading}
+                                page={page}
+                                totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
+                                onPageChange={handlePageChange}
+                                onDeleteAnswer={deleteAnswer}
+                                onUpdateStatus={updateAnswerStatus}
+                            />
+                        </Card>) : (
+                            <Card className='w-full p-4' radius='sm'>
+                                <EmptyState title="No answer found" />
+                            </Card>
+                        )
                 )}
                 {(deleteError || updateError) && (
                     <ErrorState
