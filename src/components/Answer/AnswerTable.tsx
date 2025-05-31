@@ -86,16 +86,17 @@ const AnswerTable: React.FC<AnswerTableProps> = ({
                         <TableCell>
                             <div className="flex items-center gap-2">
                                 <Avatar
-                                    name={answer.username}
+                                    name={answer.author.username}
                                     size="sm"
+                                    src={answer.author.avatar}
                                 />
-                                <span>{answer.username}</span>
+                                <span>{answer.author.username}</span>
                             </div>
                         </TableCell>
                         <TableCell>
                             <div className="flex flex-col">
-                                <span className="text-sm truncate max-w-[200px]">{answer.questionTitle}</span>
-                                <span className="text-xs text-default-500">ID: {answer.questionId}</span>
+                                <span className="text-sm truncate max-w-[200px]">{answer.question.title}</span>
+                                <span className="text-xs text-default-500">ID: {answer.question.id}</span>
                             </div>
                         </TableCell>
                         <TableCell>

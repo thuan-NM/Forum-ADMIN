@@ -29,6 +29,7 @@ const CommentFilters: React.FC<CommentFiltersProps> = ({
                 className="w-full sm:w-64 bg-content1 rounded-lg"
                 variant='bordered'
                 radius='sm'
+                isClearable
             />
 
             <Select
@@ -43,7 +44,7 @@ const CommentFilters: React.FC<CommentFiltersProps> = ({
                 <SelectItem key="approved" textValue="Approved">Approved</SelectItem>
                 <SelectItem key="pending" textValue="Pending">Pending</SelectItem>
                 <SelectItem key="spam" textValue="Spam">Spam</SelectItem>
-                <SelectItem key="deleted" textValue="Deleted">Deleted</SelectItem>
+                <SelectItem key="rejected" textValue="Rejected">Rejected</SelectItem>
             </Select>
 
             <Select
@@ -55,8 +56,9 @@ const CommentFilters: React.FC<CommentFiltersProps> = ({
                 onChange={(e) => onTypeChange(e.target.value)}
             >
                 <SelectItem key="all" textValue="All">All</SelectItem>
-                <SelectItem key="post" textValue="Post">Post Comments</SelectItem>
-                <SelectItem key="answer" textValue="Answer">Answers Comments</SelectItem>
+                <SelectItem key="post_id" textValue="Posts">Posts</SelectItem>
+                <SelectItem key="answer_id" textValue="Answers">Answers</SelectItem>
+                <SelectItem key="parent_id" textValue="Comments">Comments</SelectItem>
             </Select>
         </div>
     );

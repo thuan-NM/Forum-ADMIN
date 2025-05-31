@@ -1,18 +1,18 @@
 import React from 'react';
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Spinner, Chip, Avatar } from '@heroui/react';
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Spinner, Avatar } from '@heroui/react';
 import CommentActions from './CommentActions';
-import type { Comment } from '../../store/interfaces/commentInterfaces';
+import type { CommentResponse } from '../../store/interfaces/commentInterfaces';
+import { ContentTypeChip, StatusChip } from '../Common';
 
 
 interface CommentListProps {
-    comments: Comment[];
+    comments: CommentResponse[];
     loading?: boolean;
     page?: number;
-    totalPages?: number;
-    onPageChange?: (page: number) => void;
-    onApproveComment?: (comment: any) => void;
-    onRejectComment?: (comment: any) => void;
-    onDeleteComment?: (comment: any) => void;
+    totalPages: number | 0;
+    onPageChange: (page: number) => void;
+    onUpdateAnswerStatus: (id: string, status: string) => void
+    onDeleteComment?: (comment: CommentResponse) => void;
     isSimpleView?: boolean;
 }
 
@@ -20,10 +20,9 @@ const CommentTable: React.FC<CommentListProps> = ({
     comments,
     loading = false,
     page = 1,
-    totalPages = 1,
+    totalPages,
     onPageChange = () => { },
-    onApproveComment = () => { },
-    onRejectComment = () => { },
+    onUpdateAnswerStatus,
     onDeleteComment = () => { },
     isSimpleView = false
 }) => {
@@ -38,7 +37,7 @@ const CommentTable: React.FC<CommentListProps> = ({
     if (isSimpleView) {
         return (
             <div className="space-y-3 w-full">
-                {comments.map((comment, index) => (
+                {comments.map((comment) => (
                     <div key={comment.id} className="bg-default-50 rounded-md p-3">
                         <div className="flex items-start gap-3">
 
@@ -63,22 +62,6 @@ const CommentTable: React.FC<CommentListProps> = ({
             </div>
         );
     }
-
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'approved':
-                return 'success';
-            case 'pending':
-                return 'warning';
-            case 'spam':
-            case 'rejected':
-                return 'danger';
-            case 'deleted':
-                return 'default';
-            default:
-                return 'default';
-        }
-    };
 
     return (
         <Table
@@ -126,41 +109,35 @@ const CommentTable: React.FC<CommentListProps> = ({
                             </div>
                         </TableCell>
                         <TableCell>
-                            {comment.postTitle ? (
-                                <div className="flex items-center gap-1">
-                                    <Chip size="sm" variant="flat" color="primary">Post</Chip>
-                                    <span className="text-sm truncate max-w-[150px]">{comment.postTitle}</span>
+                            {comment.postId ? (
+                                <div className="flex items-start gap-1 flex-col">
+                                    <ContentTypeChip type='post' />
+                                    <span className="text-sm truncate max-w-[320px]">{comment.postTitle}</span>
                                 </div>
                             ) : comment.answerId ? (
                                 <div className="flex flex-col gap-1">
-                                    <div className="flex items-center gap-1">
-                                        <Chip size="sm" variant="flat" color="success">Answer</Chip>
-                                        <span className="text-sm truncate max-w-[150px]">ID: {comment.answerId}</span>
+                                    <div className="flex items-start gap-1 flex-col">
+                                        <ContentTypeChip type='answer' />
+                                        <span className="text-sm truncate max-w-[320px]">{comment.answerTitle}</span>
                                     </div>
-                                    {comment.questionTitle && (
-                                        <div className="flex items-center gap-1 mt-1">
-                                            <span className="text-xs text-default-500">Question:</span>
-                                            <span className="text-xs truncate max-w-[150px]">{comment.questionTitle}</span>
-                                        </div>
-                                    )}
                                 </div>
-                            ) : null}
+                            ) : (
+                                <div className="flex flex-col gap-1">
+                                    <div className="flex items-start gap-1 flex-col">
+                                        <ContentTypeChip type='comment' />
+                                        <span className="text-sm truncate max-w-[320px]">{comment.parentTitle}</span>
+                                    </div>
+                                </div>
+                            )}
                         </TableCell>
                         <TableCell>
-                            <Chip
-                                color={getStatusColor(comment.status)}
-                                variant="dot"
-                                size="sm"
-                            >
-                                {comment.status}
-                            </Chip>
+                            <StatusChip type='comment' status={comment.status} />
                         </TableCell>
                         <TableCell>{formatDate(comment.createdAt)}</TableCell>
                         <TableCell>
                             <CommentActions
                                 comment={comment}
-                                onApprove={onApproveComment}
-                                onReject={onRejectComment}
+                                onUpdateAnswerStatus={onUpdateAnswerStatus}
                                 onDelete={onDeleteComment}
                             />
                         </TableCell>

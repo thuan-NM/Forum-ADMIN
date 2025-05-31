@@ -27,7 +27,7 @@ const AnswerDetailPage: React.FC = () => {
     return (
         <div className="flex w-full justify-between">
             <div className='w-8/12 mr-6'> <AnswerItem answer={data} /></div>
-            <div className='w-4/12'> <CommentList /></div>
+            <div className='w-4/12'> <CommentList type='answer'/></div>
         </div>
     );
 };

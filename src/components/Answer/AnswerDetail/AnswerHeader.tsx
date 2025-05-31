@@ -17,8 +17,8 @@ interface AnswerHeaderProps {
 
 const AnswerHeader: React.FC<AnswerHeaderProps> = ({ answer }) => {
     const { data: user, isLoading, isError, error } = useQuery<User>({
-        queryKey: ["users", answer.id],
-        queryFn: () => GetUserById(answer.userId),
+        queryKey: ["users", answer.author.id],
+        queryFn: () => GetUserById(answer.author.id),
     });
     const date = new Date(answer?.createdAt).getTime();
 
