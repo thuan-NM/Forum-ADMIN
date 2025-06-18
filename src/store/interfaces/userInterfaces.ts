@@ -3,11 +3,11 @@ export interface User {
     username: string;
     email: string;
     password?: string;
-    firstName?: string;
-    lastName?: string;
+    fullName: string;
     bio?: string;
     avatar?: string;
-    role: 'admin' | 'moderator' | 'user';
+    location?: string;
+    role: 'root' | 'admin' | 'employee' | 'user';
     status: 'active' | 'inactive' | 'banned';
     emailVerified: boolean;
     lastLogin?: Date;
@@ -21,19 +21,17 @@ export interface UserCreateDto {
     username: string;
     email: string;
     password: string;
-    firstName?: string;
-    lastName?: string;
-    role?: 'admin' | 'moderator' | 'user';
+    fullName?: string;
+    role?: 'root' | 'admin' | 'employee' | 'user';
 }
 
 export interface UserUpdateDto {
     username?: string;
     email?: string;
-    firstName?: string;
-    lastName?: string;
+    fullName?: string;
     bio?: string;
     avatar?: string;
-    role?: 'admin' | 'moderator' | 'user';
+    role?: 'root' | 'admin' | 'employee' | 'user';
     status?: 'active' | 'inactive' | 'banned';
     emailVerified?: boolean;
 }
@@ -47,11 +45,12 @@ export interface UserResponse {
     id: string;
     username: string;
     email: string;
-    firstName?: string;
-    lastName?: string;
+    password?: string;
+    fullName: string;
     bio?: string;
     avatar?: string;
-    role: 'admin' | 'moderator' | 'user';
+    location?: string;
+    role: 'root' | 'admin' | 'employee' | 'user';
     status: 'active' | 'inactive' | 'banned';
     emailVerified: boolean;
     lastLogin?: Date;

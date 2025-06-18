@@ -3,11 +3,10 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagina
 import { Icon } from '@iconify/react';
 import type { AnswerResponse } from '../../store/interfaces/answerInterfaces';
 import AnswerActions from './AnswerActions';
-import { LoadingState, StatusChip } from '../Common';
+import { StatusChip } from '../Common';
 
 interface AnswerTableProps {
     answers: AnswerResponse[];
-    loading: boolean;
     page: number;
     totalPages: number;
     onPageChange: (page: number) => void;
@@ -17,7 +16,6 @@ interface AnswerTableProps {
 
 const AnswerTable: React.FC<AnswerTableProps> = ({
     answers,
-    loading,
     page,
     totalPages,
     onPageChange,
@@ -37,12 +35,6 @@ const AnswerTable: React.FC<AnswerTableProps> = ({
         if (text.length <= maxLength) return text;
         return text.substring(0, maxLength) + '...';
     };
-
-    if (loading) {
-        return (
-            <LoadingState />
-        );
-    }
 
     return (
         <Table
@@ -86,11 +78,11 @@ const AnswerTable: React.FC<AnswerTableProps> = ({
                         <TableCell>
                             <div className="flex items-center gap-2">
                                 <Avatar
-                                    name={answer.author.username}
+                                    name={answer.author.fullName}
                                     size="sm"
                                     src={answer.author.avatar}
                                 />
-                                <span>{answer.author.username}</span>
+                                <span>{answer.author.fullName}</span>
                             </div>
                         </TableCell>
                         <TableCell>

@@ -1,6 +1,6 @@
 import type { Comment } from "./commentInterfaces";
 import type { Question } from "./questionInterfaces";
-import type { User } from "./userInterfaces";
+import type { UserResponse } from "./userInterfaces";
 
 export interface AnswerResponse {
     id: string;
@@ -12,7 +12,7 @@ export interface AnswerResponse {
     comments: Comment[];
     createdAt: Date;
     updatedAt: Date;
-    author: User;
+    author: UserResponse;
     question: Question;
 }
 

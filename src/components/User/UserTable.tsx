@@ -1,22 +1,21 @@
 import React from 'react';
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Spinner, Chip } from '@heroui/react';
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination } from '@heroui/react';
 import UserActions from './UserActions';
-import type { User } from '../../store/interfaces/userInterfaces';
+import type { UserResponse } from '../../store/interfaces/userInterfaces';
+import { RoleChip, StatusChip } from '../Common';
 
-interface UserListProps {
-    users: User[];
-    loading: boolean;
+interface UserTabletProps {
+    users: UserResponse[];
     page: number;
     totalPages: number;
     onPageChange: (page: number) => void;
-    onEditUser?: (user: User) => void;
-    onBanUnbanUser?: (user: User) => void;
-    onDeleteUser?: (user: User) => void;
+    onEditUser?: (user: UserResponse) => void;
+    onBanUnbanUser?: (user: UserResponse) => void;
+    onDeleteUser?: (user: UserResponse) => void;
 }
 
-const UserList: React.FC<UserListProps> = ({
+const UserTable: React.FC<UserTabletProps> = ({
     users,
-    loading,
     page,
     totalPages,
     onPageChange,
@@ -24,29 +23,7 @@ const UserList: React.FC<UserListProps> = ({
     onBanUnbanUser = () => { },
     onDeleteUser = () => { }
 }) => {
-    const getRoleColor = (role: string) => {
-        switch (role) {
-            case 'admin':
-                return 'danger';
-            case 'moderator':
-                return 'warning';
-            default:
-                return 'primary';
-        }
-    };
 
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'active':
-                return 'success';
-            case 'inactive':
-                return 'warning';
-            case 'banned':
-                return 'danger';
-            default:
-                return 'default';
-        }
-    };
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('en-US', {
@@ -56,13 +33,6 @@ const UserList: React.FC<UserListProps> = ({
         });
     };
 
-    if (loading) {
-        return (
-            <div className="h-[400px] flex items-center justify-center">
-                <Spinner size="lg" color="primary" />
-            </div>
-        );
-    }
 
     return (
         <Table
@@ -89,6 +59,7 @@ const UserList: React.FC<UserListProps> = ({
             <TableHeader>
                 <TableColumn>USERNAME</TableColumn>
                 <TableColumn>EMAIL</TableColumn>
+                <TableColumn>FULLNAME</TableColumn>
                 <TableColumn>ROLE</TableColumn>
                 <TableColumn>STATUS</TableColumn>
                 <TableColumn>JOINED</TableColumn>
@@ -99,23 +70,12 @@ const UserList: React.FC<UserListProps> = ({
                     <TableRow key={user.id}>
                         <TableCell>{user.username}</TableCell>
                         <TableCell>{user.email}</TableCell>
+                        <TableCell>{user.fullName}</TableCell>
                         <TableCell>
-                            <Chip
-                                color={getRoleColor(user.role)}
-                                variant="flat"
-                                size="sm"
-                            >
-                                {user.role}
-                            </Chip>
+                            <RoleChip role={user.role} />
                         </TableCell>
                         <TableCell>
-                            <Chip
-                                color={getStatusColor(user.status)}
-                                variant="dot"
-                                size="sm"
-                            >
-                                {user.status}
-                            </Chip>
+                            <StatusChip type='user' status={user.status} />
                         </TableCell>
                         <TableCell>{formatDate(user.createdAt.toString())}</TableCell>
                         <TableCell>
@@ -133,4 +93,4 @@ const UserList: React.FC<UserListProps> = ({
     );
 };
 
-export default UserList;
+export default UserTable;

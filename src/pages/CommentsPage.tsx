@@ -56,7 +56,7 @@ const Comments: React.FC = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
     if (isError) {
-        return <ErrorState message={error instanceof Error ? error.message : "Failed to load answers"} />;
+        return <ErrorState message={error instanceof Error ? error.message : "Failed to load comments"} />;
     }
     console.log(data?.comments)
     return (
@@ -86,7 +86,6 @@ const Comments: React.FC = () => {
                         (<Card className="w-full p-4" radius="sm">
                             <CommentTable
                                 comments={data.comments}
-                                loading={isLoading}
                                 page={page}
                                 totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
                                 onPageChange={handlePageChange}

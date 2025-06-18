@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Spinner, Avatar } from '@heroui/react';
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Avatar } from '@heroui/react';
 import CommentActions from './CommentActions';
 import type { CommentResponse } from '../../store/interfaces/commentInterfaces';
 import { ContentTypeChip, StatusChip } from '../Common';
@@ -7,7 +7,6 @@ import { ContentTypeChip, StatusChip } from '../Common';
 
 interface CommentListProps {
     comments: CommentResponse[];
-    loading?: boolean;
     page?: number;
     totalPages: number | 0;
     onPageChange: (page: number) => void;
@@ -18,7 +17,6 @@ interface CommentListProps {
 
 const CommentTable: React.FC<CommentListProps> = ({
     comments,
-    loading = false,
     page = 1,
     totalPages,
     onPageChange = () => { },
@@ -43,7 +41,7 @@ const CommentTable: React.FC<CommentListProps> = ({
 
                             <div className="flex-1">
                                 <div className="flex justify-between items-center">
-                                    <span className="font-medium text-sm">{comment.author.username}</span>
+                                    <span className="font-medium text-sm">{comment.author.fullName}</span>
                                     <span className="text-xs text-default-500">{formatDate(comment.createdAt)}</span>
                                 </div>
                                 <p className="mt-1 text-sm text-default-700">{comment.content}</p>
@@ -51,14 +49,6 @@ const CommentTable: React.FC<CommentListProps> = ({
                         </div>
                     </div>
                 ))}
-            </div>
-        );
-    }
-
-    if (loading) {
-        return (
-            <div className="h-[400px] flex items-center justify-center">
-                <Spinner size="lg" color="primary" />
             </div>
         );
     }
@@ -102,10 +92,10 @@ const CommentTable: React.FC<CommentListProps> = ({
                             <div className="flex items-center gap-2">
                                 <Avatar
                                     src={comment.author.avatar}
-                                    name={comment.author.username}
+                                    name={comment.author.fullName}
                                     size="sm"
                                 />
-                                <span>{comment.author.username}</span>
+                                <span>{comment.author.fullName}</span>
                             </div>
                         </TableCell>
                         <TableCell>

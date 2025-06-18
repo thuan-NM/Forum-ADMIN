@@ -39,7 +39,7 @@ const CommentList: React.FC<CommentTypeProp> = ({ type }) => {
   return (
     <Card className='p-4' radius='sm'>
       <div className="flex justify-start items-center my-3">
-        <div className="font-semibold">Comments ({data?.comments.length}/{data?.total})</div>
+        <div className="font-semibold">Comments ({(data?.comments != null) && data.comments.length}/{data?.total})</div>
       </div>
       {data?.comments == null ? (<EmptyState title='No comment found' />) : (
         <>

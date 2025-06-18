@@ -1,3 +1,4 @@
+import type { UserResponse } from "./userInterfaces";
 
 export interface Comment {
     id: string;
@@ -32,11 +33,7 @@ export interface CommentUpdateDto {
 export interface CommentResponse {
     id: string;
     content: string;
-    author: {
-        id: string;
-        username: string;
-        avatar?: string;
-    };
+    author: UserResponse;
     postId?: string;
     answerId?: string;
     parentId?: string;

@@ -21,7 +21,6 @@ const AnswerHeader: React.FC<AnswerHeaderProps> = ({ answer }) => {
         queryFn: () => GetUserById(answer.author.id),
     });
     const date = new Date(answer?.createdAt).getTime();
-
     const { deleteAnswer, deleteError } = useDeleteAnswer();
 
     const { updateAnswerStatus, updateError } = useUpdateAnswerStatus();
@@ -64,7 +63,7 @@ const AnswerHeader: React.FC<AnswerHeaderProps> = ({ answer }) => {
                 />
                 <div className="flex flex-col !text-xs md:text-sm gap-y-1">
                     <div className="font-bold flex flex-wrap items-center gap-x-1">
-                        <div>{user?.username}</div>
+                        <div>{user?.fullName}</div>
                         < StatusChip type="answer" status={answer.status} />
                     </div>
                     <div className="opacity-90 text-xs flex flex-wrap !items-center gap-x-1">

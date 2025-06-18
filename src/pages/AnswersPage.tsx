@@ -84,7 +84,6 @@ const AnswersPage: React.FC = () => {
                         (<Card className="w-full p-4" radius="sm">
                             <AnswerTable
                                 answers={data.answers}
-                                loading={isLoading}
                                 page={page}
                                 totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
                                 onPageChange={handlePageChange}

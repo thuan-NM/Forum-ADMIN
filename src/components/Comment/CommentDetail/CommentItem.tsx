@@ -38,7 +38,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, level = 0 }) => {
             <div className="flex flex-col gap-y-1 pl-2 !text-xs md:text-sm w-11/12">
                 <div className="flex gap-x-1">
                     <div className="font-bold flex flex-wrap items-center gap-x-1">
-                        <div>{comment.author.username}</div>
+                        <div>{comment.author.fullName}</div>
                         <GoDotFill className="w-2 h-2 hidden sm:block" />
                     </div>
                     <div className="opacity-90 text-xs flex flex-wrap !items-center">

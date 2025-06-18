@@ -7,17 +7,17 @@ interface RoleChipProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
-const RoleChip: React.FC<RoleChipProps> = ({ 
-  role, 
+const RoleChip: React.FC<RoleChipProps> = ({
+  role,
   variant = 'flat',
   size = 'sm'
 }) => {
   const getRoleColor = () => {
     switch (role.toLowerCase()) {
       case 'admin': return 'danger';
-      case 'moderator': return 'warning';
+      case 'employee': return 'warning';
       case 'user': return 'primary';
-      default: return 'default';
+      default: return 'secondary';
     }
   };
 
