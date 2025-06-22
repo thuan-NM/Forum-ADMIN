@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../.idea"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../Forum_BE"
+		},
+		{
+			"path": "../Forum_FE"
+		}
+	]
+}

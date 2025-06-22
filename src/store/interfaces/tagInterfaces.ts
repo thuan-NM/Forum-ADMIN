@@ -1,33 +1,35 @@
 export interface Tag {
-    id: string;
-    name: string;
-    slug: string;
-    postsCount: number;
-    createdAt: Date;
-    updatedAt: Date;
+  id: string;
+  name: string;
+  description: string;
+  answerCount: number;
+  postsCount: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface TagCreateDto {
-    name: string;
+  name: string;
 }
 
 export interface TagUpdateDto {
-    name?: string;
+  name?: string;
 }
 
 export interface TagResponse {
-    id: string;
-    name: string;
-    slug: string;
-    postsCount: number;
-    createdAt: Date;
-    updatedAt: Date;
+  id: string;
+  name: string;
+  description: string;
+  answersCount: number;
+  postsCount: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface TagListResponse {
-    tags: TagResponse[];
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
+  tags: TagResponse[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
 }

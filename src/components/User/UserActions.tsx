@@ -13,10 +13,7 @@ import { useDeleteUser } from "../../hooks/users/useDeleteUser";
 
 interface UserActionsProps {
   user: User;
-  onView?: (user: User) => void;
   onEdit?: (user: User) => void;
-  onBanUnban?: (user: User) => void;
-  onDelete?: (user: User) => void;
 }
 
 const UserActions: React.FC<UserActionsProps> = ({

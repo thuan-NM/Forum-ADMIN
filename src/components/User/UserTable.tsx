@@ -20,8 +20,6 @@ const UserTable: React.FC<UserTabletProps> = ({
     totalPages,
     onPageChange,
     onEditUser = () => { },
-    onBanUnbanUser = () => { },
-    onDeleteUser = () => { }
 }) => {
 
 
@@ -82,8 +80,6 @@ const UserTable: React.FC<UserTabletProps> = ({
                             <UserActions
                                 user={user}
                                 onEdit={onEditUser}
-                                onBanUnban={onBanUnbanUser}
-                                onDelete={onDeleteUser}
                             />
                         </TableCell>
                     </TableRow>

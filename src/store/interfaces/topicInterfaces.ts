@@ -21,13 +21,7 @@ export interface TopicUpdateDto {
 export interface TopicResponse {
     id: string;
     name: string;
-    description?: string;
-    slug: string;
-    parent?: {
-        id: string;
-        name: string;
-        slug: string;
-    };
+    description: string;
     questionsCount: number;
     createdAt: Date;
     updatedAt: Date;

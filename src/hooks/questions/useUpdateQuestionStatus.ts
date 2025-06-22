@@ -1,21 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { UpdateQuestionStatus } from "../../services/QuestionServices";
 import toast from "react-hot-toast";
-import { UpdateUserStatus } from "../../services/UserServices";
+import capitalize from "../../utils/capitalize";
 
-export const useUpdateUserStatus = () => {
+export const useUpdateQuestionStatus = () => {
   const queryClient = useQueryClient();
 
   const updateMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) =>
-      UpdateUserStatus(id, status),
+      UpdateQuestionStatus(id, status),
     onSuccess: (data) => {
-      const status = data.data.status == "banned" ? "Banned" : "Unbanned";
-      toast.success(`${status} user successfully`);
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      toast.success(
+        `${capitalize(data.question.status)} question successfully`
+      );
+      queryClient.invalidateQueries({ queryKey: ["questions"] });
     },
     onError: (error: any) => {
       toast.error(
-        error?.response?.data?.error || "Failed to update user status"
+        error?.response?.data?.error || "Failed to update question status"
       );
     },
   });
@@ -25,7 +27,7 @@ export const useUpdateUserStatus = () => {
   };
 
   return {
-    UpdateUserStatus: handleUpdateStatus,
+    UpdateQuestionStatus: handleUpdateStatus,
     isUpdating: updateMutation.isPending,
     updateError: updateMutation.error,
   };

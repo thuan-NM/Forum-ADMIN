@@ -23,7 +23,6 @@ interface UserFormProps {
   onOpenChange: (isOpen: boolean) => void;
   mode: "create" | "edit";
   user: UserResponse;
-  onSubmit: (userData: UserCreateDto | UserUpdateDto) => void;
 }
 
 const UserForm: React.FC<UserFormProps> = ({
@@ -78,9 +77,9 @@ const UserForm: React.FC<UserFormProps> = ({
   });
   const handleSubmit = async () => {
     if (mode === "create") {
-      await CreateUser(formData);
+      CreateUser(formData);
     } else if (mode === "edit" && user) {
-      await UpdateUser(user.id, formData);
+      UpdateUser(user.id, formData);
     }
   };
 

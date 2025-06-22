@@ -1,86 +1,128 @@
-import React from 'react';
-import { Chip } from '@heroui/react';
+import React from "react";
+import { Chip } from "@heroui/react";
 
 interface StatusChipProps {
   status: string;
-  type?: 'user' | 'post' | 'comment' | 'question' | 'answer' | 'report';
-  variant?: 'flat' | 'solid' | 'bordered' | 'dot';
-  size?: 'sm' | 'md' | 'lg';
+  type?:
+    | "user"
+    | "post"
+    | "comment"
+    | "question"
+    | "answer"
+    | "report"
+    | "interaction_status";
+  variant?: "flat" | "solid" | "bordered" | "dot";
+  size?: "sm" | "md" | "lg";
 }
 
 const StatusChip: React.FC<StatusChipProps> = ({
   status,
-  type = 'post',
-  variant = 'dot',
-  size = 'sm'
+  type = "post",
+  variant = "dot",
+  size = "sm",
 }) => {
   const getStatusColor = () => {
-    if (type === 'user') {
+    if (type === "user") {
       switch (status.toLowerCase()) {
-        case 'active': return 'success';
-        case 'inactive': return 'warning';
-        case 'banned': return 'danger';
-        default: return 'default';
+        case "active":
+          return "success";
+        case "inactive":
+          return "warning";
+        case "banned":
+          return "danger";
+        default:
+          return "default";
       }
     }
 
-    if (type === 'post') {
+    if (type === "post") {
       switch (status.toLowerCase()) {
-        case 'published': return 'success';
-        case 'draft': return 'warning';
-        case 'archived': return 'default';
-        default: return 'default';
+        case "published":
+          return "success";
+        case "draft":
+          return "warning";
+        case "archived":
+          return "default";
+        default:
+          return "default";
       }
     }
 
-    if (type === 'comment') {
+    if (type === "comment") {
       switch (status.toLowerCase()) {
-        case 'approved': return 'success';
-        case 'pending': return 'warning';
-        case 'spam': return 'secondary';
-        case 'rejected': return 'danger';
-        default: return 'default';
+        case "approved":
+          return "success";
+        case "pending":
+          return "warning";
+        case "spam":
+          return "secondary";
+        case "rejected":
+          return "danger";
+        default:
+          return "default";
       }
     }
 
-    if (type === 'question') {
+    if (type === "interaction_status") {
       switch (status.toLowerCase()) {
-        case 'open': return 'primary';
-        case 'closed': return 'danger';
-        case 'solved': return 'success';
-        case 'duplicate': return 'warning';
-        default: return 'default';
+        case "opened":
+          return "primary";
+        case "closed":
+          return "danger";
+        case "solved":
+          return "success";
+        default:
+          return "default";
+      }
+    }
+    if (type === "question") {
+      switch (status.toLowerCase()) {
+        case "approved":
+          return "success";
+        case "pending":
+          return "warning";
+        case "rejected":
+          return "danger";
+        case "accepted":
+          return "secondary";
+        default:
+          return "default";
       }
     }
 
-    if (type === 'answer') {
+    if (type === "answer") {
       switch (status.toLowerCase()) {
-        case 'approved': return 'success';
-        case 'pending': return 'warning';
-        case 'rejected': return 'danger';
-        case 'accepted': return 'secondary'
-        default: return 'default';
+        case "approved":
+          return "success";
+        case "pending":
+          return "warning";
+        case "rejected":
+          return "danger";
+        case "accepted":
+          return "secondary";
+        default:
+          return "default";
       }
     }
 
-    if (type === 'report') {
+    if (type === "report") {
       switch (status.toLowerCase()) {
-        case 'pending': return 'warning';
-        case 'resolved': return 'success';
-        case 'dismissed': return 'default';
-        default: return 'default';
+        case "pending":
+          return "warning";
+        case "resolved":
+          return "success";
+        case "dismissed":
+          return "default";
+        default:
+          return "default";
       }
     }
 
-    return 'default';
+    return "default";
   };
 
   return (
-    <Chip
-      color={getStatusColor()}
-      variant={variant}
-      size={size}
-    >
+    <Chip color={getStatusColor()} variant={variant} size={size}>
       {status}
     </Chip>
   );

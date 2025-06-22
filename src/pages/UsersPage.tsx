@@ -2,12 +2,7 @@ import React from "react";
 import { Card } from "@heroui/react";
 
 import { useDisclosure } from "@heroui/react";
-import type {
-  User,
-  UserCreateDto,
-  UserResponse,
-  UserUpdateDto,
-} from "../store/interfaces/userInterfaces";
+import type { User, UserResponse } from "../store/interfaces/userInterfaces";
 import UserSearch from "../components/User/UserSearch";
 import UserForm from "../components/User/UserForm";
 import { useQuery } from "@tanstack/react-query";
@@ -53,23 +48,6 @@ const Users: React.FC = () => {
     onOpen();
   };
 
-  const handleBanUnbanUser = (user: User) => {
-    console.log(
-      `${user.status === "banned" ? "Unbanning" : "Banning"} user:`,
-      user
-    );
-  };
-
-  const handleDeleteUser = (user: User) => {
-    console.log("Deleting user:", user);
-  };
-
-  const handleSubmitUserForm = (userData: UserCreateDto | UserUpdateDto) => {
-    console.log(
-      `${formMode === "create" ? "Creating" : "Updating"} user:`,
-      userData
-    );
-  };
   if (isError) {
     return (
       <ErrorState
@@ -98,8 +76,6 @@ const Users: React.FC = () => {
               totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
               onPageChange={setPage}
               onEditUser={handleEditUser}
-              onBanUnbanUser={handleBanUnbanUser}
-              onDeleteUser={handleDeleteUser}
             />
           </Card>
         ) : (
@@ -113,7 +89,6 @@ const Users: React.FC = () => {
         onOpenChange={onOpenChange}
         mode={formMode}
         user={selectedUser}
-        onSubmit={handleSubmitUserForm}
       />
     </div>
   );
