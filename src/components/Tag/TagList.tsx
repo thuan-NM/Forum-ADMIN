@@ -67,7 +67,7 @@ const TagList: React.FC<TagListProps> = ({
       }}
       removeWrapper
     >
-      <TableHeader>
+      <TableHeader >
         <TableColumn>NAME</TableColumn>
         <TableColumn>DESCRIPTION</TableColumn>
         <TableColumn>POSTS</TableColumn>

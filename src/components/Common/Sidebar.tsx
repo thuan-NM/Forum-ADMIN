@@ -74,10 +74,6 @@ const Sidebar = () => {
                     <Icon icon="lucide:folder" />
                     <span>File Manager</span>
                 </NavLink>
-                <NavLink to="/themes" className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
-                    <Icon icon="lucide:palette" />
-                    <span>Themes</span>
-                </NavLink>
                 <NavLink to="/settings" className={({ isActive }) => `sidebar-item ${isActive ? 'active' : ''}`}>
                     <Icon icon="lucide:settings" />
                     <span>Settings</span>
