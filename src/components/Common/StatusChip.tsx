@@ -37,12 +37,12 @@ const StatusChip: React.FC<StatusChipProps> = ({
 
     if (type === "post") {
       switch (status.toLowerCase()) {
-        case "published":
+        case "approved":
           return "success";
-        case "draft":
+        case "pending":
           return "warning";
-        case "archived":
-          return "default";
+        case "rejected":
+          return "danger";
         default:
           return "default";
       }

@@ -8,6 +8,7 @@ import {
   TableCell,
   Pagination,
   Avatar,
+  Chip,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import type { AnswerResponse } from "../../store/interfaces/answerInterfaces";
@@ -71,6 +72,7 @@ const AnswerTable: React.FC<AnswerTableProps> = ({
         <TableColumn>AUTHOR</TableColumn>
         <TableColumn>QUESTION</TableColumn>
         <TableColumn>STATUS</TableColumn>
+        <TableColumn>TAGS</TableColumn>
         <TableColumn>STATS</TableColumn>
         <TableColumn>CREATED</TableColumn>
         <TableColumn>ACTIONS</TableColumn>
@@ -114,7 +116,30 @@ const AnswerTable: React.FC<AnswerTableProps> = ({
               )}
             </TableCell>
             <TableCell>
-              <div className="flex flex-col text-xs">
+              {answer.tags ? (
+                <div className="flex flex-row flex-wrap gap-1 max-w-[150px]">
+                  {answer?.tags.map((tag) => (
+                    <Chip size="sm" color="success" variant="flat">
+                      {tag.name}
+                    </Chip>
+                  ))}
+                </div>
+              ) : (
+                <Chip size="sm" color="danger" variant="flat">
+                  No tags attached
+                </Chip>
+              )}
+            </TableCell>
+            <TableCell>
+              <div className="flex flex-row gap-x-3 text-xs">
+                <div className="flex items-center gap-1">
+                  <Icon
+                    icon="lucide:thumbs-up"
+                    fontSize={14}
+                    className="text-default-400"
+                  />
+                  <span>{answer.comments?.length || 0}</span>
+                </div>
                 <div className="flex items-center gap-1">
                   <Icon
                     icon="lucide:message-square"

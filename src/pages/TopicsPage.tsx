@@ -14,10 +14,11 @@ const Topics: React.FC = () => {
   const [page, setPage] = React.useState<number>(1);
   const [searchQuery, setSearchQuery] = React.useState<string>("");
 
-  // Topic form modal state
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [formMode, setFormMode] = React.useState<"create" | "edit">("create");
-  const [selectedTopic, setSelectedTopic] = React.useState<TopicResponse>({} as TopicResponse);
+  const [selectedTopic, setSelectedTopic] = React.useState<TopicResponse>(
+    {} as TopicResponse
+  );
 
   const rowsPerPage = 10;
 
@@ -56,7 +57,10 @@ const Topics: React.FC = () => {
   if (isError) {
     return <ErrorState message={error.message || "Failed to load topics"} />;
   }
-
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4">
@@ -72,7 +76,7 @@ const Topics: React.FC = () => {
             loading={isLoading}
             page={page}
             totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
-            onPageChange={setPage}
+            onPageChange={handlePageChange}
             onEditTopic={handleEditTopic}
           />
         </Card>

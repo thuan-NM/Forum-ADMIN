@@ -1,5 +1,5 @@
-import type { User } from './userInterfaces';
-import type { Tag } from './tagInterfaces';
+import type { User, UserResponse } from './userInterfaces';
+import type { Tag, TagResponse } from './tagInterfaces';
 
 export interface Post {
     id: string;
@@ -38,22 +38,12 @@ export interface PostUpdateDto {
 
 export interface PostResponse {
     id: string;
-    title: string;
     content: string;
-    slug: string;
-    author: {
-        id: string;
-        username: string;
-        avatar?: string;
-    };
-    tags: {
-        id: string;
-        name: string;
-        slug: string;
-    }[];
-    status: 'published' | 'draft' | 'archived';
-    viewCount: number;
-    commentsCount: number;
+    author: UserResponse;
+    tags: TagResponse[];
+    status: 'approved' | 'pending' | 'rejected';
+    ReactionCount: number;
+    comments: Comment[];
     createdAt: Date;
     updatedAt: Date;
 }

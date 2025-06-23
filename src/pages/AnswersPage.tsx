@@ -6,8 +6,8 @@ import AnswerTable from "../components/Answer/AnswerTable";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllAnswers } from "../services/AnswerServices";
 import { EmptyState, ErrorState, LoadingState } from "../components/Common";
-import { useDeleteAnswer } from "../hooks/useDeleteAnswer";
-import { useUpdateAnswerStatus } from "../hooks/useUpdateAnswerStatus"
+import { useDeleteAnswer } from "../hooks/answers/useDeleteAnswer";
+import { useUpdateAnswerStatus } from "../hooks/answers/useUpdateAnswerStatus"
 
 const AnswersPage: React.FC = () => {
     const [page, setPage] = React.useState<number>(1);

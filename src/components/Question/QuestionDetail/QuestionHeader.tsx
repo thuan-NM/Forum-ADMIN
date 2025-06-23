@@ -1,10 +1,11 @@
 import React from "react";
-import { Chip, Button } from "@heroui/react";
+import { Chip, Button } from "@heroui/react"; // Loại bỏ Popover import vì dùng ConfirmableAction
 import { Icon } from "@iconify/react";
-import { DateFormatter, StatusChip } from "../../Common";
+import { DateFormatter } from "../../Common";
 import type { QuestionResponse } from "../../../store/interfaces/questionInterfaces";
 import { useDeleteQuestion } from "../../../hooks/questions/useDeleteQuestion";
 import { useNavigate } from "react-router-dom";
+import ConfirmableAction from "../../Common/PopoverConfirm"; // Import ConfirmableAction
 
 interface QuestionHeaderProps {
   question: QuestionResponse;
@@ -13,16 +14,25 @@ interface QuestionHeaderProps {
 const QuestionHeader: React.FC<QuestionHeaderProps> = ({ question }) => {
   const navigate = useNavigate();
   const { DeleteQuestion } = useDeleteQuestion();
+
   const handleDelete = () => {
     DeleteQuestion(question.id);
     navigate("/questions");
   };
+
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-start">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <StatusChip status={question.status} type="question" />
+            <Button
+              variant="bordered"
+              size="sm"
+              startContent={<Icon icon="weui:back-outlined" />}
+              onClick={() => navigate(-1)}
+            >
+              Back
+            </Button>
           </div>
           <h1 className="text-2xl font-bold">{question.title}</h1>
           <div className="flex items-center gap-2 mt-2 text-sm text-default-500">
@@ -31,17 +41,23 @@ const QuestionHeader: React.FC<QuestionHeaderProps> = ({ question }) => {
             <DateFormatter date={question.createdAt} format="medium" />
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button
-            size="sm"
-            variant="flat"
-            color="danger"
-            startContent={<Icon icon="lucide:trash" />}
-            onPress={handleDelete}
-          >
-            Delete
-          </Button>
-        </div>
+
+        <ConfirmableAction
+          trigger={
+            <Button
+              size="sm"
+              variant="bordered"
+              color="danger"
+              startContent={<Icon icon="lucide:trash" />}
+            >
+              Delete
+            </Button>
+          }
+          title="Are you sure you want to delete this question?"
+          confirmText="Confirm"
+          cancelText="Cancel"
+          onConfirm={handleDelete}
+        />
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -59,7 +75,7 @@ const QuestionHeader: React.FC<QuestionHeaderProps> = ({ question }) => {
           <Icon icon="lucide:message-circle" fontSize={16} />
           <span>{question.answersCount} answers</span>
         </div>
-        <div className=" flex items-center gap-1">
+        <div className="flex items-center gap-1">
           <Icon icon="lucide:bookmark" fontSize={16} />
           <span>{question.followsCount} follows</span>
         </div>

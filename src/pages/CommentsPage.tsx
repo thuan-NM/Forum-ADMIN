@@ -6,8 +6,8 @@ import type { CommentResponse } from '../store/interfaces/commentInterfaces';
 import { useQuery } from '@tanstack/react-query';
 import { EmptyState, ErrorState, LoadingState } from '../components/Common';
 import { getAllComments } from '../services/CommentServices';
-import { useUpdateCommentStatus } from '../hooks/useUpdateCommentStatus';
-import { useDeleteComment } from '../hooks/useDeleteComment';
+import { useUpdateCommentStatus } from '../hooks/comments/useUpdateCommentStatus';
+import { useDeleteComment } from '../hooks/comments/useDeleteComment';
 
 
 
