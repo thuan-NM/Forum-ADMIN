@@ -14,6 +14,8 @@ const PermissionsPage = lazy(() => import("../pages/PermissionsPage"));
 const TagsPage = lazy(() => import("../pages/TagsPage"));
 const QuestionsPage = lazy(() => import("../pages/QuestionsPage"));
 const AnswersPage = lazy(() => import("../pages/AnswersPage"));
+const FileManager = lazy(() => import("../pages/FileManager"));
+const Settings = lazy(() => import("../pages/SettingPage"));
 const ReportsPage = lazy(() => import("../pages/ReportsPage"));
 const NotificationsPage = lazy(() => import("../pages/NotificationsPage"));
 const AnalyticsPage = lazy(() => import("../pages/AnalyticsPage"));
@@ -56,6 +58,8 @@ const protectedRoutes = [
   { path: "reports", element: withPrivateRoute(<ReportsPage />) },
   { path: "notifications", element: withPrivateRoute(<NotificationsPage />) },
   { path: "analytics", element: withPrivateRoute(<AnalyticsPage />) },
+  { path: "file-manager", element: withPrivateRoute(<FileManager />) },
+  { path: "settings", element: withPrivateRoute(<Settings />) },
 ];
 
 const publicRoutes = [{ path: "auth", element: <AuthPage /> }];
