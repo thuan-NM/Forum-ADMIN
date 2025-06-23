@@ -41,9 +41,9 @@ const PostFilters: React.FC<PostFiltersProps> = ({
                     onChange={(e) => onStatusChange(e.target.value)}
                 >
                     <SelectItem key="all" textValue="All">All</SelectItem>
-                    <SelectItem key="published" textValue="Published">Published</SelectItem>
-                    <SelectItem key="draft" textValue="Draft">Draft</SelectItem>
-                    <SelectItem key="archived" textValue="Archived">Archived</SelectItem>
+                    <SelectItem key="approved" textValue="Approved">Approved</SelectItem>
+                    <SelectItem key="pending" textValue="Pending">Pending</SelectItem>
+                    <SelectItem key="rejected" textValue="Rejected">Rejected</SelectItem>
                 </Select>
 
                 <Select

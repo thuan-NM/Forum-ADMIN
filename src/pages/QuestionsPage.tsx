@@ -12,13 +12,16 @@ const QuestionsPage: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = React.useState<string>("");
   const [statusFilter, setStatusFilter] = React.useState<string>("all");
+  const [interstatusFilter, setInterstatusFilter] =
+    React.useState<string>("all");
   const [topicFilter, setTopicFilter] = React.useState<string>("");
 
   const rowsPerPage = 10;
   const filters = {
     ...(searchQuery && { search: searchQuery }),
     ...(statusFilter !== "all" && { status: statusFilter }),
-    ...(topicFilter && { topicFilter: topicFilter }),
+    ...(interstatusFilter !== "all" && { interstatus: interstatusFilter }),
+    ...(topicFilter && { topic_id: topicFilter }),
     page,
     limit: rowsPerPage,
   };
@@ -41,15 +44,26 @@ const QuestionsPage: React.FC = () => {
     setPage(1);
   };
 
+  const handleInterstatusFilter = (value: string) => {
+    setInterstatusFilter(value);
+    setPage(1);
+  };
+
   const handleTopicFilter = (value: string) => {
     setTopicFilter(value);
     setPage(1);
   };
-
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   if (isError) {
     return <ErrorState message={error.message || "Failed to load questions"} />;
   }
 
+  if (isLoading) {
+    return <LoadingState message={"Loading questions ..."} />;
+  }
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4">
@@ -57,9 +71,12 @@ const QuestionsPage: React.FC = () => {
           searchQuery={searchQuery}
           statusFilter={statusFilter}
           topicFilter={topicFilter}
+          interstatusFilter={interstatusFilter}
+          onInterstatusChange={handleInterstatusFilter}
           onSearchChange={handleSearch}
           onStatusChange={handleStatusFilter}
           onTopicChange={handleTopicFilter}
+          isGlobalLoading={isLoading}
         />
         {isLoading ? (
           <LoadingState message={"Loading questions ..."} />
@@ -69,8 +86,8 @@ const QuestionsPage: React.FC = () => {
               questions={data?.questions || []}
               loading={isLoading}
               page={page}
-              totalPages={Math.ceil((data.total || 0) / rowsPerPage)}
-              onPageChange={setPage}
+              totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
+              onPageChange={handlePageChange}
             />
           </Card>
         ) : (

@@ -14,54 +14,63 @@ const PermissionsPage = lazy(() => import("../pages/PermissionsPage"));
 const TagsPage = lazy(() => import("../pages/TagsPage"));
 const QuestionsPage = lazy(() => import("../pages/QuestionsPage"));
 const AnswersPage = lazy(() => import("../pages/AnswersPage"));
-const ReportsPage = lazy(() => import("../pages/ReportsPage"))
-const NotificationsPage = lazy(() => import("../pages/NotificationsPage"))
-const AnalyticsPage = lazy(() => import("../pages/AnalyticsPage"))
-const QuestionDetailPage = lazy(() => import("../pages/QuestionDetailPage"))
-const AnswerDetailPage = lazy(() => import("../pages/AnswerDetailPage"))
+const ReportsPage = lazy(() => import("../pages/ReportsPage"));
+const NotificationsPage = lazy(() => import("../pages/NotificationsPage"));
+const AnalyticsPage = lazy(() => import("../pages/AnalyticsPage"));
+const QuestionDetailPage = lazy(() => import("../pages/QuestionDetailPage"));
+const AnswerDetailPage = lazy(() => import("../pages/AnswerDetailPage"));
+const PostDetailPage = lazy(() => import("../pages/PostDetailPage"));
 
-const withPrivateRoute = (element: JSX.Element) => <PrivateRoute>{element}</PrivateRoute>;
+const withPrivateRoute = (element: JSX.Element) => (
+  <PrivateRoute>{element}</PrivateRoute>
+);
 
 const protectedRoutes = [
-    { index: true, element: withPrivateRoute(<Dashboard />) },
-    { path: "users", element: withPrivateRoute(<UsersPage />) },
-    { path: "posts", element: withPrivateRoute(<PostsPage />) },
-    { path: "comments", element: withPrivateRoute(<CommentsPage />) },
-    { path: "topics", element: withPrivateRoute(<TopicsPage />) },
-    { path: "permissions", element: withPrivateRoute(<PermissionsPage />) },
-    { path: "tags", element: withPrivateRoute(<TagsPage />) },
-    {
-        path: "questions",
-        children: [
-            { index: true, element: withPrivateRoute(<QuestionsPage />) },
-            { path: ":id", element: withPrivateRoute(<QuestionDetailPage />) }
-        ]
-    },
-    {
-        path: "answers",
-        children: [
-            { index: true, element: withPrivateRoute(<AnswersPage />) },
-            { path: ":id", element: withPrivateRoute(<AnswerDetailPage />) }
-        ]
-    },
-    { path: "reports", element: withPrivateRoute(<ReportsPage />) },
-    { path: "notifications", element: withPrivateRoute(<NotificationsPage />) },
-    { path: "analytics", element: withPrivateRoute(<AnalyticsPage />) },
+  { index: true, element: withPrivateRoute(<Dashboard />) },
+  { path: "users", element: withPrivateRoute(<UsersPage />) },
+  {
+    path: "posts",
+    children: [
+      { index: true, element: withPrivateRoute(<PostsPage />) },
+      { path: ":id", element: withPrivateRoute(<PostDetailPage />) },
+    ],
+  },
+  { path: "comments", element: withPrivateRoute(<CommentsPage />) },
+  { path: "topics", element: withPrivateRoute(<TopicsPage />) },
+  { path: "permissions", element: withPrivateRoute(<PermissionsPage />) },
+  { path: "tags", element: withPrivateRoute(<TagsPage />) },
+  {
+    path: "questions",
+    children: [
+      { index: true, element: withPrivateRoute(<QuestionsPage />) },
+      { path: ":id", element: withPrivateRoute(<QuestionDetailPage />) },
+    ],
+  },
+  {
+    path: "answers",
+    children: [
+      { index: true, element: withPrivateRoute(<AnswersPage />) },
+      { path: ":id", element: withPrivateRoute(<AnswerDetailPage />) },
+    ],
+  },
+  { path: "reports", element: withPrivateRoute(<ReportsPage />) },
+  { path: "notifications", element: withPrivateRoute(<NotificationsPage />) },
+  { path: "analytics", element: withPrivateRoute(<AnalyticsPage />) },
 ];
 
-const publicRoutes = [
-    { path: "auth", element: <AuthPage /> },
-]
+const publicRoutes = [{ path: "auth", element: <AuthPage /> }];
 const routes = [
-    {
-        path: "/",
-        element: <>
-            <ScrollToTop />
-            <MainLayout />
-        </>,
-        children: protectedRoutes,
-    },
-    ...publicRoutes,
+  {
+    path: "/",
+    element: (
+      <>
+        <ScrollToTop />
+        <MainLayout />
+      </>
+    ),
+    children: protectedRoutes,
+  },
+  ...publicRoutes,
 ];
 
 const router = createBrowserRouter(routes);

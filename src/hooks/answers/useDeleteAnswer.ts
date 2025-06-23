@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { DeleteAnswer } from "../services/AnswerServices";
+import { DeleteAnswer } from "../../services/AnswerServices";
 import toast from "react-hot-toast";
-import type { AnswerResponse } from "../store/interfaces/answerInterfaces";
+import type { AnswerResponse } from "../../store/interfaces/answerInterfaces";
 
 export const useDeleteAnswer = () => {
     const queryClient = useQueryClient();

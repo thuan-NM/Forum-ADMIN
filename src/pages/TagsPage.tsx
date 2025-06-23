@@ -49,6 +49,10 @@ const Tags: React.FC = () => {
   if (isError) {
     return <ErrorState message={error?.message || "Failed to load tags"} />;
   }
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="space-y-6">
@@ -64,8 +68,8 @@ const Tags: React.FC = () => {
             tags={data?.tags || []}
             loading={isLoading}
             page={page}
-            totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
-            onPageChange={setPage}
+            totalPages={Math.ceil((data?.tags.length || 0) / rowsPerPage)}
+            onPageChange={handlePageChange}
             onEditTag={handleEditTag}
           />
         </Card>

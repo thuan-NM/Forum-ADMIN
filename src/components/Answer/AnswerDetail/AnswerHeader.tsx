@@ -7,8 +7,8 @@ import { format } from "timeago.js";
 import { ErrorState, LoadingState, StatusChip } from "../../Common";
 import type { AnswerResponse } from "../../../store/interfaces/answerInterfaces";
 import AnswerActions from "../AnswerActions";
-import { useDeleteAnswer } from "../../../hooks/useDeleteAnswer";
-import { useUpdateAnswerStatus } from "../../../hooks/useUpdateAnswerStatus";
+import { useDeleteAnswer } from "../../../hooks/answers/useDeleteAnswer";
+import { useUpdateAnswerStatus } from "../../../hooks/answers/useUpdateAnswerStatus";
 
 interface AnswerHeaderProps {
     answer: AnswerResponse;
