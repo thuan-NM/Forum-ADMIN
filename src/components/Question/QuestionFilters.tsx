@@ -49,6 +49,7 @@ const QuestionFilters: React.FC<QuestionFiltersProps> = ({
             className="w-full sm:w-64 bg-content1 rounded-lg"
             variant="bordered"
             radius="sm"
+            isClearable
           />
 
           <Select

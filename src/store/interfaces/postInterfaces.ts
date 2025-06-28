@@ -38,6 +38,7 @@ export interface PostUpdateDto {
 
 export interface PostResponse {
     id: string;
+    title:string
     content: string;
     author: UserResponse;
     tags: TagResponse[];
