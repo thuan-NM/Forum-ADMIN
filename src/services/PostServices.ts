@@ -33,7 +33,7 @@ const ListPosts = async (
   }
 };
 const GetAllPosts = async (filters: any) => {
-  const response = await axios.get("/posts/", { params: filters });
+  const response = await axios.get("/posts/all", { params: filters });
   return response.data;
 };
 

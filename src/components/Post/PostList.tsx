@@ -29,18 +29,6 @@ const PostList: React.FC<PostListProps> = ({
   totalPages,
   onPageChange,
 }) => {
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "published":
-        return "success";
-      case "draft":
-        return "warning";
-      case "archived":
-        return "default";
-      default:
-        return "default";
-    }
-  };
 
   const formatDate = (dateString: Date) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -92,7 +80,7 @@ const PostList: React.FC<PostListProps> = ({
       <TableBody emptyContent={"No posts found"}>
         {posts.map((post) => (
           <TableRow key={post.id}>
-            <TableCell className="max-w-xs truncate">{post.content}</TableCell>
+            <TableCell className="max-w-xs truncate">{post.title}</TableCell>
             <TableCell>{post.author.username}</TableCell>
             <TableCell>
               {post.tags ? (

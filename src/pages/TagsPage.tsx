@@ -68,7 +68,7 @@ const Tags: React.FC = () => {
             tags={data?.tags || []}
             loading={isLoading}
             page={page}
-            totalPages={Math.ceil((data?.tags.length || 0) / rowsPerPage)}
+            totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
             onPageChange={handlePageChange}
             onEditTag={handleEditTag}
           />
