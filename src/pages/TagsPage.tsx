@@ -29,7 +29,6 @@ const Tags: React.FC = () => {
     queryKey: ["tags", filters],
     queryFn: () => GetAllTags(filters),
   });
-
   const handleSearch = (value: string) => {
     setSearchQuery(value);
     setPage(1);
