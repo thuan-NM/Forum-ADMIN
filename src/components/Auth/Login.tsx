@@ -33,7 +33,7 @@ const Login = () => {
     }, [registeredEmail]);
 
     return (
-        <div className="container mx-auto w-1/2 px-6 border-l !border-content4">
+        <div className="container mx-auto w-1/2 px-6 border-none !border-content4">
             <p className="border-b mb-3 border-content4 pb-2 text-sm font-semibold">
                 Đăng nhập
             </p>
@@ -46,7 +46,7 @@ const Login = () => {
                     isRequired
                     labelPlacement="outside"
                     name="email"
-                    placeholder="Your email address"
+                    placeholder="Nhập email của bạn"
                     type="email"
                     variant="bordered"
                     value={credentials.email}
@@ -56,13 +56,13 @@ const Login = () => {
                 />
                 <Input
                     label={
-                        <span className="text-xs font-bold mb-0">Password</span>
+                        <span className="text-xs font-bold mb-0">Mật khẩu</span>
                     }
                     isRequired
                     autoComplete=""
                     labelPlacement="outside"
                     name="password"
-                    placeholder="Your password"
+                    placeholder="Nhập mật khẩu của bạn"
                     type="password"
                     variant="bordered"
                     value={credentials.password}
@@ -85,7 +85,7 @@ const Login = () => {
                         radius="full"
                         isLoading={isPending}
                     >
-                        Login
+                        Đăng nhập
                     </Button>
                 </div>
             </Form>

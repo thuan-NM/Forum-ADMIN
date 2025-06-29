@@ -29,19 +29,19 @@ const CommentList: React.FC<CommentTypeProp> = ({ type }) => {
   };
 
   if (isLoading) {
-    return <LoadingState message={'Loading comments...'} />
+    return <LoadingState message={'Đang tải bình luận...'} />
   }
 
   if (isError) {
-    return <ErrorState message={error instanceof Error ? error.message : "Failed to load comments"} />;
+    return <ErrorState message={error instanceof Error ? error.message : "Không thể tải bình luận"} />;
   }
   console.log(data)
   return (
     <Card className='p-4' radius='sm'>
       <div className="flex justify-start items-center my-3">
-        <div className="font-semibold">Comments ({(data?.comments != null) && data.comments.length}/{data?.total})</div>
+        <div className="font-semibold">Bình luận ({(data?.comments != null) && data.comments.length}/{data?.total})</div>
       </div>
-      {data?.comments == null ? (<EmptyState title='No comment found' />) : (
+      {data?.comments == null ? (<EmptyState title='Không tìm thấy bình luận nào.' />) : (
         <>
           <motion.div
             initial="hidden"

@@ -9,7 +9,7 @@ interface MoreCommentProp {
 const MoreComment: React.FC<MoreCommentProp> = ({ limit, setLimit }) => {
   return (
     <Button className='w-full font-semibold' size='sm' variant='bordered' radius='full' onPress={() => setLimit(limit + 10)}>
-      View more 10 comments <FaChevronDown />
+      Xem thêm 10 bình luận <FaChevronDown />
     </Button>
   )
 }

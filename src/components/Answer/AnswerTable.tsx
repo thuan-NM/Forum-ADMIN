@@ -48,7 +48,7 @@ const AnswerTable: React.FC<AnswerTableProps> = ({
 
   return (
     <Table
-      aria-label="Answers table"
+      aria-label="Bảng câu trả lời"
       bottomContent={
         <div className="flex w-full justify-center">
           <Pagination
@@ -68,23 +68,23 @@ const AnswerTable: React.FC<AnswerTableProps> = ({
       removeWrapper
     >
       <TableHeader>
-        <TableColumn>CONTENT</TableColumn>
-        <TableColumn>AUTHOR</TableColumn>
-        <TableColumn>QUESTION</TableColumn>
-        <TableColumn>STATUS</TableColumn>
+        <TableColumn>Nội dung</TableColumn>
+        <TableColumn>Người đăng</TableColumn>
+        <TableColumn>Câu hỏi</TableColumn>
+        <TableColumn>Trạng thái</TableColumn>
         <TableColumn>TAGS</TableColumn>
         <TableColumn>STATS</TableColumn>
-        <TableColumn>CREATED</TableColumn>
-        <TableColumn>ACTIONS</TableColumn>
+        <TableColumn>Ngày tạo</TableColumn>
+        <TableColumn>Hành động</TableColumn>
       </TableHeader>
-      <TableBody emptyContent={"No answers found"}>
+      <TableBody emptyContent={"Không có câu trả lời nào"}>
         {answers.map((answer) => (
           <TableRow key={answer.id}>
             <TableCell className="!max-w-[200px] min-w-[200px]">
               <p className="truncate">{truncateHTML(answer.content)}</p>
               {answer.hasEditHistory && (
                 <span className="text-xs text-default-500 mt-1 inline-block">
-                  (edited)
+                  (đã chỉnh sửa)
                 </span>
               )}
             </TableCell>
@@ -126,7 +126,7 @@ const AnswerTable: React.FC<AnswerTableProps> = ({
                 </div>
               ) : (
                 <Chip size="sm" color="danger" variant="flat">
-                  No tags attached
+                  Không có tags
                 </Chip>
               )}
             </TableCell>

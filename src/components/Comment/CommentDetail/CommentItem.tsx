@@ -51,8 +51,8 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, level = 0 }) => {
                         <div className="mt-2">
                             {showReplies && (
                                 <div>
-                                    {isLoading && <LoadingState message="Loading replies..." />}
-                                    {isError && <ErrorState message="Failed to load replies" />}
+                                    {isLoading && <LoadingState message="Đang tải câu trả lời..." />}
+                                    {isError && <ErrorState message="Không thể tải câu trả lời" />}
                                     <div className="reply-comment my-2">
                                         {data?.replies.map((reply) => (
                                             <CommentItem key={reply.id} comment={reply} level={level + 1} />
@@ -70,11 +70,11 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, level = 0 }) => {
                                 {!showReplies ?
                                     <>
                                         <Icon icon={"lucide:message-circle-reply"} className='text-base' />
-                                        <p>Show replies</p>
+                                        <p>Hiển thị câu trả lời</p>
                                     </> :
                                     <>
                                         <Icon icon={"mdi:hide"} className='text-base'></Icon>
-                                        <p>Hide replies</p>
+                                        <p>Ẩn câu trả lời</p>
                                     </>
                                 }
                             </Button>

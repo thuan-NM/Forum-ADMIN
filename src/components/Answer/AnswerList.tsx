@@ -36,7 +36,7 @@ const AnswerList: React.FC<AnswerListProp> = ({ questionId }) => {
       setPage(1);
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Failed to delete answer");
+      toast.error(error?.response?.data?.message || "Không thể xóa câu trả lời");
     },
   });
 
@@ -64,11 +64,11 @@ const AnswerList: React.FC<AnswerListProp> = ({ questionId }) => {
   };
 
   if ((isLoading && page === 1) || data == null) {
-    return <LoadingState message="Loading answers..." />;
+    return <LoadingState message="Đang tải câu trả lời ..." />;
   }
 
   if (isError) {
-    return <ErrorState message={error?.message || "An error occurred"} />;
+    return <ErrorState message={error?.message || "Đã xảy ra lỗi"} />;
   }
 
   return (
@@ -86,7 +86,7 @@ const AnswerList: React.FC<AnswerListProp> = ({ questionId }) => {
             onPress={handleLoadMore}
             isLoading={isLoading}
           >
-            Load more
+            Tải thêm
           </Button>
         </div>
       )}

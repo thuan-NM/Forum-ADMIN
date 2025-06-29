@@ -67,7 +67,7 @@ const RegisterComponent = () => {
     return (
         <div className='px-3'>
             <Button size='sm' variant="flat" className='mr-2 bg-content2 w-full' onPress={onOpen}>
-                Sign up with email
+                Đăng ký bằng email
             </Button>
             <Modal
                 isOpen={isOpen}
@@ -89,7 +89,7 @@ const RegisterComponent = () => {
                                 <MdClear className='w-7 h-7 !text-neutral-300' />
                             </Button>
                             <ModalHeader className="flex flex-col gap-1 pt-1">
-                                <div className='text-xl'>Sign up</div>
+                                <div className='text-xl'>Đăng ký</div>
                             </ModalHeader>
                             <ModalBody className='pb-16 border-b border-content2'>
                                 <Form className="w-full flex flex-col gap-y-8" onSubmit={handleSubmit}>
@@ -101,7 +101,7 @@ const RegisterComponent = () => {
                                                 label={<span className='text-base font-semibold'>Username</span>}
                                                 labelPlacement="outside"
                                                 name="username"
-                                                placeholder="What would you like to be called?"
+                                                placeholder="Nhập username của bạn"
                                                 type="text"
                                                 maxLength={60}
                                                 minLength={10}
@@ -115,7 +115,7 @@ const RegisterComponent = () => {
                                                 label={<span className='text-base font-semibold'>Email</span>}
                                                 labelPlacement="outside"
                                                 name="email"
-                                                placeholder="Your email address"
+                                                placeholder="Nhập email của bạn"
                                                 type="email"
                                                 variant="bordered"
                                                 value={formData.email}
@@ -128,10 +128,10 @@ const RegisterComponent = () => {
                                             <Input
                                                 autoComplete=''
                                                 isRequired
-                                                label={<span className='text-base font-semibold'>Password</span>}
+                                                label={<span className='text-base font-semibold'>Mật khẩu</span>}
                                                 labelPlacement="outside"
                                                 name="password"
-                                                placeholder="Enter your password"
+                                                placeholder="Nhập mật khẩu của bạn"
                                                 type="password"
                                                 variant="bordered"
                                                 value={formData.password}
@@ -140,10 +140,10 @@ const RegisterComponent = () => {
                                             <Input
                                                 isRequired
                                                 autoComplete=''
-                                                label={<span className='text-base font-semibold'>Confirm Password</span>}
+                                                label={<span className='text-base font-semibold'>Xác nhận mật khẩu</span>}
                                                 labelPlacement="outside"
                                                 name="confirmpassword"
-                                                placeholder="Confirm your password"
+                                                placeholder="Xác nhận mật khẩu"
                                                 type="password"
                                                 variant="bordered"
                                                 value={formData.confirmpassword}
@@ -154,16 +154,16 @@ const RegisterComponent = () => {
                                     <div className='flex justify-end gap-3'>
                                         {activeStep > 0 && (
                                             <Button variant="ghost" onPress={() => setActiveStep(activeStep - 1)} radius='full'>
-                                                Back
+                                                Trở lại
                                             </Button>
                                         )}
                                         {activeStep === steps.length - 1 ? (
                                             <Button color="primary" type="submit" radius='full' isLoading={mutation.status === 'pending'}>
-                                                Submit
+                                                Đăng ký
                                             </Button>
                                         ) : (
                                             <Button color="primary" onPress={() => setActiveStep(activeStep + 1)} radius='full'>
-                                                Next
+                                                Tiếp theo
                                             </Button>
                                         )}
                                     </div>

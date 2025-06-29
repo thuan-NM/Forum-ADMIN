@@ -24,19 +24,19 @@ const AnswerActions: React.FC<AnswerActionsProps> = ({ answer, onUpdateStatus, o
         const items: MenuItem[] = [
             {
                 key: 'view-question',
-                label: 'View Question',
+                label: 'Xem câu hỏi',
                 icon: 'lucide:eye',
                 action: () => navigate(`/questions/${answer.question.id}`),
             },
             {
                 key: 'view-answer',
-                label: 'View Answer Detail',
+                label: 'Xem câu trả lời',
                 icon: 'lucide:eye',
                 action: () => navigate(`/answers/${answer.id}`),
             },
             {
                 key: 'delete',
-                label: 'Delete',
+                label: 'Xóa câu trả lời',
                 icon: 'lucide:trash',
                 color: 'danger',
                 action: () => onDelete(answer),
@@ -49,14 +49,14 @@ const AnswerActions: React.FC<AnswerActionsProps> = ({ answer, onUpdateStatus, o
                     ...items,
                     {
                         key: 'approve',
-                        label: 'Approve',
+                        label: 'Chấp nhận',
                         icon: 'mdi:tag-approve-outline',
                         color: 'success',
                         action: () => onUpdateStatus(answer.id, "approved"),
                     },
                     {
                         key: 'reject',
-                        label: 'Reject',
+                        label: 'Từ chối',
                         icon: 'lucide:rotate-ccw',
                         color: 'warning',
                         action: () => onUpdateStatus(answer.id, "rejected"),
@@ -74,7 +74,7 @@ const AnswerActions: React.FC<AnswerActionsProps> = ({ answer, onUpdateStatus, o
                     <Icon icon="lucide:more-vertical" className="text-default-500" />
                 </Button>
             </DropdownTrigger>
-            <DropdownMenu aria-label="Answer actions">
+            <DropdownMenu aria-label="Chọn hành động">
                 {getMenuItems().map((item) => (
                     <DropdownItem
                         key={item.key}

@@ -46,7 +46,7 @@ const CommentActions: React.FC<CommentActionsProps> = ({
                 startContent={<Icon icon="lucide:eye" />}
                 onPress={handleView}
             >
-                View {comment.postId ? 'Post' : 'Answer'}
+                Xem {comment.postId ? 'Post' : 'Answer'}
             </DropdownItem>
         ) : null,
         comment.status === 'pending' ? (
@@ -56,7 +56,7 @@ const CommentActions: React.FC<CommentActionsProps> = ({
                 color="success"
                 onPress={() => onUpdateAnswerStatus(comment.id, 'approved')}
             >
-                Approve
+                Chấp nhận
             </DropdownItem>
         ) : null,
         <DropdownItem
@@ -65,7 +65,7 @@ const CommentActions: React.FC<CommentActionsProps> = ({
             color="danger"
             onPress={handleDelete}
         >
-            Delete
+            Xóa
         </DropdownItem>,
     ].filter(Boolean);
 
@@ -83,16 +83,16 @@ const CommentActions: React.FC<CommentActionsProps> = ({
             </Dropdown>
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <ModalContent>
-                    <ModalHeader>Confirm Delete</ModalHeader>
+                    <ModalHeader>Xác nhận xóa</ModalHeader>
                     <ModalBody>
-                        <p>This comment has replies. Deleting it will also delete all associated replies. Are you sure you want to proceed?</p>
+                        <p>Bình luận này có các phản hồi. Xóa bình luận sẽ đồng thời xóa tất cả các phản hồi liên quan. Bạn có chắc chắn muốn tiếp tục không?</p>
                     </ModalBody>
                     <ModalFooter>
                         <Button variant="flat" onPress={() => setIsModalOpen(false)}>
-                            Cancel
+                            Hủy
                         </Button>
                         <Button color="danger" onPress={confirmDelete}>
-                            Delete
+                            Xóa
                         </Button>
                     </ModalFooter>
                 </ModalContent>

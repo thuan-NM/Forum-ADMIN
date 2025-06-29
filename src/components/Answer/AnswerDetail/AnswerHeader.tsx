@@ -43,10 +43,10 @@ const AnswerHeader: React.FC<AnswerHeaderProps> = ({ answer }) => {
                     deleteError
                         ? deleteError instanceof Error
                             ? deleteError.message
-                            : "Failed to delete answer"
+                            : "Không thể xóa câu trả lời"
                         : updateError instanceof Error
                             ? updateError.message
-                            : "Failed to update answer status"
+                            : "Không thể cập nhật trạng thái câu trả lời"
                 }
             />
         )

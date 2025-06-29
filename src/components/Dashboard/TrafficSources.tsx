@@ -16,7 +16,7 @@ const TrafficSources: React.FC<TrafficSourcesProps> = ({ sources }) => {
     return (
         <Card>
             <CardHeader className="pb-0">
-                <h3 className="text-lg font-semibold">Traffic Sources</h3>
+                <h3 className="text-lg font-semibold">Nguồn truy cập</h3>
             </CardHeader>
             <CardBody>
                 <div className="space-y-4">

@@ -55,7 +55,7 @@ const CommentTable: React.FC<CommentListProps> = ({
 
     return (
         <Table
-            aria-label="Comments table"
+            aria-label="Bảng bình luận"
             bottomContent={
                 <div className="flex w-full justify-center">
                     <Pagination
@@ -75,14 +75,14 @@ const CommentTable: React.FC<CommentListProps> = ({
             removeWrapper
         >
             <TableHeader>
-                <TableColumn>CONTENT</TableColumn>
-                <TableColumn>AUTHOR</TableColumn>
+                <TableColumn>Nội dung</TableColumn>
+                <TableColumn>Người đăng</TableColumn>
                 <TableColumn>ON</TableColumn>
-                <TableColumn>STATUS</TableColumn>
-                <TableColumn>CREATED</TableColumn>
-                <TableColumn>ACTIONS</TableColumn>
+                <TableColumn>Trạng thái</TableColumn>
+                <TableColumn>Ngày tạo</TableColumn>
+                <TableColumn>Hành động</TableColumn>
             </TableHeader>
-            <TableBody emptyContent={"No comments found"}>
+            <TableBody emptyContent={"Không có bình luận nào"}>
                 {comments.map((comment: any) => (
                     <TableRow key={comment.id}>
                         <TableCell className="max-w-xs">

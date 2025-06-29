@@ -22,7 +22,7 @@ const CommentFilters: React.FC<CommentFiltersProps> = ({
     return (
         <div className="flex flex-col sm:flex-row gap-3 w-full">
             <Input
-                placeholder="Search comments..."
+                placeholder="Tìm kiếm bình luận..."
                 value={searchQuery}
                 onValueChange={onSearchChange}
                 startContent={<Icon icon="lucide:search" className="text-default-400" />}
@@ -33,32 +33,32 @@ const CommentFilters: React.FC<CommentFiltersProps> = ({
             />
 
             <Select
-                placeholder="Filter by status"
+                placeholder="Lọc trạng thái"
                 selectedKeys={[statusFilter]}
                 className="w-full sm:w-40 !bg-content1 rounded-lg"
                 radius='sm'
                 variant='bordered'
                 onChange={(e) => onStatusChange(e.target.value)}
             >
-                <SelectItem key="all" textValue="All">All</SelectItem>
-                <SelectItem key="approved" textValue="Approved">Approved</SelectItem>
-                <SelectItem key="pending" textValue="Pending">Pending</SelectItem>
+                <SelectItem key="all" textValue="All">Tất cả</SelectItem>
+                <SelectItem key="approved" textValue="Approved">Chấp nhận</SelectItem>
+                <SelectItem key="pending" textValue="Pending">Đang chờ</SelectItem>
                 <SelectItem key="spam" textValue="Spam">Spam</SelectItem>
-                <SelectItem key="rejected" textValue="Rejected">Rejected</SelectItem>
+                <SelectItem key="rejected" textValue="Rejected">Từ chối</SelectItem>
             </Select>
 
             <Select
-                placeholder="Filter by type"
+                placeholder="Lọc theo loại"
                 selectedKeys={[typeFilter]}
                 className="w-full sm:w-40 !bg-content1 rounded-lg"
                 radius='sm'
                 variant='bordered'
                 onChange={(e) => onTypeChange(e.target.value)}
             >
-                <SelectItem key="all" textValue="All">All</SelectItem>
-                <SelectItem key="post_id" textValue="Posts">Posts</SelectItem>
-                <SelectItem key="answer_id" textValue="Answers">Answers</SelectItem>
-                <SelectItem key="parent_id" textValue="Comments">Comments</SelectItem>
+                <SelectItem key="all" textValue="All">Tất cả</SelectItem>
+                <SelectItem key="post_id" textValue="Posts">Bài đăng</SelectItem>
+                <SelectItem key="answer_id" textValue="Answers">Câu trả lời</SelectItem>
+                <SelectItem key="parent_id" textValue="Comments">Bình luận</SelectItem>
             </Select>
         </div>
     );

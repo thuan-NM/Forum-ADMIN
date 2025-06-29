@@ -66,7 +66,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ activities }) => {
     return (
         <Card>
             <CardHeader className="pb-0">
-                <h3 className="text-lg font-semibold">Recent Activity</h3>
+                <h3 className="text-lg font-semibold">Hoạt động gần đây</h3>
             </CardHeader>
             <CardBody>
                 <div className="space-y-4">
