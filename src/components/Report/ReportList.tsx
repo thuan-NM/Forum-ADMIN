@@ -27,7 +27,7 @@ interface ReportListProps {
 
 const ReportList: React.FC<ReportListProps> = ({
   reports,
-  loading = false,
+  loading,
   page,
   totalPages,
   onPageChange,
