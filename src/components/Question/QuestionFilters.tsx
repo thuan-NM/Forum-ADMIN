@@ -4,7 +4,6 @@ import { Icon } from "@iconify/react";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllTopics } from "../../services";
 import type { TopicResponse } from "../../store/interfaces/topicInterfaces";
-import { ErrorState, LoadingState } from "../Common";
 
 interface QuestionFiltersProps {
   searchQuery: string;
@@ -34,7 +33,7 @@ const QuestionFilters: React.FC<QuestionFiltersProps> = ({
     total: number;
   }>({
     queryKey: ["topics"],
-    queryFn: () => GetAllTopics({}),
+    queryFn: () => GetAllTopics({ limit: 10000000 }),
   });
 
   return (
