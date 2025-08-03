@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import {
   Table,
   TableHeader,
@@ -8,6 +8,7 @@ import {
   TableCell,
   Pagination,
   Spinner,
+  type SortDescriptor,
 } from "@heroui/react";
 import TopicActions from "./TopicActions";
 import type { TopicResponse } from "../../store/interfaces/topicInterfaces";
@@ -37,6 +38,36 @@ const TopicList: React.FC<TopicListProps> = ({
     });
   };
 
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
+    {} as SortDescriptor
+  );
+
+  const sortedTopics = useMemo(() => {
+    if (!sortDescriptor.column) return topics;
+
+    return [...topics].sort((a, b) => {
+      let cmp = 0;
+
+      switch (sortDescriptor.column) {
+        case "name":
+          cmp = a.name.localeCompare(b.name);
+          break;
+        case "description":
+          cmp = a.description.localeCompare(b.description);
+          break;
+        case "questions":
+          cmp = a.questionsCount - b.questionsCount;
+          break;
+        case "created":
+          cmp =
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+          break;
+      }
+
+      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+    });
+  }, [topics, sortDescriptor]);
+
   if (loading) {
     return (
       <div className="h-[400px] flex items-center justify-center">
@@ -48,6 +79,8 @@ const TopicList: React.FC<TopicListProps> = ({
   return (
     <Table
       aria-label="Topics table"
+      sortDescriptor={sortDescriptor}
+      onSortChange={setSortDescriptor}
       bottomContent={
         <div className="flex w-full justify-center">
           <Pagination
@@ -67,14 +100,22 @@ const TopicList: React.FC<TopicListProps> = ({
       removeWrapper
     >
       <TableHeader>
-        <TableColumn>NAME</TableColumn>
-        <TableColumn>DESCRIPTION</TableColumn>
-        <TableColumn>QUESTIONS</TableColumn>
-        <TableColumn>CREATED</TableColumn>
-        <TableColumn>ACTIONS</TableColumn>
+        <TableColumn key="name" allowsSorting>
+          NAME
+        </TableColumn>
+        <TableColumn key="description" allowsSorting>
+          DESCRIPTION
+        </TableColumn>
+        <TableColumn key="questions" allowsSorting>
+          QUESTIONS
+        </TableColumn>
+        <TableColumn key="created" allowsSorting>
+          CREATED
+        </TableColumn>
+        <TableColumn key="actions">ACTIONS</TableColumn>
       </TableHeader>
       <TableBody emptyContent={"No topics found"}>
-        {topics.map((topic) => (
+        {sortedTopics.map((topic) => (
           <TableRow key={topic.id}>
             <TableCell className="font-medium">{topic.name}</TableCell>
             <TableCell className="max-w-xs truncate">
@@ -83,10 +124,7 @@ const TopicList: React.FC<TopicListProps> = ({
             <TableCell>{topic.questionsCount}</TableCell>
             <TableCell>{formatDate(topic.createdAt)}</TableCell>
             <TableCell>
-              <TopicActions
-                topic={topic}
-                onEdit={onEditTopic}
-              />
+              <TopicActions topic={topic} onEdit={onEditTopic} />
             </TableCell>
           </TableRow>
         ))}

@@ -43,7 +43,7 @@ export interface PostResponse {
     author: UserResponse;
     tags: TagResponse[];
     status: 'approved' | 'pending' | 'rejected';
-    ReactionCount: number;
+    reactionsCount: number;
     comments: Comment[];
     createdAt: Date;
     updatedAt: Date;

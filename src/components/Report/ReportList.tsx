@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import {
   Table,
   TableHeader,
@@ -8,6 +8,7 @@ import {
   TableCell,
   Pagination,
   Spinner,
+  type SortDescriptor,
 } from "@heroui/react";
 import ReportActions from "./ReportActions";
 import { ContentTypeChip, StatusChip, DateFormatter } from "../Common";
@@ -36,6 +37,40 @@ const ReportList: React.FC<ReportListProps> = ({
   onDelete,
   onView,
 }) => {
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({} as SortDescriptor);
+
+  const sortedReports = useMemo(() => {
+    if (!sortDescriptor.column) return reports;
+
+    return [...reports].sort((a, b) => {
+      let cmp = 0;
+
+      switch (sortDescriptor.column) {
+        case "reason":
+          cmp = a.reason.localeCompare(b.reason);
+          break;
+        case "contentType":
+          cmp = a.contentType.localeCompare(b.contentType);
+          break;
+        case "content":
+          cmp = a.contentPreview.localeCompare(b.contentPreview);
+          break;
+        case "reporter":
+          cmp = a.reporter.username.localeCompare(b.reporter.username);
+          break;
+        case "status":
+          cmp = a.status.localeCompare(b.status);
+          break;
+        case "reported":
+          cmp =
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+          break;
+      }
+
+      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+    });
+  }, [reports, sortDescriptor]);
+
   if (loading) {
     return (
       <div className="h-[400px] flex items-center justify-center">
@@ -47,6 +82,8 @@ const ReportList: React.FC<ReportListProps> = ({
   return (
     <Table
       aria-label="Reports table"
+      sortDescriptor={sortDescriptor}
+      onSortChange={setSortDescriptor}
       bottomContent={
         <div className="flex w-full justify-center">
           <Pagination
@@ -66,16 +103,28 @@ const ReportList: React.FC<ReportListProps> = ({
       removeWrapper
     >
       <TableHeader>
-        <TableColumn>REASON</TableColumn>
-        <TableColumn>CONTENT TYPE</TableColumn>
-        <TableColumn>CONTENT</TableColumn>
-        <TableColumn>REPORTER</TableColumn>
-        <TableColumn>STATUS</TableColumn>
-        <TableColumn>REPORTED</TableColumn>
-        <TableColumn>ACTIONS</TableColumn>
+        <TableColumn key="reason" allowsSorting>
+          REASON
+        </TableColumn>
+        <TableColumn key="contentType" allowsSorting>
+          CONTENT TYPE
+        </TableColumn>
+        <TableColumn key="content" allowsSorting>
+          CONTENT
+        </TableColumn>
+        <TableColumn key="reporter" allowsSorting>
+          REPORTER
+        </TableColumn>
+        <TableColumn key="status" allowsSorting>
+          STATUS
+        </TableColumn>
+        <TableColumn key="reported" allowsSorting>
+          REPORTED
+        </TableColumn>
+        <TableColumn key="actions">ACTIONS</TableColumn>
       </TableHeader>
       <TableBody emptyContent={"No reports found"}>
-        {reports.map((report) => (
+        {sortedReports.map((report) => (
           <TableRow key={report.id}>
             <TableCell>{report.reason}</TableCell>
             <TableCell>
