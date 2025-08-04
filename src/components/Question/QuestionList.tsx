@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Table,
   TableHeader,
@@ -9,6 +9,7 @@ import {
   Pagination,
   Spinner,
   Chip,
+  type SortDescriptor,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import QuestionActions from "./QuestionActions";
@@ -38,6 +39,45 @@ const QuestionList: React.FC<QuestionListProps> = ({
     });
   };
 
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
+    {} as SortDescriptor
+  );
+
+  const sortedQuestions = useMemo(() => {
+    if (!sortDescriptor.column) return questions;
+
+    return [...questions].sort((a, b) => {
+      let cmp = 0;
+
+      switch (sortDescriptor.column) {
+        case "title":
+          cmp = a.title.localeCompare(b.title);
+          break;
+        case "author":
+          cmp = a.author.fullName.localeCompare(b.author.fullName);
+          break;
+        case "topic":
+          cmp = a.topic.name.localeCompare(b.topic.name);
+          break;
+        case "status":
+          cmp = a.status.localeCompare(b.status);
+          break;
+        case "question_state":
+          cmp = a.interactionStatus.localeCompare(b.interactionStatus);
+          break;
+        case "stats":
+          cmp = a.answersCount - b.answersCount;
+          break;
+        case "created":
+          cmp =
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+          break;
+      }
+
+      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+    });
+  }, [questions, sortDescriptor]);
+
   if (loading) {
     return (
       <div className="h-[400px] flex items-center justify-center">
@@ -49,6 +89,8 @@ const QuestionList: React.FC<QuestionListProps> = ({
   return (
     <Table
       aria-label="Questions table"
+      sortDescriptor={sortDescriptor}
+      onSortChange={setSortDescriptor}
       bottomContent={
         <div className="flex w-full justify-center">
           <Pagination
@@ -68,17 +110,31 @@ const QuestionList: React.FC<QuestionListProps> = ({
       removeWrapper
     >
       <TableHeader>
-        <TableColumn>TITLE</TableColumn>
-        <TableColumn>AUTHOR</TableColumn>
-        <TableColumn>TOPIC</TableColumn>
-        <TableColumn>STATUS</TableColumn>
-        <TableColumn>QUESTION STATE</TableColumn>
-        <TableColumn>STATS</TableColumn>
-        <TableColumn>CREATED</TableColumn>
-        <TableColumn>ACTIONS</TableColumn>
+        <TableColumn key="title" allowsSorting>
+          TITLE
+        </TableColumn>
+        <TableColumn key="author" allowsSorting>
+          AUTHOR
+        </TableColumn>
+        <TableColumn key="topic" allowsSorting>
+          TOPIC
+        </TableColumn>
+        <TableColumn key="status" allowsSorting>
+          STATUS
+        </TableColumn>
+        <TableColumn key="question_state" allowsSorting>
+          QUESTION STATE
+        </TableColumn>
+        <TableColumn key="stats" allowsSorting>
+          STATS
+        </TableColumn>
+        <TableColumn key="created" allowsSorting>
+          CREATED
+        </TableColumn>
+        <TableColumn key="actions">ACTIONS</TableColumn>
       </TableHeader>
       <TableBody emptyContent={"No questions found"}>
-        {questions.map((question) => (
+        {sortedQuestions.map((question) => (
           <TableRow key={question.id}>
             <TableCell>
               <p className="font-medium truncate max-w-xs">{question.title}</p>
@@ -102,14 +158,6 @@ const QuestionList: React.FC<QuestionListProps> = ({
               <div className="flex flex-row gap-x-3 text-xs">
                 <div className="flex items-center gap-1">
                   <Icon
-                    icon="lucide:thumbs-up"
-                    fontSize={14}
-                    className="text-default-400"
-                  />
-                  <span>{question.reactionsCount}</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Icon
                     icon="lucide:message-square"
                     fontSize={14}
                     className="text-default-400"
@@ -128,9 +176,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
             </TableCell>
             <TableCell>{formatDate(question.createdAt)}</TableCell>
             <TableCell>
-              <QuestionActions
-                question={question}
-              />
+              <QuestionActions question={question} />
             </TableCell>
           </TableRow>
         ))}

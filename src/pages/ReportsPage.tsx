@@ -72,7 +72,10 @@ const Reports: React.FC = () => {
     setIsDetailModalOpen(false);
     setSelectedReport({} as ReportResponse);
   };
-
+const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   if (isError) {
     return <ErrorState message={error.message || "Failed to get reports"} />;
   }
@@ -94,7 +97,7 @@ const Reports: React.FC = () => {
               loading={isLoading}
               page={page}
               totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
-              onPageChange={setPage}
+              onPageChange={handlePageChange}
               onResolve={handleResolveReport}
               onDismiss={handleDismissReport}
               onDelete={handleDeleteReport}

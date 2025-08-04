@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import {
   Table,
   TableHeader,
@@ -9,6 +9,7 @@ import {
   Pagination,
   Spinner,
   Chip,
+  type SortDescriptor,
 } from "@heroui/react";
 import TagActions from "./TagActions";
 import type { TagResponse } from "../../store/interfaces/tagInterfaces";
@@ -38,6 +39,37 @@ const TagList: React.FC<TagListProps> = ({
     });
   };
 
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({} as SortDescriptor);
+
+  const sortedTags = useMemo(() => {
+    if (!sortDescriptor.column) return tags;
+
+    return [...tags].sort((a, b) => {
+      let cmp = 0;
+
+      switch (sortDescriptor.column) {
+        case "name":
+          cmp = a.name.localeCompare(b.name);
+          break;
+        case "description":
+          cmp = a.description.localeCompare(b.description);
+          break;
+        case "posts":
+          cmp = a.postsCount - b.postsCount;
+          break;
+        case "answers":
+          cmp = a.answersCount - b.answersCount;
+          break;
+        case "created":
+          cmp =
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+          break;
+      }
+
+      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+    });
+  }, [tags, sortDescriptor]);
+
   if (loading) {
     return (
       <div className="h-[400px] flex items-center justify-center">
@@ -49,6 +81,8 @@ const TagList: React.FC<TagListProps> = ({
   return (
     <Table
       aria-label="Tags table"
+      sortDescriptor={sortDescriptor}
+      onSortChange={setSortDescriptor}
       bottomContent={
         <div className="flex w-full justify-center">
           <Pagination
@@ -67,16 +101,26 @@ const TagList: React.FC<TagListProps> = ({
       }}
       removeWrapper
     >
-      <TableHeader >
-        <TableColumn>NAME</TableColumn>
-        <TableColumn>DESCRIPTION</TableColumn>
-        <TableColumn>POSTS</TableColumn>
-        <TableColumn>ANSWERS</TableColumn>
-        <TableColumn>CREATED</TableColumn>
-        <TableColumn>ACTIONS</TableColumn>
+      <TableHeader>
+        <TableColumn key="name" allowsSorting>
+          NAME
+        </TableColumn>
+        <TableColumn key="description" allowsSorting>
+          DESCRIPTION
+        </TableColumn>
+        <TableColumn key="posts" allowsSorting>
+          POSTS
+        </TableColumn>
+        <TableColumn key="answers" allowsSorting>
+          ANSWERS
+        </TableColumn>
+        <TableColumn key="created" allowsSorting>
+          CREATED
+        </TableColumn>
+        <TableColumn key="actions">ACTIONS</TableColumn>
       </TableHeader>
       <TableBody emptyContent={"No tags found"}>
-        {tags.map((tag) => (
+        {sortedTags.map((tag) => (
           <TableRow key={tag.id}>
             <TableCell>
               <Chip color="primary" variant="flat" size="sm">
