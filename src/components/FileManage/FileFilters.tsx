@@ -19,7 +19,6 @@ const FileFilters: React.FC<FileFiltersProps> = ({
   onSearchChange,
   onFileTypeChange,
   onViewChange,
-  onUpload,
 }) => {
   return (
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 flex-wrap">
@@ -31,10 +30,11 @@ const FileFilters: React.FC<FileFiltersProps> = ({
           startContent={
             <Icon icon="lucide:search" className="text-default-400" />
           }
-          className="w-full sm:w-64"
+          className="w-full sm:w-64  bg-content1 rounded-lg"
+          variant="bordered"
         />
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <Button
             variant={fileType === "all" ? "solid" : "flat"}
             color={fileType === "all" ? "primary" : "default"}
@@ -82,13 +82,6 @@ const FileFilters: React.FC<FileFiltersProps> = ({
           size="sm"
         >
           <Icon icon="lucide:list" />
-        </Button>
-        <Button
-          color="primary"
-          startContent={<Icon icon="lucide:upload" />}
-          onPress={onUpload}
-        >
-          Upload
         </Button>
       </div>
     </div>

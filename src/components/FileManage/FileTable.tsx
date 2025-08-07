@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import {
   Table,
   TableHeader,
@@ -13,35 +13,21 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
+  type SortDescriptor,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { FileSizeFormatter, DateFormatter } from "../Common";
-
-interface FileItem {
-  id: string;
-  name: string;
-  type: "image" | "document" | "video" | "audio" | "other";
-  size: number;
-  url: string;
-  thumbnailUrl?: string;
-  uploadedBy: string;
-  relatedTo?: {
-    type: "post" | "question" | "answer";
-    id: string;
-    title: string;
-  };
-  createdAt: string;
-}
+import type { AttachmentResponse } from "../../store/interfaces/attachmentInterfaces";
 
 interface FileTableProps {
-  files: FileItem[];
+  files: AttachmentResponse[];
   page: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  onView?: (file: FileItem) => void;
-  onDownload?: (file: FileItem) => void;
-  onCopyLink?: (file: FileItem) => void;
-  onDelete?: (file: FileItem) => void;
+  onView?: (file: AttachmentResponse) => void;
+  onDownload?: (file: AttachmentResponse) => void;
+  onCopyLink?: (file: AttachmentResponse) => void;
+  onDelete?: (file: AttachmentResponse) => void;
 }
 
 const FileTable: React.FC<FileTableProps> = ({
@@ -54,6 +40,34 @@ const FileTable: React.FC<FileTableProps> = ({
   onCopyLink,
   onDelete,
 }) => {
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
+    {} as SortDescriptor
+  );
+
+  const sortedFiles = useMemo(() => {
+    if (!sortDescriptor.column) return files;
+
+    return [...files].sort((a, b) => {
+      let cmp = 0;
+      switch (sortDescriptor.column) {
+        case "name":
+          cmp = a.file_name.localeCompare(b.file_name);
+          break;
+        case "type":
+          cmp = a.file_type.localeCompare(b.file_type);
+          break;
+        case "size":
+          cmp = a.file_size - b.file_size;
+          break;
+        case "date":
+          cmp =
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+          break;
+      }
+      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+    });
+  }, [files, sortDescriptor]);
+
   const getFileIcon = (type: string): string => {
     switch (type) {
       case "image":
@@ -69,24 +83,11 @@ const FileTable: React.FC<FileTableProps> = ({
     }
   };
 
-  const getFileTypeColor = (type: string): string => {
-    switch (type) {
-      case "image":
-        return "primary";
-      case "document":
-        return "success";
-      case "video":
-        return "danger";
-      case "audio":
-        return "warning";
-      default:
-        return "default";
-    }
-  };
-
   return (
     <Table
-      aria-label="Files table"
+      aria-label="Posts table"
+      sortDescriptor={sortDescriptor}
+      onSortChange={setSortDescriptor}
       bottomContent={
         <div className="flex w-full justify-center">
           <Pagination
@@ -103,74 +104,58 @@ const FileTable: React.FC<FileTableProps> = ({
       classNames={{
         wrapper: "min-h-[400px]",
       }}
+      className="p-4"
       removeWrapper
     >
       <TableHeader>
-        <TableColumn>NAME</TableColumn>
-        <TableColumn>TYPE</TableColumn>
-        <TableColumn>SIZE</TableColumn>
-        <TableColumn>RELATED TO</TableColumn>
+        <TableColumn key="name" allowsSorting>
+          NAME
+        </TableColumn>
+        <TableColumn key="type" allowsSorting>
+          TYPE
+        </TableColumn>
+        <TableColumn key="size" allowsSorting>
+          SIZE
+        </TableColumn>
         <TableColumn>UPLOADED BY</TableColumn>
-        <TableColumn>DATE</TableColumn>
+        <TableColumn key="date" allowsSorting>
+          DATE
+        </TableColumn>
         <TableColumn>ACTIONS</TableColumn>
       </TableHeader>
       <TableBody emptyContent={"No files found"}>
-        {files.map((file) => (
+        {sortedFiles.map((file) => (
           <TableRow key={file.id}>
             <TableCell>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 flex items-center justify-center bg-default-100 rounded-md">
-                  {file.type === "image" ? (
+                  {file.file_type === "image" ? (
                     <img
-                      src={file.thumbnailUrl}
-                      alt={file.name}
+                      src={file.thumbnail_url}
+                      alt={file.file_name}
                       className="w-full h-full object-cover rounded-md"
                     />
                   ) : (
                     <Icon
-                      icon={getFileIcon(file.type)}
+                      icon={getFileIcon(file.file_type)}
                       className="text-default-500"
                     />
                   )}
                 </div>
-                <span className="font-medium">{file.name}</span>
+                <span className="font-medium">{file.file_name}</span>
               </div>
             </TableCell>
             <TableCell>
               <Chip variant="flat" size="sm">
-                {file.type}
+                {file.file_type}
               </Chip>
             </TableCell>
             <TableCell>
-              <FileSizeFormatter bytes={file.size} />
+              <FileSizeFormatter bytes={file.file_size} />
             </TableCell>
+            <TableCell>{file.user.fullName}</TableCell>
             <TableCell>
-              {file.relatedTo ? (
-                <div className="flex items-center gap-1">
-                  <Chip
-                    size="sm"
-                    variant="flat"
-                    color={
-                      file.relatedTo.type === "post"
-                        ? "primary"
-                        : file.relatedTo.type === "question"
-                          ? "secondary"
-                          : "success"
-                    }
-                  >
-                    {file.relatedTo.type}
-                  </Chip>
-                  <span className="text-xs truncate max-w-[100px]">
-                    {file.relatedTo.title}
-                  </span>
-                </div>
-              ) : (
-                <span className="text-default-400 text-xs">—</span>
-              )}
-            </TableCell>
-            <TableCell>{file.uploadedBy}</TableCell>
-            <TableCell>
-              <DateFormatter date={file.createdAt} format="medium" />
+              <DateFormatter date={file.created_at} format="medium" />
             </TableCell>
             <TableCell>
               <div className="flex gap-2">
