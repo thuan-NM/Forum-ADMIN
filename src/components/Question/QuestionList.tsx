@@ -137,7 +137,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
         {sortedQuestions.map((question) => (
           <TableRow key={question.id}>
             <TableCell>
-              <p className="font-medium truncate max-w-xs">{question.title}</p>
+              <p className="font-medium truncate max-w-[200px]">{question.title}</p>
             </TableCell>
             <TableCell>{question.author.fullName}</TableCell>
             <TableCell>

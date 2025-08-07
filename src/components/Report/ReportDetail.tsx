@@ -6,6 +6,7 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
+  Chip,
 } from "@heroui/react";
 import { ContentTypeChip, StatusChip, DateFormatter } from "../Common";
 import type { ReportResponse } from "../../store/interfaces/reportInterfaces";
@@ -36,7 +37,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({
               Report Details
             </DrawerHeader>
             <DrawerBody>
-              <div className="space-y-4">
+              <div className="space-y-4 px-2">
                 <div>
                   <h3 className="text-sm font-medium text-default-500">
                     Reason
@@ -49,6 +50,12 @@ const ReportDetail: React.FC<ReportDetailProps> = ({
                       Content Type
                     </h3>
                     <ContentTypeChip type={report.contentType} />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-default-500">
+                      Content ID
+                    </h3>
+                    <Chip className="" size="sm">{report.contentId}</Chip>
                   </div>
                   <div>
                     <h3 className="text-sm font-medium text-default-500">
