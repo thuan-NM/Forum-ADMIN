@@ -61,7 +61,10 @@ const PostActions: React.FC<PostActionsProps> = ({ post }) => {
           key="delete"
           startContent={<Icon icon="lucide:trash" />}
           color="danger"
-          onPress={() => DeletePost(post.id)}
+          onPress={() => {
+            DeletePost(post.id);
+            navigate("/posts");
+          }}
         >
           Delete
         </DropdownItem>
