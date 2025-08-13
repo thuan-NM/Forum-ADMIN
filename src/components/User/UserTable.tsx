@@ -100,24 +100,24 @@ const UserTable: React.FC<UserTableProps> = ({
     >
       <TableHeader>
         <TableColumn key="username" allowsSorting>
-          USERNAME
+          TÊN ĐĂNG NHẬP
         </TableColumn>
         <TableColumn key="email" allowsSorting>
           EMAIL
         </TableColumn>
         <TableColumn key="fullname" allowsSorting>
-          FULLNAME
+          HỌ VÀ TÊN
         </TableColumn>
         <TableColumn key="role" allowsSorting>
-          ROLE
+          VAI TRÒ
         </TableColumn>
         <TableColumn key="status" allowsSorting>
-          STATUS
+          TRẠNG THÁI
         </TableColumn>
         <TableColumn key="joined" allowsSorting>
-          JOINED
+          NGÀY THAM GIA
         </TableColumn>
-        <TableColumn key="actions">ACTIONS</TableColumn>
+        <TableColumn key="actions">HÀNH ĐỘNG</TableColumn>
       </TableHeader>
       <TableBody emptyContent={"No users found"}>
         {sortedUsers.map((user) => (

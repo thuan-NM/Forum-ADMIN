@@ -1,27 +1,30 @@
-import { Card } from '@heroui/react';
-import React, { useState } from 'react';
-import CommentItem from './CommentItem';
-import MoreComment from './MoreComment';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
-import type { CommentResponse } from '../../../store/interfaces/commentInterfaces';
-import { ListComments } from '../../../services/CommentServices';
-import { useParams } from 'react-router-dom';
-import { EmptyState, ErrorState, LoadingState } from '../../Common';
+import { Card } from "@heroui/react";
+import React, { useState } from "react";
+import CommentItem from "./CommentItem";
+import MoreComment from "./MoreComment";
+import { motion, AnimatePresence } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import type { CommentResponse } from "../../../store/interfaces/commentInterfaces";
+import { ListComments } from "../../../services/CommentServices";
+import { useParams } from "react-router-dom";
+import { EmptyState, ErrorState, LoadingState } from "../../Common";
 interface CommentTypeProp {
-  type: string
+  type: string;
 }
 const CommentList: React.FC<CommentTypeProp> = ({ type }) => {
-  const { id } = useParams()
-  const [limit, setLimit] = useState<number>(10)
-  const query = type == "answer" ? { "answer_id": id, 'limit': limit } : { "post_id": id, 'limit': limit }
+  const { id } = useParams();
+  const [limit, setLimit] = useState<number>(10);
+  const query =
+    type == "answer"
+      ? { answer_id: id, limit: limit }
+      : { post_id: id, limit: limit };
   const { data, isLoading, isError, error } = useQuery<{
-    comments: CommentResponse[],
-    total: number,
+    comments: CommentResponse[];
+    total: number;
   }>({
     queryKey: ["comments", limit],
-    queryFn: () => ListComments(query)
-  })
+    queryFn: () => ListComments(query),
+  });
 
   const commentVariants = {
     hidden: { opacity: 0, y: 10 },
@@ -29,19 +32,30 @@ const CommentList: React.FC<CommentTypeProp> = ({ type }) => {
   };
 
   if (isLoading) {
-    return <LoadingState message={'Loading comments...'} />
+    return <LoadingState message={"Đang tải bình luận..."} />;
   }
 
   if (isError) {
-    return <ErrorState message={error instanceof Error ? error.message : "Failed to load comments"} />;
+    return (
+      <ErrorState
+        message={
+          error instanceof Error ? error.message : "Tải bình luận thất bại"
+        }
+      />
+    );
   }
-  console.log(data)
+  console.log(data);
   return (
-    <Card className='p-4' radius='sm'>
+    <Card className="p-4" radius="sm">
       <div className="flex justify-start items-center my-3">
-        <div className="font-semibold">Comments ({(data?.comments != null) && data.comments.length}/{data?.total})</div>
+        <div className="font-semibold">
+          Bình luận ({data?.comments != null && data.comments.length}/
+          {data?.total})
+        </div>
       </div>
-      {data?.comments == null ? (<EmptyState title='No comment found' />) : (
+      {data?.comments == null ? (
+        <EmptyState title="Không có bình luận" />
+      ) : (
         <>
           <motion.div
             initial="hidden"
@@ -63,14 +77,16 @@ const CommentList: React.FC<CommentTypeProp> = ({ type }) => {
                   animate="visible"
                   exit="hidden"
                   transition={{ duration: 0.3 }}
-                  className='border-t border-content3 pb-4'
+                  className="border-t border-content3 pb-4"
                 >
                   <CommentItem comment={comment} />
                 </motion.div>
               ))}
             </AnimatePresence>
           </motion.div>
-          {data.comments.length < data.total && <MoreComment limit={limit} setLimit={setLimit} />}
+          {data.comments.length < data.total && (
+            <MoreComment limit={limit} setLimit={setLimit} />
+          )}
         </>
       )}
     </Card>

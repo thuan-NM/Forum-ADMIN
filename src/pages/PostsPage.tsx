@@ -63,14 +63,14 @@ const Posts: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4">
-        <PostFilters
+        {/* <PostFilters
           searchQuery={searchQuery}
           statusFilter={statusFilter}
           tagFilter={tagFilter}
           onSearchChange={handleSearch}
           onStatusChange={handleStatusChange}
           onTagChange={handleTagChange}
-        />
+        /> */}
 
         <Card className="w-full" radius="sm">
           <PostList

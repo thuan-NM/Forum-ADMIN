@@ -46,10 +46,10 @@ const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
           deleteError
             ? deleteError instanceof Error
               ? deleteError.message
-              : "Failed to delete post"
+              : "Xoá bài đăng thất bại"
             : updateError instanceof Error
-              ? updateError.message
-              : "Failed to update post status"
+            ? updateError.message
+            : "Cập nhật bài đăng thất bại"
         }
       />
     );
