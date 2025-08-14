@@ -33,7 +33,7 @@ const PostActions: React.FC<PostActionsProps> = ({ post }) => {
           startContent={<Icon icon="lucide:eye" />}
           onPress={() => navigate(`/posts/${post.id}`)}
         >
-          View
+          Xem
         </DropdownItem>
         {post.status === "pending" ? (
           <>
@@ -43,7 +43,7 @@ const PostActions: React.FC<PostActionsProps> = ({ post }) => {
               color="success"
               onPress={() => UpdatePostStatus(post.id, "approved")}
             >
-              Approve
+              Duyệt
             </DropdownItem>
 
             <DropdownItem
@@ -52,7 +52,7 @@ const PostActions: React.FC<PostActionsProps> = ({ post }) => {
               color="danger"
               onPress={() => UpdatePostStatus(post.id, "rejected")}
             >
-              Reject
+              Từ chối
             </DropdownItem>
           </>
         ) : null}
@@ -66,7 +66,7 @@ const PostActions: React.FC<PostActionsProps> = ({ post }) => {
             navigate("/posts");
           }}
         >
-          Delete
+          Xoá
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

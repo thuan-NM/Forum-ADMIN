@@ -52,7 +52,7 @@ const Users: React.FC = () => {
     return (
       <ErrorState
         message={
-          error instanceof Error ? error.message : "Failed to load users"
+          error instanceof Error ? error.message : "Tải người dùng thất bại"
         }
       />
     );
@@ -67,7 +67,7 @@ const Users: React.FC = () => {
           onAddUser={handleAddUser}
         />
         {isLoading ? (
-          <LoadingState message="Loading answers..." />
+          <LoadingState message="..." />
         ) : data?.users != null ? (
           <Card className="w-full" radius="sm">
             <UserTable
@@ -80,7 +80,7 @@ const Users: React.FC = () => {
           </Card>
         ) : (
           <Card className="w-full p-4" radius="sm">
-            <EmptyState title="No answer found" />
+            <EmptyState title="Không tìm thấy" />
           </Card>
         )}
       </div>

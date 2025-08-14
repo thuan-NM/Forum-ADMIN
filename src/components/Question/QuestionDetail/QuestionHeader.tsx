@@ -31,12 +31,12 @@ const QuestionHeader: React.FC<QuestionHeaderProps> = ({ question }) => {
               startContent={<Icon icon="weui:back-outlined" />}
               onClick={() => navigate(-1)}
             >
-              Back
+              Quay về
             </Button>
           </div>
           <h1 className="text-2xl font-bold">{question.title}</h1>
           <div className="flex items-center gap-2 mt-2 text-sm text-default-500">
-            <span>Asked by {question.author.username}</span>
+            <span>Được hỏi bởi {question.author.username}</span>
             <span>•</span>
             <DateFormatter date={question.createdAt} format="medium" />
           </div>
@@ -50,12 +50,12 @@ const QuestionHeader: React.FC<QuestionHeaderProps> = ({ question }) => {
               color="danger"
               startContent={<Icon icon="lucide:trash" />}
             >
-              Delete
+              Xoá
             </Button>
           }
-          title="Are you sure you want to delete this question?"
-          confirmText="Confirm"
-          cancelText="Cancel"
+          title="Bạn có chắc là muốn xoá câu hỏi này?"
+          confirmText="Xác nhận"
+          cancelText="Huỷ bỏ"
           onConfirm={handleDelete}
         />
       </div>
@@ -69,15 +69,15 @@ const QuestionHeader: React.FC<QuestionHeaderProps> = ({ question }) => {
       <div className="flex items-center gap-6 text-sm text-default-500">
         <div className="flex items-center gap-1">
           <Icon icon="lucide:thumbs-up" fontSize={16} />
-          <span>{question.reactionsCount} reactions</span>
+          <span>{question.reactionsCount || 0} lượng tương tác</span>
         </div>
         <div className="flex items-center gap-1">
           <Icon icon="lucide:message-circle" fontSize={16} />
-          <span>{question.answersCount} answers</span>
+          <span>{question.answersCount || 0} câu trả lời</span>
         </div>
         <div className="flex items-center gap-1">
           <Icon icon="lucide:bookmark" fontSize={16} />
-          <span>{question.followsCount} follows</span>
+          <span>{question.followsCount || 0} lượt theo dõi</span>
         </div>
       </div>
     </div>

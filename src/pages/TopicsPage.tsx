@@ -55,7 +55,7 @@ const Topics: React.FC = () => {
   };
 
   if (isError) {
-    return <ErrorState message={error.message || "Failed to load topics"} />;
+    return <ErrorState message={error.message || "Không thể tải chủ đề"} />;
   }
   const handlePageChange = (newPage: number) => {
     setPage(newPage);

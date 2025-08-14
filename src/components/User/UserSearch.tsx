@@ -16,7 +16,7 @@ const UserSearch: React.FC<UserSearchProps> = ({
   return (
     <div className="flex justify-between items-center gap-3 flex-wrap">
       <Input
-        placeholder="Search users..."
+        placeholder="Tìm kiếm người dùng..."
         value={searchQuery}
         onValueChange={onSearchChange}
         startContent={
@@ -33,7 +33,7 @@ const UserSearch: React.FC<UserSearchProps> = ({
         startContent={<Icon icon="lucide:plus" />}
         onPress={onAddUser}
       >
-        Add User
+        Thêm người dùng
       </Button>
     </div>
   );

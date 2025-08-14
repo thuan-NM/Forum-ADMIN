@@ -16,7 +16,7 @@ const TopicSearch: React.FC<TopicSearchProps> = ({
   return (
     <div className="flex justify-between items-center gap-3 flex-wrap">
       <Input
-        placeholder="Search topics..."
+        placeholder="Tìm kiếm chủ đề..."
         value={searchQuery}
         onValueChange={onSearchChange}
         startContent={<Icon icon="lucide:search" className="opacity-50" />}
@@ -31,7 +31,7 @@ const TopicSearch: React.FC<TopicSearchProps> = ({
         startContent={<Icon icon="lucide:plus" />}
         onPress={onAddTopic}
       >
-        Add Topic
+        Thêm chủ đề
       </Button>
     </div>
   );

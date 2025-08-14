@@ -16,7 +16,7 @@ const TagSearch: React.FC<TagSearchProps> = ({
   return (
     <div className="flex justify-between items-center gap-3 flex-wrap">
       <Input
-        placeholder="Search tags..."
+        placeholder="Tìm kiếm nhãn..."
         value={searchQuery}
         onValueChange={onSearchChange}
         startContent={
@@ -33,7 +33,7 @@ const TagSearch: React.FC<TagSearchProps> = ({
         startContent={<Icon icon="lucide:plus" />}
         onPress={onAddTag}
       >
-        Add Tag
+        Thêm nhãn
       </Button>
     </div>
   );

@@ -40,24 +40,25 @@ const Dashboard: React.FC = () => {
       switch (act.type) {
         case "user_created":
           type = "user";
-          title = "New user registered";
+          title = "Người dùng mới đăng ký";
           break;
         case "post_created":
           type = "post";
-          title = "New post created";
+          title = "Bài viết mới được tạo";
           break;
         case "comment_created":
           type = "comment";
-          title = "New comment";
+          title = "Bình luận mới";
           break;
         case "topic_created":
           type = "topic";
-          title = "New category added";
+          title = "Danh mục mới đã được thêm";
           break;
         default:
           type = "post";
-          title = "Unknown activity";
+          title = "Hoạt động không xác định";
       }
+
       return {
         id: `activity-${index + 1}`,
         type,
@@ -95,12 +96,13 @@ const Dashboard: React.FC = () => {
 
   // Traffic sources từ API
   const trafficSources = statsData?.traffic_sources || [];
+  console.log("Stat data:", statsData);
 
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatsCard
-          title="Total Users"
+          title="Số lượng người dùng "
           value={totalUsers.toLocaleString()}
           change={newUsersToday}
           icon="lucide:users"
@@ -109,7 +111,7 @@ const Dashboard: React.FC = () => {
         />
 
         <StatsCard
-          title="Total Posts"
+          title="Số lượng bài đăng"
           value={totalPosts.toLocaleString()}
           change={newPostsToday}
           icon="lucide:file-text"
@@ -118,7 +120,7 @@ const Dashboard: React.FC = () => {
         />
 
         <StatsCard
-          title="Topics"
+          title="Chủ đề"
           value={totalCategories.toString()}
           change={0}
           icon="lucide:tag"

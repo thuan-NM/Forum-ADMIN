@@ -58,20 +58,20 @@ const TagForm: React.FC<TagFormProps> = ({
         {(onClose) => (
           <>
             <ModalHeader>
-              {mode === "create" ? "Create Tag" : "Edit Tag"}
+              {mode === "create" ? "Thêm nhãn mới" : "Chỉnh sửa nhãn"}
             </ModalHeader>
             <ModalBody>
               <div className="space-y-4">
                 <Input
-                  label="Tag Name"
-                  placeholder="Enter tag name"
+                  label="Tên nhãn"
+                  placeholder="Nhập tên nhãn"
                   value={name}
                   onValueChange={setName}
                 />
 
                 <Input
-                  label="Description"
-                  placeholder="Enter tag description"
+                  label="Mô tả"
+                  placeholder="Nhập mô tả"
                   value={description}
                   onValueChange={(value) => {
                     setDescription(value);
@@ -81,10 +81,10 @@ const TagForm: React.FC<TagFormProps> = ({
             </ModalBody>
             <ModalFooter>
               <Button variant="flat" onPress={onClose}>
-                Cancel
+                Huỷ bỏ
               </Button>
               <Button color="primary" onPress={handleSubmit}>
-                {mode === "create" ? "Create" : "Save"}
+                {mode === "create" ? "Thêm" : "Lưu"}
               </Button>
             </ModalFooter>
           </>
