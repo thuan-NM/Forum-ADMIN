@@ -34,39 +34,41 @@ const ReportDetail: React.FC<ReportDetailProps> = ({
         {(onClose) => (
           <>
             <DrawerHeader className="flex flex-col gap-1">
-              Report Details
+              Chi tiết báo cáo
             </DrawerHeader>
             <DrawerBody>
               <div className="space-y-4 px-2">
                 <div>
                   <h3 className="text-sm font-medium text-default-500">
-                    Reason
+                    Lý do
                   </h3>
                   <p className="mt-1">{report.reason}</p>
                 </div>
                 <div className="flex justify-between">
                   <div>
                     <h3 className="text-sm font-medium text-default-500">
-                      Content Type
+                      Loại nội dung
                     </h3>
                     <ContentTypeChip type={report.contentType} />
                   </div>
                   <div>
                     <h3 className="text-sm font-medium text-default-500">
-                      Content ID
+                      ID Nội dung
                     </h3>
-                    <Chip className="" size="sm">{report.contentId}</Chip>
+                    <Chip className="" size="sm">
+                      {report.contentId}
+                    </Chip>
                   </div>
                   <div>
                     <h3 className="text-sm font-medium text-default-500">
-                      Status
+                      Trạng thái
                     </h3>
                     <StatusChip status={report.status} type="report" />
                   </div>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-default-500">
-                    Content Preview
+                    Nội dung xem trước
                   </h3>
                   <p className="mt-1 p-2 bg-default-100 rounded-md">
                     {report.contentPreview}
@@ -74,13 +76,13 @@ const ReportDetail: React.FC<ReportDetailProps> = ({
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-default-500">
-                    Reported By
+                    Người báo cáo
                   </h3>
                   <p className="mt-1">{report.reporter.username}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-default-500">
-                    Reported On
+                    Thời điểm báo cáo
                   </h3>
                   <DateFormatter date={report.createdAt} format="long" />
                 </div>
@@ -93,18 +95,18 @@ const ReportDetail: React.FC<ReportDetailProps> = ({
                     color="success"
                     onPress={() => onResolve && onResolve(report)}
                   >
-                    Mark Resolved
+                    Đánh dấu đã giải quyết
                   </Button>
                   <Button
                     color="warning"
                     onPress={() => onDismiss && onDismiss(report)}
                   >
-                    Dismiss
+                    Đánh dấu bỏ qua
                   </Button>
                 </>
               )}
               <Button color="danger" variant="bordered" onPress={onClose}>
-                Close
+                Đóng
               </Button>
             </DrawerFooter>
           </>

@@ -72,12 +72,12 @@ const Reports: React.FC = () => {
     setIsDetailModalOpen(false);
     setSelectedReport({} as ReportResponse);
   };
-const handlePageChange = (newPage: number) => {
+  const handlePageChange = (newPage: number) => {
     setPage(newPage);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   if (isError) {
-    return <ErrorState message={error.message || "Failed to get reports"} />;
+    return <ErrorState message={error.message || "Có lỗi khi tải báo cáo"} />;
   }
 
   return (
