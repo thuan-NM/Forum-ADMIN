@@ -37,11 +37,11 @@ const QuestionDetail: React.FC = () => {
   };
 
   if (isLoading || question === undefined) {
-    return <LoadingState message="Loading question..." />;
+    return <LoadingState message="Đang tải câu hỏi..." />;
   }
 
   if (isError) {
-    return <ErrorState message={error.message || "Failed to load question"} />;
+    return <ErrorState message={error.message || "Lỗi khi tải câu hỏi"} />;
   }
 
   return (
@@ -51,15 +51,15 @@ const QuestionDetail: React.FC = () => {
       <div className="flex items-center gap-2">
         <StatusChip status={question.status} type="question" />
         <span className="text-sm text-default-500">
-          Asked {formatDate(question.createdAt)}
+          Đăng vào lúc {formatDate(question.createdAt)}
         </span>
       </div>
 
       <div>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">
-            {question.answersCount}{" "}
-            {question.answersCount === 1 ? "Answer" : "Answers"}
+            {question.answersCount || 0}
+            {" câu trả lời"}
           </h2>
         </div>
 

@@ -46,7 +46,7 @@ const Tags: React.FC = () => {
   };
 
   if (isError) {
-    return <ErrorState message={error?.message || "Failed to load tags"} />;
+    return <ErrorState message={error?.message || "Tải nhãn thất bại"} />;
   }
   const handlePageChange = (newPage: number) => {
     setPage(newPage);

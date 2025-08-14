@@ -69,7 +69,7 @@ const PostFilters: React.FC<PostFiltersProps> = ({
         </Select>
 
         <Select
-          placeholder="Filter by tag"
+          placeholder="Lọc theo nhãn"
           selectedKeys={tagFilter ? [tagFilter] : []}
           className="w-full sm:w-40 bg-content1 rounded-lg"
           radius="sm"

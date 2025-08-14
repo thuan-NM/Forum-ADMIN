@@ -30,7 +30,7 @@ const TopicActions: React.FC<TopicActionsProps> = ({ topic, onEdit }) => {
           startContent={<Icon icon="lucide:edit" />}
           onPress={() => onEdit(topic)}
         >
-          Edit
+          Sửa
         </DropdownItem>
         <DropdownItem
           key="delete"
@@ -38,7 +38,7 @@ const TopicActions: React.FC<TopicActionsProps> = ({ topic, onEdit }) => {
           color="danger"
           onPress={() => DeleteTopic(topic.id)}
         >
-          Delete
+          Xoá
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

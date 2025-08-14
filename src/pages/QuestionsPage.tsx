@@ -58,11 +58,11 @@ const QuestionsPage: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   if (isError) {
-    return <ErrorState message={error.message || "Failed to load questions"} />;
+    return <ErrorState message={error.message || "Lỗi khi tải câu hỏi"} />;
   }
 
   if (isLoading) {
-    return <LoadingState message={"Loading questions ..."} />;
+    return <LoadingState message={"Đang tải câu hỏi ..."} />;
   }
   return (
     <div className="space-y-6">

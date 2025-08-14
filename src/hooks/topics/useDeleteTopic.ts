@@ -12,7 +12,7 @@ export const useDeleteTopic = () => {
       queryClient.invalidateQueries({ queryKey: ["topics"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.error || "Failed to delete topic");
+      toast.error(error?.response?.data?.error || "Xoá chủ đề thất bại");
     },
   });
 

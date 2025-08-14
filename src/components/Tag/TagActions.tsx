@@ -30,7 +30,7 @@ const TagActions: React.FC<TagActionsProps> = ({ tag, onEdit }) => {
           startContent={<Icon icon="lucide:edit" />}
           onPress={() => onEdit(tag)}
         >
-          Edit
+          Sửa
         </DropdownItem>
         <DropdownItem
           key="delete"
@@ -38,7 +38,7 @@ const TagActions: React.FC<TagActionsProps> = ({ tag, onEdit }) => {
           color="danger"
           onPress={() => DeleteTag(tag.id)}
         >
-          Delete
+          Xoá
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>
