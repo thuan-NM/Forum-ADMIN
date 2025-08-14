@@ -123,7 +123,7 @@ const ReportList: React.FC<ReportListProps> = ({
         </TableColumn>
         <TableColumn key="actions">ACTIONS</TableColumn>
       </TableHeader>
-      <TableBody emptyContent={"No reports found"}>
+      <TableBody emptyContent={"Không thấy báo cáo nào"}>
         {sortedReports.map((report) => (
           <TableRow key={report.id}>
             <TableCell>{report.reason}</TableCell>

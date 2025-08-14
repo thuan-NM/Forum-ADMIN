@@ -1,11 +1,11 @@
 import React from "react";
-import { ErrorState, LoadingState } from "../components/Common";
+import { EmptyState, ErrorState, LoadingState } from "../components/Common";
 import { Card } from "@heroui/react";
 import ReportList from "../components/Report/ReportList";
 import type { ReportResponse } from "../store/interfaces/reportInterfaces";
 import ReportFilters from "../components/Report/ReportFilters";
 import ReportDetail from "../components/Report/ReportDetail";
-import { GetAllReports, ListReports } from "../services/ReportServices";
+import { GetAllReports } from "../services/ReportServices";
 import { useDeleteReport } from "../hooks/reports/useDeleteReport";
 import { useUpdateReportStatus } from "../hooks/reports/useUpdateReportStatus";
 import { useQuery } from "@tanstack/react-query";
@@ -22,8 +22,8 @@ const Reports: React.FC = () => {
 
   const rowsPerPage = 10;
 
-  const { DeleteReportHook, isDeleting } = useDeleteReport();
-  const { UpdateReportStatus, isUpdating } = useUpdateReportStatus();
+  const { DeleteReportHook } = useDeleteReport();
+  const { UpdateReportStatus } = useUpdateReportStatus();
 
   const filters = {
     ...(searchQuery && { search: searchQuery }),
@@ -72,7 +72,7 @@ const Reports: React.FC = () => {
     setIsDetailModalOpen(false);
     setSelectedReport({} as ReportResponse);
   };
-const handlePageChange = (newPage: number) => {
+  const handlePageChange = (newPage: number) => {
     setPage(newPage);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -89,22 +89,29 @@ const handlePageChange = (newPage: number) => {
           onSearchChange={handleSearch}
           onStatusFilter={handleStatusFilter}
         />
-
-        <Card className="w-full p-4" radius="sm">
-          {data && (
-            <ReportList
-              reports={data?.reports}
-              loading={isLoading}
-              page={page}
-              totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
-              onPageChange={handlePageChange}
-              onResolve={handleResolveReport}
-              onDismiss={handleDismissReport}
-              onDelete={handleDeleteReport}
-              onView={handleViewReport}
-            />
-          )}
-        </Card>
+        {isLoading ? (
+          <LoadingState message={"Đang tải các báo cáo..."} />
+        ) : data?.reports != null ? (
+          <Card className="w-full p-4" radius="sm">
+            {data && (
+              <ReportList
+                reports={data?.reports}
+                loading={isLoading}
+                page={page}
+                totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
+                onPageChange={handlePageChange}
+                onResolve={handleResolveReport}
+                onDismiss={handleDismissReport}
+                onDelete={handleDeleteReport}
+                onView={handleViewReport}
+              />
+            )}
+          </Card>
+        ) : (
+          <Card className="w-full p-4" radius="sm">
+            <EmptyState title="Không có báo cáo nào" />
+          </Card>
+        )}
       </div>
       <ReportDetail
         report={selectedReport}

@@ -80,7 +80,7 @@ const PostFilters: React.FC<PostFiltersProps> = ({
             All Tags
           </SelectItem>
           <>
-            {data?.tags.map((tag: TagResponse) => (
+            {data?.tags?.map((tag: TagResponse) => (
               <SelectItem key={tag.id} textValue={tag.name}>
                 {tag.name}
               </SelectItem>

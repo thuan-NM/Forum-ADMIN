@@ -5,7 +5,7 @@ import PostFilters from "../components/Post/PostFilters";
 import { useQuery } from "@tanstack/react-query";
 import type { PostResponse } from "../store/interfaces/postInterfaces";
 import { GetAllPosts } from "../services";
-import { ErrorState } from "../components/Common";
+import { EmptyState, ErrorState, LoadingState } from "../components/Common";
 
 const Posts: React.FC = () => {
   const [page, setPage] = React.useState<number>(1);
@@ -71,16 +71,23 @@ const Posts: React.FC = () => {
           onStatusChange={handleStatusChange}
           onTagChange={handleTagChange}
         />
-
-        <Card className="w-full" radius="sm">
-          <PostList
-            posts={data?.posts || []}
-            loading={isLoading}
-            page={page}
-            totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
-            onPageChange={handlePageChange}
-          />
-        </Card>
+        {isLoading ? (
+          <LoadingState message={"Đang tải các bài viết..."} />
+        ) : data?.posts != null ? (
+          <Card className="w-full" radius="sm">
+            <PostList
+              posts={data?.posts || []}
+              loading={isLoading}
+              page={page}
+              totalPages={Math.ceil((data?.total || 0) / rowsPerPage)}
+              onPageChange={handlePageChange}
+            />
+          </Card>
+        ) : (
+          <Card className="w-full p-4" radius="sm">
+            <EmptyState title="Không có bài viết nào" />
+          </Card>
+        )}
       </div>
     </div>
   );

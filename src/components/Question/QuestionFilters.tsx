@@ -1,9 +1,10 @@
 import React from "react";
-import { Input, Select, SelectItem } from "@heroui/react";
+import { Button, Input, Select, SelectItem } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllTopics } from "../../services";
 import type { TopicResponse } from "../../store/interfaces/topicInterfaces";
+import { useSyncQuestion } from "../../hooks/questions/useSyncQuestion";
 
 interface QuestionFiltersProps {
   searchQuery: string;
@@ -35,7 +36,7 @@ const QuestionFilters: React.FC<QuestionFiltersProps> = ({
     queryKey: ["topics"],
     queryFn: () => GetAllTopics({ limit: 10000000 }),
   });
-
+  const { SyncQuestions, isSyncing, syncError } = useSyncQuestion();
   return (
     !isGlobalLoading && (
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 flex-wrap">
@@ -108,7 +109,7 @@ const QuestionFilters: React.FC<QuestionFiltersProps> = ({
                 All
               </SelectItem>
               <>
-                {data?.topics.map((topic) => (
+                {data?.topics?.map((topic) => (
                   <SelectItem key={topic.id} textValue={topic.name}>
                     {topic.name}
                   </SelectItem>
@@ -116,6 +117,16 @@ const QuestionFilters: React.FC<QuestionFiltersProps> = ({
               </>
             </Select>
           )}
+        </div>
+        <div>
+          <Button
+            variant="bordered"
+            className="w-full sm:w-40 bg-content1 rounded-lg"
+            onPress={() => SyncQuestions()}
+            isLoading={isSyncing}
+          >
+            Đồng bộ câu hỏi
+          </Button>
         </div>
       </div>
     )
