@@ -77,7 +77,7 @@ const Reports: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   if (isError) {
-    return <ErrorState message={error.message || "Failed to get reports"} />;
+    return <ErrorState message={error.message || "Có lỗi khi tải báo cáo"} />;
   }
 
   return (

@@ -37,7 +37,9 @@ const ReportList: React.FC<ReportListProps> = ({
   onDelete,
   onView,
 }) => {
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({} as SortDescriptor);
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
+    {} as SortDescriptor
+  );
 
   const sortedReports = useMemo(() => {
     if (!sortDescriptor.column) return reports;
@@ -104,26 +106,26 @@ const ReportList: React.FC<ReportListProps> = ({
     >
       <TableHeader>
         <TableColumn key="reason" allowsSorting>
-          REASON
+          LÝ DO
         </TableColumn>
         <TableColumn key="contentType" allowsSorting>
-          CONTENT TYPE
+          LOẠI NỘI DUNG
         </TableColumn>
         <TableColumn key="content" allowsSorting>
-          CONTENT
+          NỘI DUNG
         </TableColumn>
         <TableColumn key="reporter" allowsSorting>
-          REPORTER
+          NGƯỜI BÁO CÁO
         </TableColumn>
         <TableColumn key="status" allowsSorting>
-          STATUS
+          TRẠNG THÁI
         </TableColumn>
         <TableColumn key="reported" allowsSorting>
-          REPORTED
+          NGÀY BÁO CÁO
         </TableColumn>
-        <TableColumn key="actions">ACTIONS</TableColumn>
+        <TableColumn key="actions">HÀNH ĐỘNG</TableColumn>
       </TableHeader>
-      <TableBody emptyContent={"Không thấy báo cáo nào"}>
+      <TableBody emptyContent={"Không tìm thấy báo cáo nào"}>
         {sortedReports.map((report) => (
           <TableRow key={report.id}>
             <TableCell>{report.reason}</TableCell>

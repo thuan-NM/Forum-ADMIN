@@ -37,7 +37,7 @@ const ReportActions: React.FC<ReportActionsProps> = ({
           startContent={<Icon icon="lucide:eye" />}
           onPress={() => onView && onView(report)}
         >
-          View Details
+          Xem chi tiết
         </DropdownItem>
         <>
           {report.status === "pending" && (
@@ -48,7 +48,7 @@ const ReportActions: React.FC<ReportActionsProps> = ({
                 color="success"
                 onPress={() => onResolve && onResolve(report)}
               >
-                Mark Resolved
+                Đánh dấu đã giải quyết
               </DropdownItem>
               <DropdownItem
                 startContent={<Icon icon="lucide:x" />}
@@ -56,7 +56,7 @@ const ReportActions: React.FC<ReportActionsProps> = ({
                 onPress={() => onDismiss && onDismiss(report)}
                 key="dismiss"
               >
-                Dismiss
+                Bỏ qua
               </DropdownItem>
             </>
           )}
@@ -67,7 +67,7 @@ const ReportActions: React.FC<ReportActionsProps> = ({
           onPress={() => onDelete && onDelete(report)}
           key="delete"
         >
-          Delete
+          Xoá
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

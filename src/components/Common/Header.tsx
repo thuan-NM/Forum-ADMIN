@@ -72,7 +72,7 @@ const Header = () => {
                   navigate("/settings");
                 }}
               >
-                Settings
+                Cài đặt
               </DropdownItem>
 
               <DropdownItem
@@ -81,7 +81,7 @@ const Header = () => {
                 startContent={<Icon icon="lucide:log-out" />}
                 onPress={handleLogout}
               >
-                Logout
+                Đăng xuất
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
