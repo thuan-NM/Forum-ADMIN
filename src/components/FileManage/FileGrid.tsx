@@ -12,7 +12,6 @@ import {
 import { Icon } from "@iconify/react";
 import { FileSizeFormatter, DateFormatter } from "../Common";
 import type { AttachmentResponse } from "../../store/interfaces/attachmentInterfaces";
-import { useNavigate } from "react-router-dom";
 
 interface FileGridProps {
   files: AttachmentResponse[];

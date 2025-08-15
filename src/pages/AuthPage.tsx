@@ -1,5 +1,4 @@
 import Login from "../components/Auth/Login"
-import SocialLogin from "../components/Auth/SocialLogin"
 import Footer from "../components/Common/Footer"
 import { AuthProvider } from "../contexts/AuthContext"
 import AuthLayout from "../layouts/AuthLayout"

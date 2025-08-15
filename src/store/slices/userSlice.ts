@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User, UserState } from "../interfaces/userInterfaces";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { type User,  } from "../interfaces/userInterfaces";
 
 const savedAuth = localStorage.getItem("auth");
 const parsedAuth = savedAuth ? JSON.parse(savedAuth) : null;
 
-const initialState: UserState = {
+const initialState: any = {
     user: parsedAuth?.user || null,  // 🔥 Lấy `user` từ localStorage
     isLoading: false,
     error: null,

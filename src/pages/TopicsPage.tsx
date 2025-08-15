@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "@heroui/react";
 import { useDisclosure } from "@heroui/react";
 
-import type { Topic, TopicResponse } from "../store/interfaces/topicInterfaces";
+import type { TopicResponse } from "../store/interfaces/topicInterfaces";
 import TopicSearch from "../components/Topic/TopicSearch";
 import TopicList from "../components/Topic/TopicList";
 import TopicForm from "../components/Topic/TopicForm";

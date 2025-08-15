@@ -36,7 +36,7 @@ const QuestionFilters: React.FC<QuestionFiltersProps> = ({
     queryKey: ["topics"],
     queryFn: () => GetAllTopics({ limit: 10000000 }),
   });
-  const { SyncQuestions, isSyncing, syncError } = useSyncQuestion();
+  const { SyncQuestions, isSyncing } = useSyncQuestion();
   return (
     !isGlobalLoading && (
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 flex-wrap">

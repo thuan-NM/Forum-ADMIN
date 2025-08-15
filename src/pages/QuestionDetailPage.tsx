@@ -1,17 +1,13 @@
 import React from "react";
-import { Button, Card, Chip } from "@heroui/react";
-import { Icon } from "@iconify/react";
-import DOMPurify from "dompurify";
+import {  Card } from "@heroui/react";
 import { useParams } from "react-router-dom";
 import AnswerList from "../components/Answer/AnswerList";
 import type { QuestionResponse } from "../store/interfaces/questionInterfaces";
-import type { AnswerResponse } from "../store/interfaces/answerInterfaces";
 import {
   QuestionHeader,
-  QuestionContent,
+  
 } from "../components/Question/QuestionDetail";
 import { LoadingState, ErrorState, StatusChip } from "../components/Common";
-import type { Comment } from "../store/interfaces/commentInterfaces";
 import { GetQuestionById } from "../services";
 import { useQuery } from "@tanstack/react-query";
 

@@ -6,12 +6,9 @@ import {
   Input,
   Button,
   Switch,
-  Accordion,
-  AccordionItem,
   Divider,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import axios from "axios";
 
 interface SystemSettings {
   siteName: string;

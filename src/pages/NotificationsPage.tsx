@@ -119,7 +119,7 @@ const NotificationsPage: React.FC = () => {
             },
           ];
 
-          const mockNotifications: Notification[] = Array.from(
+          const mockNotifications: any[] = Array.from(
             { length: 45 },
             (_, i) => {
               const typeIndex = i % notificationTypes.length;

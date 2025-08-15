@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, CardHeader, CardBody } from "@heroui/react";
-import { Icon } from "@iconify/react";
 import { useQuery } from "@tanstack/react-query";
 import { LoadingState, ErrorState } from "../components/Common";
 import TimeRangeSelector from "../components/Analytics/TimeRangeSelector";
