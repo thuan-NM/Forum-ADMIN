@@ -9,12 +9,12 @@ export const useDeleteAttachment = () => {
   const deleteMutation = useMutation({
     mutationFn: DeleteAttachment,
     onSuccess: () => {
-      toast.success("Attachment deleted successfully");
+      toast.success("Xóa tệp đính kèm thành công");
       queryClient.invalidateQueries({ queryKey: ["attachments"] });
     },
     onError: (error: any) => {
       toast.error(
-        error?.response?.data?.error || "Failed to delete attachment"
+        error?.response?.data?.error || "Xóa tệp đính kèm thất bại"
       );
     },
   });

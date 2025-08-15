@@ -131,7 +131,7 @@ const Login = () => {
   }, [registeredEmail]);
 
   return (
-    <div className="container mx-auto w-1/2 px-6 border-l !border-content4">
+    <div className="container mx-auto w-3/4 px-6 border-x !border-content4">
       <p className="border-b mb-3 border-content4 pb-2 text-sm font-semibold">
         Đăng nhập
       </p>
