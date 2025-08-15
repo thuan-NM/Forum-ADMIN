@@ -32,7 +32,9 @@ const CloseQuestion = async (id: string) => {
   });
   return response.data;
 };
-
+const SyncQuestionData = async () => {
+  return (await axios.post(`/questions/sync`)).data;
+};
 export {
   CreateQuestion,
   GetQuestionById,
@@ -41,4 +43,5 @@ export {
   UpdateQuestion,
   UpdateQuestionStatus,
   CloseQuestion,
+  SyncQuestionData,
 };

@@ -8,11 +8,11 @@ export const useDeleteUser = () => {
   const deleteMutation = useMutation({
     mutationFn: DeleteUser,
     onSuccess: () => {
-      toast.success("User deleted successfully");
+      toast.success("Xóa người dùng thành công");
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.error || "Failed to delete user");
+      toast.error(error?.response?.data?.error || "Xóa người dùng thất bại");
     },
   });
 

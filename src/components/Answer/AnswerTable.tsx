@@ -27,7 +27,7 @@ interface AnswerTableProps {
 }
 
 const formatDate = (date: Date) => {
-  return new Date(date).toLocaleDateString("en-US", {
+  return new Date(date).toLocaleDateString("vi-VN", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -215,27 +215,27 @@ const AnswerTable: React.FC<AnswerTableProps> = ({
     >
       <TableHeader>
         <TableColumn key="content" allowsSorting>
-          CONTENT
+          NỘI DUNG
         </TableColumn>
         <TableColumn key="author" allowsSorting>
-          AUTHOR
+          TÁC GIẢ
         </TableColumn>
         <TableColumn key="question" allowsSorting>
-          QUESTION
+          CÂU HỎI
         </TableColumn>
         <TableColumn key="status" allowsSorting>
-          STATUS
+          TRẠNG THÁI
         </TableColumn>
         <TableColumn key="tags" allowsSorting>
-          TAGS
+          NHÃN
         </TableColumn>
         <TableColumn key="stats" allowsSorting>
-          STATS
+          TRẠNG THÁI
         </TableColumn>
         <TableColumn key="created" allowsSorting>
-          CREATED
+          NGÀY TẠO
         </TableColumn>
-        <TableColumn key="actions">ACTIONS</TableColumn>
+        <TableColumn key="actions">HÀNH ĐỘNG</TableColumn>
       </TableHeader>
       <TableBody emptyContent={"No answers found"}>
         {sortedAnswers.map((answer) => (

@@ -58,20 +58,20 @@ const TopicForm: React.FC<TopicFormProps> = ({
         {(onClose) => (
           <>
             <ModalHeader>
-              {mode === "create" ? "Create Topic" : "Edit Topic"}
+              {mode === "create" ? "Thêm chủ đề" : "Chỉnh sửa chủ đề"}
             </ModalHeader>
             <ModalBody>
               <div className="space-y-4">
                 <Input
-                  label="Topic Name"
-                  placeholder="Enter topic name"
+                  label="Tên chủ đề"
+                  placeholder="Nhập tên chủ đề"
                   value={name}
                   onValueChange={setName}
                 />
 
                 <Input
-                  label="Description"
-                  placeholder="Enter topic description"
+                  label="Mô tả"
+                  placeholder="Nhập mô tả"
                   value={description}
                   onValueChange={setDescription}
                 />
@@ -79,10 +79,10 @@ const TopicForm: React.FC<TopicFormProps> = ({
             </ModalBody>
             <ModalFooter>
               <Button variant="flat" onPress={onClose}>
-                Cancel
+                Huỷ bỏ
               </Button>
               <Button color="primary" onPress={handleSubmit}>
-                {mode === "create" ? "Create" : "Save"}
+                {mode === "create" ? "Tạo" : "Lưu"}
               </Button>
             </ModalFooter>
           </>

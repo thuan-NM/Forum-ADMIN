@@ -11,13 +11,13 @@ export const useUpdateQuestionStatus = () => {
       UpdateQuestionStatus(id, status),
     onSuccess: (data) => {
       toast.success(
-        `${capitalize(data.question.status)} question successfully`
+        `${capitalize(data.question.status)} câu hỏi thành công`
       );
       queryClient.invalidateQueries({ queryKey: ["questions"] });
     },
     onError: (error: any) => {
       toast.error(
-        error?.response?.data?.error || "Failed to update question status"
+        error?.response?.data?.error || "Chỉnh sửa trạng thái câu hỏi thất bại"
       );
     },
   });

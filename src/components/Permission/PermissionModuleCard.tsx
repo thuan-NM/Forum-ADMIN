@@ -18,7 +18,7 @@ const PermissionModuleCard: React.FC<PermissionModuleCardProps> = ({
         <Card className="shadow-none border border-default-200 p-4">
             <Table removeWrapper className="w-full">
                 <TableHeader>
-                    <TableColumn>Action</TableColumn>
+                    <TableColumn>Quyền hạn</TableColumn>
                 </TableHeader>
                 <TableBody>
                     {permissions.map((permission) => (

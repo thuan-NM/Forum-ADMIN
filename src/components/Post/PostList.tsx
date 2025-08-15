@@ -25,7 +25,7 @@ interface PostListProps {
 }
 
 const formatDate = (dateString: Date) => {
-  return new Date(dateString).toLocaleDateString("en-US", {
+  return new Date(dateString).toLocaleDateString("vi-VN", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -207,23 +207,24 @@ const PostList: React.FC<PostListProps> = ({
     >
       <TableHeader>
         <TableColumn key="title" allowsSorting>
-          TITLE
+          TIÊU ĐỀ
         </TableColumn>
         <TableColumn key="author" allowsSorting>
-          AUTHOR
+          TÁC GIẢ
         </TableColumn>
-        <TableColumn key="tags">TAGS</TableColumn>
+        <TableColumn key="tags">THẺ</TableColumn>
         <TableColumn key="status" allowsSorting>
-          STATUS
+          TRẠNG THÁI
         </TableColumn>
         <TableColumn key="comments" allowsSorting>
-          COMMENTS
+          BÌNH LUẬN
         </TableColumn>
         <TableColumn key="created" allowsSorting>
-          CREATED
+          NGÀY TẠO
         </TableColumn>
-        <TableColumn key="actions">ACTIONS</TableColumn>
+        <TableColumn key="actions">HÀNH ĐỘNG</TableColumn>
       </TableHeader>
+
       <TableBody emptyContent={"No posts found"}>
         {sortedPosts.map((post) => (
           <TableRow key={post.id}>

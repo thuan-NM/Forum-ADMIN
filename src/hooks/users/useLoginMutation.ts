@@ -1,7 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { Login } from "../../services/AuthServices";
-import { loginStart, loginSuccess, loginFailure } from "../../store/slices/authSlice";
+import {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+} from "../../store/slices/authSlice";
 import { useAppDispatch } from "../../store/hooks";
 import { setUser } from "../../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -30,7 +34,13 @@ export const useLoginMutation = () => {
       dispatch(loginStart());
     },
     onSuccess: (data) => {
-      toast.success("Login successful");
+      if (data && data?.user?.role === "user") {
+        toast("Bạn không có quyền truy cập", {
+          icon: "🚫",
+        });
+        return;
+      }
+      toast.success("Đăng nhập thành công");
       queryClient.invalidateQueries({ queryKey: ["user"] });
       dispatch(loginSuccess({ token: data.token }));
       dispatch(setUser(data.user));
@@ -49,6 +59,6 @@ export const useLoginMutation = () => {
   });
 
   return {
-    ...loginMutation, 
+    ...loginMutation,
   };
 };

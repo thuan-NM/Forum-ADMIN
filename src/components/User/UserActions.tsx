@@ -38,7 +38,7 @@ const UserActions: React.FC<UserActionsProps> = ({
           startContent={<Icon icon="lucide:edit" />}
           onPress={() => onEdit(user)}
         >
-          Edit
+          Chỉnh sửa
         </DropdownItem>
         {user.status !== "banned" ? (
           <DropdownItem
@@ -47,7 +47,7 @@ const UserActions: React.FC<UserActionsProps> = ({
             color="danger"
             onPress={() => handleBanUnban("ban")}
           >
-            Ban
+            Vô hiệu hoá
           </DropdownItem>
         ) : (
           <DropdownItem
@@ -56,7 +56,7 @@ const UserActions: React.FC<UserActionsProps> = ({
             color="success"
             onPress={() => handleBanUnban("unban")}
           >
-            Unban
+            Bỏ vô hiệu hoá
           </DropdownItem>
         )}
         <DropdownItem
@@ -65,7 +65,7 @@ const UserActions: React.FC<UserActionsProps> = ({
           color="danger"
           onPress={() => DeleteUser(user.id)}
         >
-          Delete
+          Xoá
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

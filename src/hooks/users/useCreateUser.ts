@@ -8,12 +8,12 @@ export const useCreateUser = (onSuccessCallback?: () => void) => {
   const createMutation = useMutation({
     mutationFn: Register,
     onSuccess: () => {
-      toast.success("User created successfully");
+      toast.success("Tạo người dùng thành công");
       if (onSuccessCallback) onSuccessCallback();
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.error || "Failed to create user");
+      toast.error(error?.response?.data?.error || "Tạo người dùng thất bại");
     },
   });
 

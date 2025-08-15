@@ -12,7 +12,6 @@ import {
 import { Icon } from "@iconify/react";
 import { FileSizeFormatter, DateFormatter } from "../Common";
 import type { AttachmentResponse } from "../../store/interfaces/attachmentInterfaces";
-import { useNavigate } from "react-router-dom";
 
 interface FileGridProps {
   files: AttachmentResponse[];
@@ -92,21 +91,21 @@ const FileGrid: React.FC<FileGridProps> = ({
                       startContent={<Icon icon="lucide:eye" />}
                       onPress={() => onView && onView(file)}
                     >
-                      View
+                      Xem
                     </DropdownItem>
                     <DropdownItem
                       key="download"
                       startContent={<Icon icon="lucide:download" />}
                       onPress={() => onDownload && onDownload(file)}
                     >
-                      Download
+                      Tải về
                     </DropdownItem>
                     <DropdownItem
                       key="copy"
                       startContent={<Icon icon="lucide:copy" />}
                       onPress={() => onCopyLink && onCopyLink(file)}
                     >
-                      Copy Link
+                      Sao chép liên kết
                     </DropdownItem>
                     <DropdownItem
                       key="delete"
@@ -114,7 +113,7 @@ const FileGrid: React.FC<FileGridProps> = ({
                       color="danger"
                       onPress={() => onDelete && onDelete(file)}
                     >
-                      Delete
+                      Xóa
                     </DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
@@ -133,7 +132,7 @@ const FileGrid: React.FC<FileGridProps> = ({
                 </Chip>
               </div>
               <div className="flex justify-between items-center mt-2 text-xs text-default-500">
-                <span>By {file.user.fullName}</span>
+                <span>Bởi {file.user.fullName}</span>
                 <DateFormatter date={file.created_at} format="short" />
               </div>
             </div>

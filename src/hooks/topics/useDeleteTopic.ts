@@ -8,11 +8,11 @@ export const useDeleteTopic = () => {
   const deleteMutation = useMutation({
     mutationFn: DeleteTopic,
     onSuccess: () => {
-      toast.success("Topic deleted successfully");
+      toast.success("Xóa chủ đề thành công");
       queryClient.invalidateQueries({ queryKey: ["topics"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.error || "Failed to delete topic");
+      toast.error(error?.response?.data?.error || "Xóa chủ đề thất bại");
     },
   });
 

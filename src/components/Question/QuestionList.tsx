@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import {
   Table,
   TableHeader,
@@ -32,7 +32,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
   onPageChange,
 }) => {
   const formatDate = (date: Date) => {
-    return new Date(date).toLocaleDateString("en-US", {
+    return new Date(date).toLocaleDateString("vi-VN", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -111,33 +111,35 @@ const QuestionList: React.FC<QuestionListProps> = ({
     >
       <TableHeader>
         <TableColumn key="title" allowsSorting>
-          TITLE
+          TIÊU ĐỀ
         </TableColumn>
         <TableColumn key="author" allowsSorting>
-          AUTHOR
+          TÁC GIẢ
         </TableColumn>
         <TableColumn key="topic" allowsSorting>
-          TOPIC
+          CHỦ ĐỀ
         </TableColumn>
         <TableColumn key="status" allowsSorting>
-          STATUS
+          TRẠNG THÁI DUYỆT
         </TableColumn>
         <TableColumn key="question_state" allowsSorting>
-          QUESTION STATE
+          TRẠNG THÁI CÂU HỎI
         </TableColumn>
         <TableColumn key="stats" allowsSorting>
-          STATS
+          THỐNG KÊ
         </TableColumn>
         <TableColumn key="created" allowsSorting>
-          CREATED
+          NGÀY TẠO
         </TableColumn>
-        <TableColumn key="actions">ACTIONS</TableColumn>
+        <TableColumn key="actions">HÀNH ĐỘNG</TableColumn>
       </TableHeader>
       <TableBody emptyContent={"No questions found"}>
         {sortedQuestions.map((question) => (
           <TableRow key={question.id}>
             <TableCell>
-              <p className="font-medium truncate max-w-[200px]">{question.title}</p>
+              <p className="font-medium truncate max-w-[200px]">
+                {question.title}
+              </p>
             </TableCell>
             <TableCell>{question.author.fullName}</TableCell>
             <TableCell>

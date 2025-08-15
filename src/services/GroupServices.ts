@@ -1,11 +1,13 @@
-import { GroupFormData } from '../store/interfaces/groupInterfaces'
-import axios from '../utils/configAxios.ts'
+import axios from "../utils/configAxios.ts";
 
-const CreateGroup = async (formdata:GroupFormData) =>{
-    return (await axios.post('/groups/',formdata,{ withCredentials: true })).data
-}
-const GetAllGroup = async () =>{
-    return (await axios.get('/groups/',{ withCredentials: true })).data.groups || []
-}
+const CreateGroup = async (formdata: any) => {
+  return (await axios.post("/groups/", formdata, { withCredentials: true }))
+    .data;
+};
+const GetAllGroup = async () => {
+  return (
+    (await axios.get("/groups/", { withCredentials: true })).data.groups || []
+  );
+};
 
-export {CreateGroup,GetAllGroup}
+export { CreateGroup, GetAllGroup };

@@ -18,7 +18,7 @@ const TimeRangeSelector: React.FC<TimeRangeSelectorProps> = ({
                 onPress={() => onTimeRangeChange('7d')}
                 size="sm"
             >
-                7 Days
+                7 ngày trước
             </Button>
             <Button
                 variant={timeRange === '30d' ? 'solid' : 'flat'}
@@ -26,7 +26,7 @@ const TimeRangeSelector: React.FC<TimeRangeSelectorProps> = ({
                 onPress={() => onTimeRangeChange('30d')}
                 size="sm"
             >
-                30 Days
+                30 ngày trước
             </Button>
             <Button
                 variant={timeRange === '90d' ? 'solid' : 'flat'}
@@ -34,7 +34,7 @@ const TimeRangeSelector: React.FC<TimeRangeSelectorProps> = ({
                 onPress={() => onTimeRangeChange('90d')}
                 size="sm"
             >
-                90 Days
+                90 ngày trước
             </Button>
         </div>
     );

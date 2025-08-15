@@ -9,13 +9,13 @@ export const useUpdateUserStatus = () => {
     mutationFn: ({ id, status }: { id: string; status: string }) =>
       UpdateUserStatus(id, status),
     onSuccess: (data) => {
-      const status = data.data.status == "banned" ? "Banned" : "Unbanned";
-      toast.success(`${status} user successfully`);
+      const status = data.data.status == "banned" ? "Vô hiệu hóa" : "Kích hoạt";
+      toast.success(`${status} thành công`);
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error: any) => {
       toast.error(
-        error?.response?.data?.error || "Failed to update user status"
+        error?.response?.data?.error || "Chỉnh sửa trạng thái người dùng thất bại"
       );
     },
   });

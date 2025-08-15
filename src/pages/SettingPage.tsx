@@ -6,12 +6,9 @@ import {
   Input,
   Button,
   Switch,
-  Accordion,
-  AccordionItem,
   Divider,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import axios from "axios";
 
 interface SystemSettings {
   siteName: string;
@@ -30,7 +27,7 @@ interface SystemSettings {
 const Settings: React.FC = () => {
   const [settings, setSettings] = React.useState<SystemSettings>({
     siteName: "Forum",
-    siteDescription: "A community discussion platform",
+    siteDescription: "Nền tảng thảo luận cho cộng đồng",
     allowRegistration: true,
     requireEmailVerification: true,
     postsPerPage: 20,
@@ -68,10 +65,10 @@ const Settings: React.FC = () => {
       // Simulating API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      setSuccess("Settings saved successfully");
+      setSuccess("Lưu cài đặt thành công");
     } catch (err) {
-      console.error("Error saving settings:", err);
-      setError("Failed to save settings");
+      console.error("Có lỗi khi lưu cài đặt:", err);
+      setError("Lưu cài đặt thất bại");
     } finally {
       setLoading(false);
     }
@@ -80,8 +77,8 @@ const Settings: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold mb-1">Settings</h1>
-        <p className="text-default-500">Configure system settings</p>
+        <h1 className="text-2xl font-bold mb-1">Cài đặt</h1>
+        <p className="text-default-500">Điều chỉnh thiết lập hệ thống</p>
       </div>
 
       {error && (
@@ -99,19 +96,19 @@ const Settings: React.FC = () => {
       <div className="grid grid-cols-1 gap-6">
         <Card>
           <CardHeader>
-            <h2 className="text-lg font-semibold">General Settings</h2>
+            <h2 className="text-lg font-semibold">Cài đặt chung</h2>
           </CardHeader>
           <CardBody className="space-y-4">
             <Input
-              label="Site Name"
-              placeholder="Enter site name"
+              label="Tên trang"
+              placeholder="Nhập tên trang"
               value={settings.siteName}
               onValueChange={(value) => handleInputChange("siteName", value)}
             />
 
             <Input
-              label="Site Description"
-              placeholder="Enter site description"
+              label="Mô tả trang"
+              placeholder="Nhập mô tả"
               value={settings.siteDescription}
               onValueChange={(value) =>
                 handleInputChange("siteDescription", value)
@@ -119,8 +116,8 @@ const Settings: React.FC = () => {
             />
 
             <Input
-              label="Contact Email"
-              placeholder="Enter contact email"
+              label="Email liên hệ"
+              placeholder="Nhập email liên hệ"
               type="email"
               value={settings.contactEmail}
               onValueChange={(value) =>
@@ -130,9 +127,9 @@ const Settings: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium">Maintenance Mode</p>
+                <p className="text-sm font-medium">Chế độ bảo trì</p>
                 <p className="text-xs text-default-500">
-                  When enabled, only administrators can access the site
+                  Khi bật, chỉ có người quản trị mới có thể truy cập trang
                 </p>
               </div>
               <Switch
@@ -148,14 +145,14 @@ const Settings: React.FC = () => {
 
         <Card>
           <CardHeader>
-            <h2 className="text-lg font-semibold">User Settings</h2>
+            <h2 className="text-lg font-semibold">Cài đặt người dùng</h2>
           </CardHeader>
           <CardBody className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium">Allow Registration</p>
+                <p className="text-sm font-medium">Cho phép đăng ký</p>
                 <p className="text-xs text-default-500">
-                  Allow new users to register
+                  Cho phép người dùng mới đăng ký
                 </p>
               </div>
               <Switch
@@ -168,11 +165,9 @@ const Settings: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium">
-                  Require Email Verification
-                </p>
+                <p className="text-sm font-medium">Yêu cầu xác thực email</p>
                 <p className="text-xs text-default-500">
-                  Users must verify their email before posting
+                  Người dùng phải xác thực email trước khi đăng bài
                 </p>
               </div>
               <Switch
@@ -187,11 +182,11 @@ const Settings: React.FC = () => {
 
         <Card>
           <CardHeader>
-            <h2 className="text-lg font-semibold">Content Settings</h2>
+            <h2 className="text-lg font-semibold">Cài đặt nội dung</h2>
           </CardHeader>
           <CardBody className="space-y-4">
             <Input
-              label="Posts Per Page"
+              label="Số bài mỗi trang"
               type="number"
               min={1}
               max={100}
@@ -202,7 +197,7 @@ const Settings: React.FC = () => {
             />
 
             <Input
-              label="Comments Per Page"
+              label="Số bình luận mỗi trang"
               type="number"
               min={1}
               max={100}
@@ -216,9 +211,9 @@ const Settings: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium">Allow File Uploads</p>
+                <p className="text-sm font-medium">Cho phép tải tệp lên</p>
                 <p className="text-xs text-default-500">
-                  Allow users to upload files
+                  Cho phép người dùng tải tệp lên
                 </p>
               </div>
               <Switch
@@ -230,7 +225,7 @@ const Settings: React.FC = () => {
             </div>
 
             <Input
-              label="Max File Size (MB)"
+              label="Kích thước tối đa của tệp (MB)"
               type="number"
               min={1}
               max={50}
@@ -242,14 +237,14 @@ const Settings: React.FC = () => {
             />
 
             <Input
-              label="Allowed File Types"
+              label="Định dạng được cho phép"
               placeholder="Comma-separated file extensions"
               value={settings.allowedFileTypes}
               onValueChange={(value) =>
                 handleInputChange("allowedFileTypes", value)
               }
               isDisabled={!settings.allowFileUploads}
-              description="Enter comma-separated file extensions (e.g., jpg,png,pdf)"
+              description="Nhập các đuôi được cho phép, phân cách bằng dấu phẩy"
             />
           </CardBody>
         </Card>

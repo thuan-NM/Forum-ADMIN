@@ -1,9 +1,10 @@
 import React from "react";
-import { Input, Select, SelectItem } from "@heroui/react";
+import { Button, cn, Input, Select, SelectItem } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllTopics } from "../../services";
 import type { TopicResponse } from "../../store/interfaces/topicInterfaces";
+import { useSyncQuestion } from "../../hooks/questions/useSyncQuestion";
 
 interface QuestionFiltersProps {
   searchQuery: string;
@@ -35,13 +36,13 @@ const QuestionFilters: React.FC<QuestionFiltersProps> = ({
     queryKey: ["topics"],
     queryFn: () => GetAllTopics({ limit: 10000000 }),
   });
-
+  const { SyncQuestions, isSyncing } = useSyncQuestion();
   return (
     !isGlobalLoading && (
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 flex-wrap">
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <Input
-            placeholder="Search questions..."
+            placeholder="Tìm kiếm câu hỏi..."
             value={searchQuery}
             onValueChange={onSearchChange}
             startContent={<Icon icon="lucide:search" className="opacity-50" />}
@@ -52,63 +53,63 @@ const QuestionFilters: React.FC<QuestionFiltersProps> = ({
           />
 
           <Select
-            placeholder="Filter by status"
+            placeholder="Lọc theo trạng thái duyệt"
             selectedKeys={[statusFilter]}
             className="w-full sm:w-40 bg-content1 rounded-lg"
             radius="sm"
             variant="bordered"
             onChange={(e) => onStatusChange(e.target.value)}
           >
-            <SelectItem key="all" textValue="All">
-              All
+            <SelectItem key="all" textValue="Tất cả">
+              Tất cả
             </SelectItem>
-            <SelectItem key="approved" textValue="Approved">
-              Approved
+            <SelectItem key="approved" textValue="Đã duyệt">
+              Đã duyệt
             </SelectItem>
-            <SelectItem key="pending" textValue="Pending">
-              Pending
+            <SelectItem key="pending" textValue="Chờ duyệt">
+              Chờ duyệt
             </SelectItem>
-            <SelectItem key="rejected" textValue="Rejected">
-              Rejected
+            <SelectItem key="rejected" textValue="Từ chối">
+              Từ chối
             </SelectItem>
           </Select>
 
           <Select
-            placeholder="Filter by status"
+            placeholder="Lọc theo trạng thái câu hỏi"
             selectedKeys={[interstatusFilter]}
             className="w-full sm:w-40 bg-content1 rounded-lg"
             radius="sm"
             variant="bordered"
             onChange={(e) => onInterstatusChange(e.target.value)}
           >
-            <SelectItem key="all" textValue="All">
-              All
+            <SelectItem key="all" textValue="Tất cả">
+              Tất cả
             </SelectItem>
-            <SelectItem key="opened" textValue="Opened">
-              Opened
+            <SelectItem key="opened" textValue="Đang mở">
+              Đang mở
             </SelectItem>
-            <SelectItem key="closed" textValue="Closed">
-              Closed
+            <SelectItem key="closed" textValue="Đã đóng">
+              Đã đóng
             </SelectItem>
-            <SelectItem key="solved" textValue="Solved">
-              Solved
+            <SelectItem key="solved" textValue="Được trả lời">
+              Được trả lời
             </SelectItem>
           </Select>
 
           {!isLoading && data && !isError && (
             <Select
-              placeholder="Filter by topic"
+              placeholder="Lọc theo chủ đề"
               selectedKeys={[topicFilter]}
               className="w-full sm:w-80 bg-content1 rounded-lg"
               radius="sm"
               variant="bordered"
               onChange={(e) => onTopicChange(e.target.value)}
             >
-              <SelectItem key="" textValue="All">
-                All
+              <SelectItem key="" textValue="Tất cả">
+                Tất cả
               </SelectItem>
               <>
-                {data?.topics.map((topic) => (
+                {data?.topics?.map((topic) => (
                   <SelectItem key={topic.id} textValue={topic.name}>
                     {topic.name}
                   </SelectItem>
@@ -116,6 +117,23 @@ const QuestionFilters: React.FC<QuestionFiltersProps> = ({
               </>
             </Select>
           )}
+        </div>
+        <div>
+          <Button
+            variant="bordered"
+            className="w-full sm:w-40 bg-content1 rounded-lg"
+            onPress={() => SyncQuestions()}
+            // isLoading={isSyncing}
+            isDisabled={isSyncing}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Icon
+                icon="lucide:refresh-cw"
+                className={cn(" size-4", isSyncing && "animate-spin")}
+              />
+              Đồng bộ câu hỏi
+            </div>
+          </Button>
         </div>
       </div>
     )

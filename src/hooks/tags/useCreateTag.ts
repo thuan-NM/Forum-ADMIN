@@ -8,12 +8,12 @@ export const useCreateTag = (onSuccessCallback?: () => void) => {
   const createMutation = useMutation({
     mutationFn: CreateTag,
     onSuccess: () => {
-      toast.success("Tag created successfully");
+      toast.success("Tạo thẻ thành công");
       if (onSuccessCallback) onSuccessCallback();
       queryClient.invalidateQueries({ queryKey: ["tags"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.error || "Failed to create tag");
+      toast.error(error?.response?.data?.error || "Tạo thẻ thất bại");
     },
   });
 

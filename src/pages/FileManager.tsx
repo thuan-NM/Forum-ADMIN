@@ -22,7 +22,7 @@ const FileManager: React.FC = () => {
   const [fileType, setFileType] = React.useState<string>("all");
   const [fileToDelete, setFileToDelete] =
     React.useState<AttachmentResponse | null>(null);
-  const { DeleteAttachment, isDeleting } = useDeleteAttachment();
+  const { DeleteAttachment } = useDeleteAttachment();
 
   const confirmDelete = () => {
     if (!fileToDelete) return;

@@ -1,17 +1,13 @@
 import React from "react";
-import { Button, Card, Chip } from "@heroui/react";
-import { Icon } from "@iconify/react";
-import DOMPurify from "dompurify";
+import {  Card } from "@heroui/react";
 import { useParams } from "react-router-dom";
 import AnswerList from "../components/Answer/AnswerList";
 import type { QuestionResponse } from "../store/interfaces/questionInterfaces";
-import type { AnswerResponse } from "../store/interfaces/answerInterfaces";
 import {
   QuestionHeader,
-  QuestionContent,
+  
 } from "../components/Question/QuestionDetail";
 import { LoadingState, ErrorState, StatusChip } from "../components/Common";
-import type { Comment } from "../store/interfaces/commentInterfaces";
 import { GetQuestionById } from "../services";
 import { useQuery } from "@tanstack/react-query";
 
@@ -29,7 +25,7 @@ const QuestionDetail: React.FC = () => {
     enabled: !!id,
   });
   const formatDate = (date: Date) => {
-    return new Date(date).toLocaleDateString("en-US", {
+    return new Date(date).toLocaleDateString("vi-VN", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -37,11 +33,11 @@ const QuestionDetail: React.FC = () => {
   };
 
   if (isLoading || question === undefined) {
-    return <LoadingState message="Loading question..." />;
+    return <LoadingState message="Đang tải câu hỏi..." />;
   }
 
   if (isError) {
-    return <ErrorState message={error.message || "Failed to load question"} />;
+    return <ErrorState message={error.message || "Lỗi khi tải câu hỏi"} />;
   }
 
   return (
@@ -51,15 +47,15 @@ const QuestionDetail: React.FC = () => {
       <div className="flex items-center gap-2">
         <StatusChip status={question.status} type="question" />
         <span className="text-sm text-default-500">
-          Asked {formatDate(question.createdAt)}
+          Đăng vào lúc {formatDate(question.createdAt)}
         </span>
       </div>
 
       <div>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">
-            {question.answersCount}{" "}
-            {question.answersCount === 1 ? "Answer" : "Answers"}
+            {question.answersCount || 0}
+            {" câu trả lời"}
           </h2>
         </div>
 

@@ -31,7 +31,7 @@ const TopicList: React.FC<TopicListProps> = ({
   onEditTopic,
 }) => {
   const formatDate = (dateString: Date) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    return new Date(dateString).toLocaleDateString("vi-VN", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -78,7 +78,7 @@ const TopicList: React.FC<TopicListProps> = ({
 
   return (
     <Table
-      aria-label="Topics table"
+      aria-label="Bảng chủ đề"
       sortDescriptor={sortDescriptor}
       onSortChange={setSortDescriptor}
       bottomContent={
@@ -101,20 +101,20 @@ const TopicList: React.FC<TopicListProps> = ({
     >
       <TableHeader>
         <TableColumn key="name" allowsSorting>
-          NAME
+          TÊN CHỦ ĐỀ
         </TableColumn>
         <TableColumn key="description" allowsSorting>
-          DESCRIPTION
+          MÔ TẢ
         </TableColumn>
         <TableColumn key="questions" allowsSorting>
-          QUESTIONS
+          CÂU HỎI
         </TableColumn>
         <TableColumn key="created" allowsSorting>
-          CREATED
+          NGÀY TẠO
         </TableColumn>
-        <TableColumn key="actions">ACTIONS</TableColumn>
+        <TableColumn key="actions">HÀNH ĐỘNG</TableColumn>
       </TableHeader>
-      <TableBody emptyContent={"No topics found"}>
+      <TableBody emptyContent={"Không tìm thấy chủ đề"}>
         {sortedTopics.map((topic) => (
           <TableRow key={topic.id}>
             <TableCell className="font-medium">{topic.name}</TableCell>

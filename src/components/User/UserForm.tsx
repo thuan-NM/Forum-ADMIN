@@ -89,20 +89,20 @@ const UserForm: React.FC<UserFormProps> = ({
         {(onClose) => (
           <>
             <ModalHeader>
-              {mode === "create" ? "Create User" : "Edit User"}
+              {mode === "create" ? "Thêm người dùng" : "Chỉnh sửa người dùng"}
             </ModalHeader>
             <ModalBody>
               <div className="space-y-4">
                 <Input
-                  label="Username"
-                  placeholder="Enter username"
+                  label="Tên người dùng"
+                  placeholder="Nhập tên người dùng"
                   value={formData.username}
                   onValueChange={(value) => handleChange("username", value)}
                 />
 
                 <Input
                   label="Email"
-                  placeholder="Enter email"
+                  placeholder="Nhập email"
                   type="email"
                   isDisabled={mode === "edit"}
                   value={formData.email}
@@ -111,8 +111,8 @@ const UserForm: React.FC<UserFormProps> = ({
 
                 {mode === "create" && (
                   <Input
-                    label="Password"
-                    placeholder="Enter password"
+                    label="Mật khẩu"
+                    placeholder="Nhập password"
                     type="password"
                     value={(formData as UserCreateDto).password}
                     onValueChange={(value) => handleChange("password", value)}
@@ -121,8 +121,8 @@ const UserForm: React.FC<UserFormProps> = ({
 
                 <div className="flex gap-2">
                   <Input
-                    label="Full Name"
-                    placeholder="Enter full name"
+                    label="Họ và tên"
+                    placeholder="Nhập tên đầy đủ"
                     value={formData.fullName || ""}
                     onValueChange={(value) => handleChange("fullName", value)}
                     className="flex-1"
@@ -130,16 +130,16 @@ const UserForm: React.FC<UserFormProps> = ({
                 </div>
 
                 <Select
-                  label="Role"
-                  placeholder="Select role"
+                  label="Vai trò"
+                  placeholder="Chọn vai trò"
                   selectedKeys={[formData.role || "user"]}
                   onChange={(e) => handleChange("role", e.target.value)}
                 >
                   <SelectItem key="user" textValue="user">
-                    User
+                    Người dùng
                   </SelectItem>
                   <SelectItem key="employee" textValue="employee">
-                    Employee
+                    Nhân viên
                   </SelectItem>
                   <SelectItem key="admin" textValue="admin">
                     Admin
@@ -149,14 +149,14 @@ const UserForm: React.FC<UserFormProps> = ({
             </ModalBody>
             <ModalFooter>
               <Button variant="flat" onPress={onClose}>
-                Cancel
+                Huỷ bỏ
               </Button>
               <Button
                 color="primary"
                 onPress={handleSubmit}
                 isLoading={isCreating}
               >
-                {mode === "create" ? "Create" : "Save"}
+                {mode === "create" ? "Thêm" : "Lưu"}
               </Button>
             </ModalFooter>
           </>

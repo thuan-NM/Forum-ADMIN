@@ -109,21 +109,21 @@ const FileTable: React.FC<FileTableProps> = ({
     >
       <TableHeader>
         <TableColumn key="name" allowsSorting>
-          NAME
+          TÊN
         </TableColumn>
         <TableColumn key="type" allowsSorting>
-          TYPE
+          LOẠI
         </TableColumn>
         <TableColumn key="size" allowsSorting>
-          SIZE
+          KÍCH THƯỚC
         </TableColumn>
-        <TableColumn>UPLOADED BY</TableColumn>
+        <TableColumn>NGƯỜI TẢI LÊN</TableColumn>
         <TableColumn key="date" allowsSorting>
-          DATE
+          NGÀY
         </TableColumn>
-        <TableColumn>ACTIONS</TableColumn>
+        <TableColumn>HÀNH ĐỘNG</TableColumn>
       </TableHeader>
-      <TableBody emptyContent={"No files found"}>
+      <TableBody emptyContent={"Không tìm thấy file"}>
         {sortedFiles.map((file) => (
           <TableRow key={file.id}>
             <TableCell>
@@ -190,7 +190,7 @@ const FileTable: React.FC<FileTableProps> = ({
                       startContent={<Icon icon="lucide:copy" />}
                       onPress={() => onCopyLink && onCopyLink(file)}
                     >
-                      Copy Link
+                      Sao chép liên kết
                     </DropdownItem>
                     <DropdownItem
                       key="delete"
@@ -198,7 +198,7 @@ const FileTable: React.FC<FileTableProps> = ({
                       color="danger"
                       onPress={() => onDelete && onDelete(file)}
                     >
-                      Delete
+                      Xóa
                     </DropdownItem>
                   </DropdownMenu>
                 </Dropdown>

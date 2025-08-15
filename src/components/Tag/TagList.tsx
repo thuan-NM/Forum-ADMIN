@@ -32,14 +32,16 @@ const TagList: React.FC<TagListProps> = ({
   onEditTag,
 }) => {
   const formatDate = (dateString: Date) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    return new Date(dateString).toLocaleDateString("vi-VN", {
       year: "numeric",
       month: "short",
       day: "numeric",
     });
   };
 
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({} as SortDescriptor);
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>(
+    {} as SortDescriptor
+  );
 
   const sortedTags = useMemo(() => {
     if (!sortDescriptor.column) return tags;
@@ -80,7 +82,7 @@ const TagList: React.FC<TagListProps> = ({
 
   return (
     <Table
-      aria-label="Tags table"
+      aria-label="Bảng nhãn"
       sortDescriptor={sortDescriptor}
       onSortChange={setSortDescriptor}
       bottomContent={
@@ -103,23 +105,23 @@ const TagList: React.FC<TagListProps> = ({
     >
       <TableHeader>
         <TableColumn key="name" allowsSorting>
-          NAME
+          TÊN
         </TableColumn>
         <TableColumn key="description" allowsSorting>
-          DESCRIPTION
+          MÔ TẢ
         </TableColumn>
         <TableColumn key="posts" allowsSorting>
-          POSTS
+          BÀI VIẾT
         </TableColumn>
         <TableColumn key="answers" allowsSorting>
-          ANSWERS
+          CÂU TRẢ LỜI
         </TableColumn>
         <TableColumn key="created" allowsSorting>
-          CREATED
+          NGÀY TẠO
         </TableColumn>
-        <TableColumn key="actions">ACTIONS</TableColumn>
+        <TableColumn key="actions">THAO TÁC</TableColumn>
       </TableHeader>
-      <TableBody emptyContent={"No tags found"}>
+      <TableBody emptyContent={"Không tìm thấy nhãn nào"}>
         {sortedTags.map((tag) => (
           <TableRow key={tag.id}>
             <TableCell>

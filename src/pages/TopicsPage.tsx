@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "@heroui/react";
 import { useDisclosure } from "@heroui/react";
 
-import type { Topic, TopicResponse } from "../store/interfaces/topicInterfaces";
+import type { TopicResponse } from "../store/interfaces/topicInterfaces";
 import TopicSearch from "../components/Topic/TopicSearch";
 import TopicList from "../components/Topic/TopicList";
 import TopicForm from "../components/Topic/TopicForm";
@@ -55,7 +55,7 @@ const Topics: React.FC = () => {
   };
 
   if (isError) {
-    return <ErrorState message={error.message || "Failed to load topics"} />;
+    return <ErrorState message={error.message || "Không thể tải chủ đề"} />;
   }
   const handlePageChange = (newPage: number) => {
     setPage(newPage);

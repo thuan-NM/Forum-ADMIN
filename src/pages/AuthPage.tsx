@@ -1,5 +1,4 @@
 import Login from "../components/Auth/Login"
-import SocialLogin from "../components/Auth/SocialLogin"
 import Footer from "../components/Common/Footer"
 import { AuthProvider } from "../contexts/AuthContext"
 import AuthLayout from "../layouts/AuthLayout"
@@ -9,7 +8,7 @@ const AuthPage = () => {
       <div>
         <AuthLayout>
           <div className="flex flex-row p-0 h-3/5 mb-5">
-            <SocialLogin />
+            {/* <SocialLogin /> */}
             <Login />
           </div>
           <hr className="!text-white border-content4" />

@@ -22,7 +22,7 @@ const AnswerFilters: React.FC<AnswerFiltersProps> = ({
   return (
     <div className="flex flex-col sm:flex-row gap-3 w-full">
       <Input
-        placeholder="Search answers..."
+        placeholder="Tìm câu trả lời..."
         value={searchQuery}
         onValueChange={onSearchChange}
         startContent={
@@ -35,28 +35,28 @@ const AnswerFilters: React.FC<AnswerFiltersProps> = ({
       />
 
       <Select
-        placeholder="Filter by status"
+        placeholder="Lọc theo trạng thái"
         selectedKeys={[statusFilter]}
         className="w-full sm:w-40 bg-content1 rounded-lg"
         radius="sm"
         variant="bordered"
         onChange={(e) => onStatusChange(e.target.value)}
       >
-        <SelectItem key="all" textValue="All">
-          All
+        <SelectItem key="all" textValue="Tất cả">
+          Tất cả
         </SelectItem>
-        <SelectItem key="approved" textValue="Approved">
-          Approved
+        <SelectItem key="approved" textValue="Đã duyệt">
+          Đã duyệt
         </SelectItem>
-        <SelectItem key="pending" textValue="Pending">
-          Pending
+        <SelectItem key="pending" textValue="Chờ duyệt">
+          Chờ duyệt
         </SelectItem>
-        <SelectItem key="rejected" textValue="Rejected">
-          Rejected
+        <SelectItem key="rejected" textValue="Từ chối">
+          Từ chối
         </SelectItem>
       </Select>
       <Input
-        placeholder="Search questions..."
+        placeholder="Tìm câu hỏi..."
         value={questionFilter}
         onValueChange={onQuestionChange}
         startContent={
