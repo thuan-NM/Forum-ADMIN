@@ -27,7 +27,7 @@ interface AnswerTableProps {
 }
 
 const formatDate = (date: Date) => {
-  return new Date(date).toLocaleDateString("en-US", {
+  return new Date(date).toLocaleDateString("vi-VN", {
     year: "numeric",
     month: "short",
     day: "numeric",

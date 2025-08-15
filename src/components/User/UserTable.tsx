@@ -31,7 +31,7 @@ const UserTable: React.FC<UserTableProps> = ({
   onEditUser = () => {},
 }) => {
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    return new Date(dateString).toLocaleDateString("vi-VN", {
       year: "numeric",
       month: "short",
       day: "numeric",

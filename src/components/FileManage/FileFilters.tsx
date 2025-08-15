@@ -24,7 +24,7 @@ const FileFilters: React.FC<FileFiltersProps> = ({
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 flex-wrap">
       <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
         <Input
-          placeholder="Search files..."
+          placeholder="Tìm kiếm file..."
           value={searchQuery}
           onValueChange={onSearchChange}
           startContent={
@@ -41,7 +41,7 @@ const FileFilters: React.FC<FileFiltersProps> = ({
             onPress={() => onFileTypeChange("all")}
             size="sm"
           >
-            All
+            Tất cả
           </Button>
           <Button
             variant={fileType === "image" ? "solid" : "flat"}
@@ -50,7 +50,7 @@ const FileFilters: React.FC<FileFiltersProps> = ({
             size="sm"
             startContent={<Icon icon="lucide:image" />}
           >
-            Images
+            Hình ảnh
           </Button>
           <Button
             variant={fileType === "document" ? "solid" : "flat"}
@@ -59,7 +59,7 @@ const FileFilters: React.FC<FileFiltersProps> = ({
             size="sm"
             startContent={<Icon icon="lucide:file-text" />}
           >
-            Docs
+            Tài liệu
           </Button>
         </div>
       </div>

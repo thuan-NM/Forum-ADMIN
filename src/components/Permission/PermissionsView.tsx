@@ -36,7 +36,7 @@ const PermissionsView: React.FC<PermissionsViewProps> = ({
   if (!selectedRole) {
     return (
       <div className="h-[400px] flex items-center justify-center opacity-60">
-        Select a role to view and manage permissions
+        Chọn một vai trò để xem và quản lý quyền
       </div>
     );
   }

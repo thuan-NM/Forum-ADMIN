@@ -11,25 +11,25 @@ const Breadcrumb = () => {
         const paths = location.pathname.split('/').filter(path => path);
 
         const pathNames: Record<string, string> = {
-            '': 'Dashboard',
-            'users': 'Users',
-            'posts': 'Posts',
-            'comments': 'Comments',
-            'tags': 'Tags',
-            'reports': 'Reports',
-            'notifications': 'Notifications',
-            'settings': 'Settings',
-            'analytics': 'Analytics',
-            'file-manager': 'File Manager',
-            'permissions': 'Permissions',
-            'themes': 'Themes',
-            'topics': 'Topics',
-            'questions': 'Questions',
-            'answers':'Answers'
+            '': 'Tổng quát',
+            'users': 'Quản lý người dùng',
+            'posts': 'Quản lý bài viết',
+            'comments': 'Quản lý bình luận',
+            'tags': 'Quản lý thẻ',
+            'reports': 'Quản lý báo cáo',
+            'notifications': 'Thông báo',
+            'settings': 'Cài đặt',
+            'analytics': 'Phân tích',
+            'file-manager': 'Quản lý tệp',
+            'permissions': 'Quản lý quyền',
+            'themes': 'Quản lý giao diện',
+            'topics': 'Quản lý chủ đề',
+            'questions': 'Quản lý câu hỏi',
+            'answers':'Quản lý câu trả lời'
         };
 
         return [
-            { path: '/', name: 'Home' },
+            { path: '/', name: 'Trang chủ' },
             ...paths.map((path, index) => {
                 // Build the path up to this point
                 const url = `/${paths.slice(0, index + 1).join('/')}`;
@@ -49,7 +49,7 @@ const Breadcrumb = () => {
     };
 
     return (
-        <div className="bg-content1 px-6 py-2 border-b border-content2">
+        <div className="bg-content1 px-6 py-2 border-b border-content2 sticky top-[65px] z-10">
             <Breadcrumbs size="sm">
                 {breadcrumbs.map((item, index) => (
                     <BreadcrumbItem

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Select, SelectItem } from "@heroui/react";
+import { Button, cn, Input, Select, SelectItem } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useQuery } from "@tanstack/react-query";
 import { GetAllTopics } from "../../services";
@@ -123,9 +123,16 @@ const QuestionFilters: React.FC<QuestionFiltersProps> = ({
             variant="bordered"
             className="w-full sm:w-40 bg-content1 rounded-lg"
             onPress={() => SyncQuestions()}
-            isLoading={isSyncing}
+            // isLoading={isSyncing}
+            isDisabled={isSyncing}
           >
-            Đồng bộ câu hỏi
+            <div className="flex items-center justify-center gap-2">
+              <Icon
+                icon="lucide:refresh-cw"
+                className={cn(" size-4", isSyncing && "animate-spin")}
+              />
+              Đồng bộ câu hỏi
+            </div>
           </Button>
         </div>
       </div>

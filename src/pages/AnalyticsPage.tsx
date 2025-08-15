@@ -43,7 +43,7 @@ const Analytics: React.FC = () => {
   // Prepare chart data
   const chartData = React.useMemo(() => {
     return (analyticsData?.activity_trends?.dates || []).map((date, i) => ({
-      date: new Date(date).toLocaleDateString("en-US", {
+      date: new Date(date).toLocaleDateString("vi-VN", {
         month: "short",
         day: "numeric",
       }), // Format date nicely, e.g., "Aug 1"
@@ -67,23 +67,23 @@ const Analytics: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatsOverview
-          title="User Growth"
+          title="Tăng trưởng người dùng"
           icon="lucide:users"
           iconBgColor="bg-primary-100"
           iconColor="text-primary-500"
           stats={[
             {
-              label: "Total Users",
+              label: "Tổng người dùng",
               value:
                 analyticsData?.user_growth.total_users.toLocaleString() || "0",
             },
             {
-              label: "Active Users",
+              label: "Người dùng đang hoạt động",
               value:
                 analyticsData?.user_growth.active_users.toLocaleString() || "0",
             },
             {
-              label: "New This Week",
+              label: "Người dùng mới trong tuần",
               value:
                 analyticsData?.user_growth.new_this_week.toLocaleString() ||
                 "0",
@@ -93,25 +93,25 @@ const Analytics: React.FC = () => {
         />
 
         <StatsOverview
-          title="Content Activity"
+          title="Hoạt động nội dung"
           icon="lucide:file-text"
           iconBgColor="bg-secondary-100"
           iconColor="text-secondary-500"
           stats={[
             {
-              label: "Total Posts",
+              label: "Tổng bài viết",
               value:
                 analyticsData?.content_activity.total_posts.toLocaleString() ||
                 "0",
             },
             {
-              label: "Total Questions",
+              label: "Tổng câu hỏi",
               value:
                 analyticsData?.content_activity.total_questions.toLocaleString() ||
                 "0",
             },
             {
-              label: "Total Answers",
+              label: "Tổng câu trả lời",
               value:
                 analyticsData?.content_activity.total_answers.toLocaleString() ||
                 "0",
@@ -120,23 +120,23 @@ const Analytics: React.FC = () => {
         />
 
         <StatsOverview
-          title="Engagement"
+          title="Hoạt động"
           icon="lucide:activity"
           iconBgColor="bg-success-100"
           iconColor="text-success-500"
           stats={[
             {
-              label: "Daily Active Users",
+              label: "Người dùng hoạt động hàng ngày",
               value:
                 analyticsData?.engagement.daily_active_users.toLocaleString() ||
                 "0",
             },
             {
-              label: "Avg. Session",
-              value: `${analyticsData?.engagement.avg_session_min || "0"} min`,
+              label: "Thời gian phiên trung bình",
+              value: `${analyticsData?.engagement.avg_session_min || "0"} phút`,
             },
             {
-              label: "Retention Rate",
+              label: "Tỷ lệ giữ chân",
               value: `${analyticsData?.engagement.retention_rate || "0"}%`,
             },
           ]}
@@ -146,12 +146,12 @@ const Analytics: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-2">
           <CardHeader>
-            <h3 className="text-lg font-semibold">User Activity Trends</h3>
+            <h3 className="text-lg font-semibold">
+              Xu hướng hoạt động của người dùng
+            </h3>
           </CardHeader>
           <CardBody>
             <div className="h-80">
-              {" "}
-              {/* Increase height for better visibility */}
               <ResponsiveContainer
                 width="100%"
                 height="100%"
@@ -177,7 +177,7 @@ const Analytics: React.FC = () => {
                       borderRadius: "4px",
                       color: "#F3F4F6",
                     }}
-                    labelFormatter={(label) => `Date: ${label}`}
+                    labelFormatter={(label) => `Ngày: ${label}`}
                   />
                   <Legend
                     verticalAlign="top"
@@ -189,7 +189,7 @@ const Analytics: React.FC = () => {
                     type="monotone"
                     dataKey="registrations"
                     stroke="#8884d8"
-                    name="Registrations"
+                    name="Đăng ký"
                     dot={chartData.length < 10 ? { r: 4 } : false} // Show dots if few points
                     strokeWidth={2}
                   />
@@ -197,7 +197,7 @@ const Analytics: React.FC = () => {
                     type="monotone"
                     dataKey="logins"
                     stroke="#82ca9d"
-                    name="Logins"
+                    name="Đăng nhập"
                     dot={chartData.length < 10 ? { r: 4 } : false}
                     strokeWidth={2}
                   />
@@ -205,7 +205,7 @@ const Analytics: React.FC = () => {
                     type="monotone"
                     dataKey="engagements"
                     stroke="#ffc658"
-                    name="Engagements"
+                    name="Tương tác"
                     dot={chartData.length < 10 ? { r: 4 } : false}
                     strokeWidth={2}
                   />
@@ -222,8 +222,7 @@ const Analytics: React.FC = () => {
               </ResponsiveContainer>
               {chartData.length === 0 && (
                 <p className="text-center text-gray-500 mt-4">
-                  No activity data available for this period. Try a longer time
-                  range.
+                  Không có dữ liệu hoạt động trong khoảng thời gian này.
                 </p>
               )}
             </div>
@@ -235,7 +234,7 @@ const Analytics: React.FC = () => {
 
       <Card>
         <CardHeader>
-          <h3 className="text-lg font-semibold">Popular Content</h3>
+          <h3 className="text-lg font-semibold">Nội dung phổ biến</h3>
         </CardHeader>
         <CardBody>
           <PopularContentTable items={analyticsData?.popular_content || []} />

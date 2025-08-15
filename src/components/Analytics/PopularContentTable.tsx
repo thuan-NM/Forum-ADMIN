@@ -69,20 +69,20 @@ const PopularContentTable: React.FC<PopularContentTableProps> = ({ items }) => {
     >
       <TableHeader>
         <TableColumn key="title" allowsSorting>
-          TITLE
+          TIÊU ĐỀ
         </TableColumn>
         <TableColumn key="type" allowsSorting>
-          TYPE
+          LOẠI
         </TableColumn>
         <TableColumn key="author" allowsSorting>
-          AUTHOR
+          TÁC GIẢ
         </TableColumn>
         <TableColumn key="popularPoint" allowsSorting>
-          POPULAR POINT
+          ĐỘ PHỔ BIẾN
         </TableColumn>
-        <TableColumn key="actions">ACTIONS</TableColumn>
+        <TableColumn key="actions">HÀNH ĐỘNG</TableColumn>
       </TableHeader>
-      <TableBody emptyContent={"No popular content found"}>
+      <TableBody emptyContent={"Không tìm thấy nội dung phổ biến"}>
         {sortedItems.map((item) => (
           <TableRow key={item.id}>
             <TableCell className="font-medium">{item.title}</TableCell>
@@ -115,7 +115,7 @@ const PopularContentTable: React.FC<PopularContentTableProps> = ({ items }) => {
                 startContent={<Icon icon="lucide:eye" />}
                 onPress={() => handleView(item)}
               >
-                View
+                Xem
               </Button>
             </TableCell>
           </TableRow>

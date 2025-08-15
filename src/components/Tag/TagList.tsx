@@ -32,7 +32,7 @@ const TagList: React.FC<TagListProps> = ({
   onEditTag,
 }) => {
   const formatDate = (dateString: Date) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    return new Date(dateString).toLocaleDateString("vi-VN", {
       year: "numeric",
       month: "short",
       day: "numeric",
