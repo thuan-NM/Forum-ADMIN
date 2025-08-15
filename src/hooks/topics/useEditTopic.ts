@@ -10,11 +10,11 @@ export const useUpdateTopic = (onSuccessCallback?: () => void) => {
       UpdateTopic(id, data),
     onSuccess: () => {
       if (onSuccessCallback) onSuccessCallback();
-      toast.success(`Edit topic successfully`);
+      toast.success(`Chỉnh sửa chủ đề thành công`);
       queryClient.invalidateQueries({ queryKey: ["topics"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.error || "Failed to update topic");
+      toast.error(error?.response?.data?.error || "Chỉnh sửa chủ đề thất bại");
     },
   });
 

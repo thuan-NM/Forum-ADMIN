@@ -8,12 +8,12 @@ export const useCreateTopic = (onSuccessCallback?: () => void) => {
   const createMutation = useMutation({
     mutationFn: CreateTopic,
     onSuccess: () => {
-      toast.success("Topic created successfully");
+      toast.success("Tạo chủ đề thành công");
       if (onSuccessCallback) onSuccessCallback();
       queryClient.invalidateQueries({ queryKey: ["topics"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.error || "Failed to create topic");
+      toast.error(error?.response?.data?.error || "Tạo chủ đề thất bại");
     },
   });
 

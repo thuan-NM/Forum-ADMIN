@@ -10,11 +10,11 @@ export const useUpdateTag = (onSuccessCallback?: () => void) => {
       UpdateTag(id, data),
     onSuccess: () => {
       if (onSuccessCallback) onSuccessCallback();
-      toast.success(`Edit tag successfully`);
+      toast.success(`Chỉnh sửa thẻ thành công`);
       queryClient.invalidateQueries({ queryKey: ["tags"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.error || "Failed to update tag");
+      toast.error(error?.response?.data?.error || "Chỉnh sửa thẻ thất bại");
     },
   });
 

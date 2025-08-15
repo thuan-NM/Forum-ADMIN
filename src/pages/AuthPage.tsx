@@ -9,7 +9,7 @@ const AuthPage = () => {
       <div>
         <AuthLayout>
           <div className="flex flex-row p-0 h-3/5 mb-5">
-            <SocialLogin />
+            {/* <SocialLogin /> */}
             <Login />
           </div>
           <hr className="!text-white border-content4" />

@@ -10,12 +10,12 @@ export const useUpdateReportStatus = () => {
     mutationFn: ({ id, status }: { id: string; status: string }) =>
       UpdateReportStatus(id, status),
     onSuccess: (data) => {
-      toast.success(`${capitalize(data.report.status)} report successfully`);
+      toast.success(`${capitalize(data.report.status)} báo cáo thành công`);
       queryClient.invalidateQueries({ queryKey: ["reports"] });
     },
     onError: (error: any) => {
       toast.error(
-        error?.response?.data?.error || "Failed to update report status"
+        error?.response?.data?.error || "Chỉnh sửa trạng thái báo cáo thất bại"
       );
     },
   });

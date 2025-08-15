@@ -8,11 +8,11 @@ export const useDeleteTag = () => {
   const deleteMutation = useMutation({
     mutationFn: DeleteTag,
     onSuccess: () => {
-      toast.success("Tag deleted successfully");
+      toast.success("Xóa thẻ thành công");
       queryClient.invalidateQueries({ queryKey: ["tags"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.error || "Failed to delete tag");
+      toast.error(error?.response?.data?.error || "Xóa thẻ thất bại");
     },
   });
 
